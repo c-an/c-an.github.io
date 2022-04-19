@@ -10,7 +10,10 @@
 
     <!--Description-->
     
-        <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+        <meta name="description" content="Tilemap概念Tilemap是2D游戏中，用来构建世界的工具瓦片地图组件，是一个存储和操作Tile资源的系统，用来创建2D关卡
+瓦片 Tile瓦片是排列在瓦片地图上的资源，用于构建2D环境。每个瓦片引用一个选定的精灵，然后在瓦片地图网格上的瓦片位置处渲染该精灵。
+
+Tile：新版本中已经看不到，">
     
 
     <!--Author-->
@@ -20,7 +23,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hello World"/>
+        <meta property="og:title" content="Unity Tilemap"/>
     
 
     <!--Open Graph Description-->
@@ -45,7 +48,7 @@
 
     <!-- Title -->
     
-    <title>Hello World - c-an</title>
+    <title>Unity Tilemap - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -151,13 +154,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/17/hello-world/">
-                Hello World
+            <a href="/2022/04/19/Unity-Tilemap/">
+                Unity Tilemap
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-17</span>
+                <span class="date">2022-04-19</span>
             
             
             
@@ -170,19 +173,48 @@
         
 
         <!-- Post Content -->
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <h2 id="Tilemap概念"><a href="#Tilemap概念" class="headerlink" title="Tilemap概念"></a>Tilemap概念</h2><p>Tilemap是2D游戏中，用来构建世界的工具<br>瓦片地图组件，是一个存储和操作Tile资源的系统，用来创建2D关卡</p>
+<h2 id="瓦片-Tile"><a href="#瓦片-Tile" class="headerlink" title="瓦片 Tile"></a>瓦片 Tile</h2><p>瓦片是排列在瓦片地图上的资源，用于构建2D环境。每个瓦片引用一个选定的精灵，然后在瓦片地图网格上的瓦片位置处渲染该精灵。</p>
+<ul>
+<li>Tile：新版本中已经看不到，但是可以使用</li>
+<li>Scriptable Tile：自编程瓦片</li>
+<li>Rule Tile：规则瓦片 </li>
+<li>Animated Tile：动画瓦片</li>
+</ul>
+<hr>
+<h2 id="素材相关"><a href="#素材相关" class="headerlink" title="素材相关"></a>素材相关</h2><blockquote>
+<p>Sprite（精灵）：纹理的容器，大型纹理图集可以转为精灵图集（Sprite Sheet）</p>
+</blockquote>
+<blockquote>
+<p>Tile（瓦片）：包含一个精灵，以及两个属性，颜色和碰撞体类型。使用瓦片就像在画布上画画一样，画画时可以设置一些颜色和属性   [紫色的瓦图标]</p>
+</blockquote>
+<h2 id="工具相关"><a href="#工具相关" class="headerlink" title="工具相关"></a>工具相关</h2><blockquote>
+<p>Tile Palette（瓦片调色板）：当你在画布上（Canvas）上画画时，会需要一个位置来保存绘画的结果。 类似地，调色板（Palette）的功能就是保存瓦片，将它们绘制到网格上</p>
+</blockquote>
+<blockquote>
+<p>Brush（笔刷）：用于将画好的东西绘制到画布上。使用Tilemap时，可以在多个笔刷中任意选择，绘制出线条、方块等各种形状</p>
+</blockquote>
+<h2 id="组件相关"><a href="#组件相关" class="headerlink" title="组件相关"></a>组件相关</h2><blockquote>
+<p>Tilemap（瓦片地图）：类似于Photoshop中的图层，我们可以在Tilemap上画上Tile</p>
+</blockquote>
+<blockquote>
+<p>Grid（网格）：用于控制网格属性的组件。Tilemap是Grid的子对象。Grid类似于UI Cancas（UI）画布</p>
+</blockquote>
+<blockquote>
+<p>Tilemap Renderer（瓦片地图渲染器）：是Tilemap游戏中对象的一部分，用于控制Tilemap上的渲染，控制如排序、材质、遮罩等<br><br></br></p>
+</blockquote>
+<hr>
+<h2 id="切割大的瓦片地图"><a href="#切割大的瓦片地图" class="headerlink" title="切割大的瓦片地图"></a>切割大的瓦片地图</h2><p>选择Sprite Editor进入编辑，并且还得把Sprite Mode的多模式改成单模式（Single-&gt;Multiple）<br>Sprite中slice的类型中的Automatic一般适合不连续的区域，按照区域的边界进行自动的分割</p>
+<hr>
+<p>但是使用普通的瓦片来构建世界，一个一个格子用笔刷填充，非常费时，以下方法可减少绘制地图所需的时间  <b></p>
+<ul>
+<li>瓦片编程 Scriptable Tile<br>Unity也支持创建自己的Tile类，自己书写瓦片的绘制规则。<br>还可以为瓦片自定义编辑器。这与脚本化对象的自定义编辑器的工作方式相同。<br>创建一个继承自TileBase（或TileBase的任何有用的子类，如Tile）的新类。重写新的Tile类所需的所有方法</li>
+<li>编程画笔 Scriptable Brush<br>Unity也支持创建自己的Brush类，设计适合自己的网格画笔。<br>创建一个继承自GridBrushBase（或GridBrushBase的任何有用子类，如GridBrush）的新类。重写的Brush类所需的所有方法。<br>创建可编程画笔后，画笔将列在Palette窗口的Brushes下拉选单中。默认情况下，可编程画笔脚本的实例将经过实例化并存储在项目的Library文件夹中。这些画笔资源将在Brush下拉选档中单独列出。<h3 id="2D-Tilemap-Extras（2D瓦片地图扩展）"><a href="#2D-Tilemap-Extras（2D瓦片地图扩展）" class="headerlink" title="2D Tilemap Extras（2D瓦片地图扩展）"></a>2D Tilemap Extras（2D瓦片地图扩展）</h3></li>
+<li>1.Animated Tile 动画瓦片<br>动画瓦片在游戏运行时，按顺序显示Sprite列表以创建逐帧动画</li>
+<li>2.Rule Tile 规则瓦片<br>可以为每个瓦片创建规则，在绘制时，unity会自动响应这些规则，绘制地图更加智能</li>
+</ul>
+<hr>
+<p><br></br></p>
 
     </div>
 

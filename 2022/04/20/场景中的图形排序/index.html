@@ -10,8 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="关于我
-嗯…好像没什么可以写的呢">
+        <meta name="description" content="伪透视图透视图指的是有深度、距离感的图，一般要在三维中的深度轴来表现场景的深度，而二维游戏中需要通过前后来仿造深度效果。先通过调整瓦片的Order in Layer属性来解决了瓦片地图的排序问题，但并非总希望一个游戏对象在另一个游戏对象之上，比如，在同一个瓦片地图中，玩家角色在一个物体之前（比如一棵">
     
 
     <!--Author-->
@@ -21,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="about"/>
+        <meta property="og:title" content="场景中的图形排序"/>
     
 
     <!--Open Graph Description-->
@@ -46,7 +45,7 @@
 
     <!-- Title -->
     
-    <title>about - c-an</title>
+    <title>场景中的图形排序 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -139,26 +138,26 @@
     <div class="col-sm-12">
 
         <!--Title and Logo-->
-        
-            <header>
+        <header>
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
     </div>
 </header>
-            <section class="main">
-                
+
+        <section class="main">
+            
 <div class="post">
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/about/index.html">
-                about
+            <a href="/2022/04/20/%E5%9C%BA%E6%99%AF%E4%B8%AD%E7%9A%84%E5%9B%BE%E5%BD%A2%E6%8E%92%E5%BA%8F/">
+                场景中的图形排序
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-19</span>
+                <span class="date">2022-04-20</span>
             
             
             
@@ -171,9 +170,11 @@
         
 
         <!-- Post Content -->
-        <h1 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h1><ul>
-<li>嗯…好像没什么可以写的呢</li>
-</ul>
+        <h1 id="伪透视图"><a href="#伪透视图" class="headerlink" title="伪透视图"></a>伪透视图</h1><p>透视图指的是有深度、距离感的图，一般要在三维中的深度轴来表现场景的深度，而二维游戏中需要通过前后来仿造深度效果。<br><br></br><br>先通过调整瓦片的Order in Layer属性来解决了瓦片地图的排序问题，但并非总希望一个游戏对象在另一个游戏对象之上，比如，在同一个瓦片地图中，玩家角色在一个物体之前（比如一棵树）时，应是玩家遮挡树，而玩家移到树之后，应是树遮挡玩家，这就需要“伪造”透视图。<br><br></br><br>在2D游戏中，场景里的”<strong>前后</strong>“是由y轴决定的，需要让Unity根据游戏对象的y坐标来绘制游戏对象。<br>Y轴y坐标越小，越靠前，应该遮挡y坐标值较大的游戏对象，也就是y坐标较小的游戏对象后绘制，就会位于上层。<br>在游戏中，如果要设置2D伪透视图，需要在项目中更改：</p>
+<blockquote>
+<p>Edit&gt;Project Setting&gt;Graphics&gt;Camera Settings&gt;Transparency </p>
+</blockquote>
+<p>Sort Mode&#x3D;Custom Axis&gt;Transparency Sort Axis x&#x3D;0&#x2F;y&#x3D;0&#x2F;z&#x3D;0<br>此设置告诉Unity在y轴上基于精灵的位置来绘制精灵。</p>
 
     </div>
 
@@ -185,8 +186,8 @@
     
 
 </div>
-            </section>
-        
+        </section>
+
     </div>
 </div>
 

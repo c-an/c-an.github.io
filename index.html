@@ -152,6 +152,49 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/04/21/%E5%AE%8C%E5%96%84%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%A3%E7%A0%81/">
+                完善触发器代码
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-21</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>在“世界交互（2）”模块中，我们涉及到了（rubyController）这个游戏对象。如果是一个复杂的游戏，这个rubyController不是我们写的呢，是别人写的游戏对象呢？</p>
+<p>因此，使用其他代码里的游戏对象之前，最好先做一下检测，检测它是否获取到，是否为空。</p>
+<p><br></br></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if (rubyController != null) &#123;</span><br><span class="line">            //吃完（草莓），让（草莓）消失</span><br><span class="line">            //Destory是object里的方法，组类的方法，用来在内存中把当前对象销毁</span><br><span class="line">            //销毁当前游戏对象</span><br><span class="line">            Destroy(gameObject);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            Debug.LogError(&quot;rubyController 游戏组件并未获取到&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></br><br>此外，当（生命值）满的时候，不吃（草莓）来（增加生命值）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">if (rubyController != null) &#123;</span><br><span class="line">            if (rubyController.currentHealth &lt; rubyController.maxHealth) &#123;</span><br><span class="line">                //吃完（草莓），让（草莓）消失</span><br><span class="line">                //Destory是object里的方法，组类的方法，用来在内存中把当前对象销毁</span><br><span class="line">                //销毁当前游戏对象</span><br><span class="line">                Destroy(gameObject);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">            Debug.Log(&quot;当前玩家生命值是满的，不需要加血！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">                Debug.LogError(&quot;rubyController 游戏组件并未获取&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></br><br>在上述代码里（世界交互-2），（ruby）与（草莓），（ruby）的（currentHealth）原是私有的，这里为了调用，将它改为public。</p>
+<p>其实这对封装性没有很好的体现，（currentHealth）不应该随便地暴露出来，任意的类在任意的地方，可以任意地更改，这样也容易出现问题。</p>
+<p>应该封装起来，用特定的游戏逻辑来进行更改。<br>但是对于（RubyController中的public int currentHealth）还想获取，该怎么办呢？</p>
+<blockquote>
+<p>其实public int currentHealth 中的currentHealth在c#中应该叫字段。而属性是字段的取值器</p>
+</blockquote>
+<blockquote>
+<p>数据成员的变量，我们称之为字段。对字段进行包装的这种接口，我们称之为属性，通过属性来进行访问<br><br></br></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//c#中支持面向对象程序设计中的封装概念，对数据成员的保护</span><br><span class="line">    //数据成员变量，默认一般都应该设置为私有，只能通过对当前类的方法或属性进行访问</span><br><span class="line">    //属性类似于特殊的函数结构，它get是一个关键字</span><br><span class="line">    //get是获取当前属性所绑定的字段的值</span><br><span class="line">    //属性相当于一个盒子，字段是在盒子里的某件东西</span><br><span class="line">    //属性限制了字段的访问规则，比如只能读或写</span><br><span class="line">    //或者读写的时候满足某种需求，才能往外进行操作</span><br><span class="line">    //相当于把它包装起来，这就称为封装</span><br><span class="line">    //属性是公有的，可以通过取值器get、赋值器set设定对应字段的访问规则，满足规则才能进行访问</span><br><span class="line"></span><br><span class="line">    public int health &#123; </span><br><span class="line">        get &#123; return currentHealth; &#125;</span><br><span class="line">        //set &#123; currentHealth = value; &#125;//可赋值</span><br><span class="line">    &#125;</span><br><span class="line">    int currentHealth;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/04/21/%E4%B8%96%E7%95%8C%E4%BA%A4%E4%BA%92%EF%BC%882%EF%BC%89/">
                 世界交互（2）
             </a>
@@ -523,6 +566,10 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/04/21/%E5%AE%8C%E5%96%84%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%A3%E7%A0%81/">完善触发器代码</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/04/21/%E4%B8%96%E7%95%8C%E4%BA%A4%E4%BA%92%EF%BC%882%EF%BC%89/">世界交互（2）</a>
             </li>
             
@@ -532,10 +579,6 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
             
             <li>
                 <a class="footer-post" href="/2022/04/20/%E5%9C%BA%E6%99%AF%E4%B8%AD%E7%9A%84%E5%9B%BE%E5%BD%A2%E6%8E%92%E5%BA%8F/">场景中的图形排序</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/04/19/%E5%85%B3%E4%BA%8E2D-Extra-Package%E7%9A%84%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/">关于2D  Extra Package的安装方法</a>
             </li>
             
         </ul>

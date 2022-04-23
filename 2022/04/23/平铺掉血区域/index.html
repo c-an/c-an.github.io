@@ -10,6 +10,15 @@
 
     <!--Description-->
     
+        <meta name="description" content="假设我们已做好了关于掉血区域的预制件，要做一片连续的掉血区域。把预制件一个一个进行拼接，就显得有点呆。
+
+Unity自带平铺的功能下面我们来看看如何进行使用
+
+Damageable是我已做好的掉血区域的预制件。
+让我们对它的属性进行一个更改
+
+1.首先，先把游戏对象的缩放进行取消。把Transfor">
+    
 
     <!--Author-->
     
@@ -18,7 +27,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="c-an"/>
+        <meta property="og:title" content="平铺掉血区域"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +38,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -43,7 +52,7 @@
 
     <!-- Title -->
     
-    <title>Archives: 2022/4 - c-an</title>
+    <title>平铺掉血区域 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -132,9 +141,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -142,115 +149,65 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">2022/4</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2022/04/17/hello-world/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        Hello World
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2022/04/23/%E5%B9%B3%E9%93%BA%E6%8E%89%E8%A1%80%E5%8C%BA%E5%9F%9F/">
+                平铺掉血区域
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-23</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>假设我们已做好了关于掉血区域的预制件，要做一片连续的掉血区域。把预制件一个一个进行拼接，就显得有点呆。</p>
+<blockquote>
+<p>Unity自带平铺的功能<br>下面我们来看看如何进行使用</p>
+</blockquote>
+<p>Damageable是我已做好的掉血区域的预制件。</p>
+<p>让我们对它的属性进行一个更改</p>
+<ul>
+<li>1.首先，先把游戏对象的缩放进行取消。把Transform中的Scale中的x，y，z都设置为1</li>
+<li>2.Sprite Renderer&gt;Draw Mode(可选Simple，Slice,Tiled)，把原来的Simple改成Tiled（平铺）</li>
+<li>3.在操作2后，我们能看到出现了一个警告“Sprite Tilling might not appear correctly because the Sprite used is not generated with Full Rect or Sprite Mode is set to Polygon mode.To fix this,change the Mesh Type in the Sprite’s import setting to Full Rect and Sprite Mode is either Single or Multiple。”</li>
+<li>4.打开对应的素材，单击它。在Sprite Mode中的Mesh Type，把Tight改成Full Rect</li>
+<li>5.设置往之后，apply（应用&#x2F;保存）</li>
+<li>6.这时回到Scence，再拉去选框（矩形工具），就是平铺的效果了。当然，在Scale也能进行缩放</li>
+<li>7.但是要注意，在设置完平铺的效果后，碰撞区域依然的原来的大小，这是不对的。在Box Collider 2D（碰撞体）里面，勾选Auto Tiling（自动平铺）</li>
+</ul>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/17/test-my-site/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        test_my_site
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/19/Unity-Tilemap/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        Unity Tilemap
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/20/%E4%B8%96%E7%95%8C%E4%BA%A4%E4%BA%92/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        世界交互(1)
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/21/%E4%B8%96%E7%95%8C%E4%BA%A4%E4%BA%92%EF%BC%882%EF%BC%89/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        世界交互（2）
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/21/%E5%AE%8C%E5%96%84%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%A3%E7%A0%81/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        完善触发器代码
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/23/%E5%B9%B3%E9%93%BA%E6%8E%89%E8%A1%80%E5%8C%BA%E5%9F%9F/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        平铺掉血区域
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/19/%E5%85%B3%E4%BA%8E2D-Extra-Package%E7%9A%84%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        关于2D  Extra Package的安装方法
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/22/%E8%AE%BE%E7%BD%AE%E6%8E%89%E8%A1%80%E5%8C%BA%E5%9F%9F/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        设置掉血区域
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/20/%E5%9C%BA%E6%99%AF%E4%B8%AD%E7%9A%84%E5%9B%BE%E5%BD%A2%E6%8E%92%E5%BA%8F/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        场景中的图形排序
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2022/04/23/%E8%AE%BE%E7%BD%AE%E6%97%A0%E6%95%8C%E6%97%B6%E9%97%B4/">
-        <span class="archive-date">
-            Apr 2022
-        </span>
-        设置无敌时间
-    </a>
-</div>
-            
         </section>
+
     </div>
 </div>
+
 
 </div>
 

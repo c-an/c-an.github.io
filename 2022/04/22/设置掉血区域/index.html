@@ -10,7 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+        <meta name="description" content="123456789101112131415161718192021public class damageZone2 : MonoBehaviour&amp;#123;    //每次伤血量    public int damageNum = -1;    //这个触发器是Enter，进入    //Ente">
     
 
     <!--Author-->
@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hello World"/>
+        <meta property="og:title" content="设置掉血区域"/>
     
 
     <!--Open Graph Description-->
@@ -45,7 +45,7 @@
 
     <!-- Title -->
     
-    <title>Hello World - c-an</title>
+    <title>设置掉血区域 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -151,13 +151,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/17/hello-world/">
-                Hello World
+            <a href="/2022/04/22/%E8%AE%BE%E7%BD%AE%E6%8E%89%E8%A1%80%E5%8C%BA%E5%9F%9F/">
+                设置掉血区域
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-17</span>
+                <span class="date">2022-04-22</span>
             
             
             
@@ -170,19 +170,17 @@
         
 
         <!-- Post Content -->
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class damageZone2 : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    //每次伤血量</span><br><span class="line">    public int damageNum = -1;</span><br><span class="line"></span><br><span class="line">    //这个触发器是Enter，进入</span><br><span class="line">    //Enter只有在角色进入是时才执行</span><br><span class="line">    //可以将函数名从OnTriggerEnter2D改为OnTriggerStay2D</span><br><span class="line">    //这样，刚体在触发器内的每一帧都会调用此函数</span><br><span class="line">    private void OnTriggerEnter2D(Collider2D other)</span><br><span class="line">    &#123;</span><br><span class="line">        //rubyController获取到这个对象</span><br><span class="line">        RubyController rubyController = other.GetComponent&lt;RubyController&gt;();</span><br><span class="line">        //如果不为空，就进行更改</span><br><span class="line">        if(rubyController!=null) &#123;</span><br><span class="line">            rubyController.ChangeHealth(damageNum);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><br></br></p>
+<p>为了优化资源，物理系统在刚体停止移动式会停止计算刚体的碰撞；此时刚体进入“睡眠状态”。若是希望在停止时也进行检测，把角色的Rigidbody 2D中的Sleeping Mode选择未Never Sleep(永不睡眠)</p>
+<blockquote>
+<p>下列是关于Sleeping Mode的信息</p>
+</blockquote>
+<ul>
+<li>Never Sleep  禁用睡眠（应尽可能避免此设置，否则会影响系统资源）</li>
+<li>Start Awake  游戏对象最初处于唤醒状态</li>
+<li>Start Asleep 游戏对象最处于睡眠状态，但可以被碰撞唤醒</li>
+</ul>
 
     </div>
 

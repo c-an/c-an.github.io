@@ -10,7 +10,10 @@
 
     <!--Description-->
     
-        <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+        <meta name="description" content="若是要实现敌人对角色的伤害，而并非通过触发器的碰撞（Box Collider 2D&amp;gt;Is Trigger，若是触发器会导致玩家像鬼魂一样穿过敌人)
+
+
+若是要敌人碰撞体为实心，并且与角色实际碰撞，使用OnCollisionEnter2D(刚体与某个对象碰撞时调用的函数)，类似于伤害区的OnTr">
     
 
     <!--Author-->
@@ -20,7 +23,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hello World"/>
+        <meta property="og:title" content="添加敌人伤害"/>
     
 
     <!--Open Graph Description-->
@@ -45,7 +48,7 @@
 
     <!-- Title -->
     
-    <title>Hello World - c-an</title>
+    <title>添加敌人伤害 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -151,13 +154,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/17/hello-world/">
-                Hello World
+            <a href="/2022/04/25/%E6%B7%BB%E5%8A%A0%E6%95%8C%E4%BA%BA%E4%BC%A4%E5%AE%B3/">
+                添加敌人伤害
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-17</span>
+                <span class="date">2022-04-25</span>
             
             
             
@@ -170,19 +173,24 @@
         
 
         <!-- Post Content -->
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>若是要实现敌人对角色的伤害，而并非通过触发器的碰撞（Box Collider 2D&gt;Is Trigger，若是触发器会导致玩家像鬼魂一样穿过敌人)</p>
+</blockquote>
+<blockquote>
+<p>若是要敌人<strong>碰撞体</strong>为实心，并且与角色实际碰撞，使用OnCollisionEnter2D(刚体与某个对象碰撞时调用的函数)，类似于伤害区的OnTriggerEnter2D</p>
+</blockquote>
+<blockquote>
+<p>下面是EnemyController2完整的代码</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">public class EnemyController2 : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    //代表移动速度（实际上是每次刷新时移动的距离）</span><br><span class="line">    public float speed;</span><br><span class="line">    //是否垂直移动，true按y轴移动，false按x轴移动</span><br><span class="line">    public bool vertical;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    //rigidbody2D先前我们已经用过了，如果不希望rigidbody2D被覆盖</span><br><span class="line">    //这里可以取比如rigidbody2d这种不一样的名字</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line"></span><br><span class="line">    //朝一个方向移动的总时间</span><br><span class="line">    public float changeTime = 3.0f;</span><br><span class="line"></span><br><span class="line">    //计时器</span><br><span class="line">    float timer;</span><br><span class="line">    //方向</span><br><span class="line">    int direction = 1;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start()</span><br><span class="line">    &#123;</span><br><span class="line">        //通过当前这个代码组件，获取到这个代码组件所在的游戏对象</span><br><span class="line">        //再通过游戏对象，获取到刚体组件</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //Update本来是每帧来调用，但是和FixedUpdate结合使用，它又是固定的</span><br><span class="line">    void Update()</span><br><span class="line">    &#123;</span><br><span class="line">        //每次减少</span><br><span class="line">        //但是每秒减少还是一样的</span><br><span class="line">        timer -= Time.deltaTime;</span><br><span class="line">        //如果timer到0，重置</span><br><span class="line">        if (timer &lt; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            //方向取反</span><br><span class="line">            direction = -direction;</span><br><span class="line">            //时间重置</span><br><span class="line">            timer = changeTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //若是希望移动非常稳定的话，用FixedUpdate</span><br><span class="line">    private void FixedUpdate()</span><br><span class="line">    &#123;</span><br><span class="line">        //获取当前游戏对象所在的位置</span><br><span class="line">        Vector2 position = rigidbody2d.position;</span><br><span class="line"></span><br><span class="line">        //纵向移动，沿y轴移动</span><br><span class="line">        //加不加Time.deltaTime都可以</span><br><span class="line">        if (vertical)</span><br><span class="line">        &#123;</span><br><span class="line">            position.y = position.y + Time.deltaTime * speed*direction;</span><br><span class="line">        &#125;</span><br><span class="line">        //否则，沿x轴移动</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            position.x = position.x + Time.deltaTime * speed*direction;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //和直接赋值的效果是一样的，但是这个更严谨些</span><br><span class="line">        rigidbody2d.MovePosition(position);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //刚体碰撞的方法</span><br><span class="line">    //在这个方法中，添加对玩家伤害的逻辑</span><br><span class="line">    private void OnCollisionEnter2D(Collision2D other)</span><br><span class="line">    &#123;</span><br><span class="line">        //获取和敌人碰撞的玩家角色</span><br><span class="line">        //先获取玩家控制器脚本</span><br><span class="line">        //这个类的设置不能直接GetComponent</span><br><span class="line">        //要先获得gameObject</span><br><span class="line">        //这个是类设定的规则，记住这个方式来使用</span><br><span class="line">        RubyController rubyController = other.gameObject.GetComponent&lt;RubyController&gt;();</span><br><span class="line"></span><br><span class="line">        //如果不为空，直接让它减血</span><br><span class="line">        if (rubyController != null)</span><br><span class="line">        &#123;</span><br><span class="line">            //玩家角色掉血</span><br><span class="line">            rubyController.ChangeHealth(-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h1 id="关于Collision2D"><a href="#关于Collision2D" class="headerlink" title="关于Collision2D"></a>关于Collision2D</h1><p>该类对象是回调函数返回的碰撞细节。用来描述碰撞本身。<br>是包含碰撞信息的一个类</p>
+<p>可以通过碰撞细节事件函数（回调函数）来编写两个刚体碰撞后的游戏逻辑</p>
+<h2 id="碰撞回调函数有三个"><a href="#碰撞回调函数有三个" class="headerlink" title="碰撞回调函数有三个"></a>碰撞回调函数有三个</h2><ul>
+<li>OnCollisionEnter2D(MonoBehaviour.OnCollisionEnter2D)</li>
+<li>OnCollisionStay2D(OnCollisionEnter2D.OnCollisionStay2D)</li>
+<li>OnCollisionExit2D(OnCollisionEnter2D.OnCollisionExity2D)</li>
+</ul>
 
     </div>
 

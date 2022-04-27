@@ -152,6 +152,47 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/04/27/2D%E7%B2%BE%E7%81%B5%E5%8A%A8%E7%94%BB%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">
+                2D精灵动画使用总结
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-27</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="动画术语"><a href="#动画术语" class="headerlink" title="动画术语"></a>动画术语</h1><h2 id="动画剪辑术语"><a href="#动画剪辑术语" class="headerlink" title="动画剪辑术语"></a>动画剪辑术语</h2><ul>
+<li>动画剪辑（Animation Clip）：可用于动画角色或简单动画数据。这是一种简单的单位动作，例如“空闲”、“行走”、“奔跑”</li>
+<li>动画曲线（Animation Curves）：曲线可以附加到动画剪辑，并由游戏中的各种参数控制</li>
+<li>Avatar遮罩（Avatar Mask）：为骨架指定要包含或排除哪些身体部位，在动画层或导入器中使用。</li>
+</ul>
+<h2 id="Animator和Animator-Controller术语"><a href="#Animator和Animator-Controller术语" class="headerlink" title="Animator和Animator Controller术语"></a>Animator和Animator Controller术语</h2><ul>
+<li>Animator组件（Animator Component）：相关动画的东西都是通过这个组件来进行同一的管理，来挂接到游戏对象上</li>
+<li>Animator Controller：是真正用来管理动画素材的。把Animator Controller放到Animator组件上，整个系统就挂接到一起了。用来控制不同状态下动画的播放，以及状态间的转换。 </li>
+<li>Animator窗口（Animator Window）</li>
+<li>动画状态机（Animation State Machine）</li>
+<li>动画参数（Animation Blend Tree）</li>
+</ul>
+<blockquote>
+<p>Animator&gt;Parameters-&gt;”+”,有些时候Trigger比Bool更好用，Bool进入一个区域后出来要更改Bool值来改变状态，而Tigger不<br>可以根据时间或参数来决定状态转换。如果勾选了Has Exit Time，Exit Time的值也可以更改了，这时就是根据时间来进行状态转换的条件。这时即使没有在Conditions设置转换条件，到达退出时间，会自动退出当前模式</p>
+</blockquote>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/04/27/%E5%88%B6%E4%BD%9C%E5%8A%A8%E7%94%BB%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/">
                 制作动画状态转换
             </a>
@@ -571,71 +612,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/21/%E4%B8%96%E7%95%8C%E4%BA%A4%E4%BA%92%EF%BC%882%EF%BC%89/">
-                世界交互（2）
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-21</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="添加生命统计功能"><a href="#添加生命统计功能" class="headerlink" title="添加生命统计功能"></a>添加生命统计功能</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class RubyController : MonoBehaviour&#123;</span><br><span class="line">    //设置最大生命值（生命上限）</span><br><span class="line">    public int maxHealth = 5;</span><br><span class="line">    private int currentHealth;//需要初始值，在start里设置合适</span><br><span class="line"></span><br><span class="line">     private void Start() &#123;</span><br><span class="line">        //获取当前游戏对象的刚体组件</span><br><span class="line">        rigidbody2D = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //游戏刚开始，玩家满血</span><br><span class="line">        currentHealth = maxHealth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //不是系统函数，自定义来更改生命值的</span><br><span class="line">    void ChangeHealth(int amount) &#123;</span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>关于Mathf.Clamp：是在Mathf这个类里面的，是一个静态类的静态方法（不需要创建对象，直接用类就可以调用；一般我们是用类来创建对象实例，再用对象来调用方法）。</p>
-</blockquote>
-<blockquote>
-<p>在Scripting API可以进行这些功能的查找</p>
-</blockquote>
-<h1 id="添加触发器"><a href="#添加触发器" class="headerlink" title="添加触发器"></a>添加触发器</h1><p>触发器是一种特殊类型的碰撞体，触发器不会阻止移动，但是物理系统仍会检查角色是否会与触发器碰撞。（只检查碰撞，不挂其他的物理效果；挂了触发器的游戏对象，不会再挂刚体或者其他）</p>
-<p>总结：触发器只检测碰撞，不阻止移动；碰撞时，可接受到消息，根据需求添加相关代码<br><br></br></p>
-<h2 id="创建可收集生命值游戏对象"><a href="#创建可收集生命值游戏对象" class="headerlink" title="创建可收集生命值游戏对象"></a>创建可收集生命值游戏对象</h2><ul>
-<li><p>1.首先，制作（金属箱）</p>
-<p> 在Project窗口中，选择<strong>Assets&gt;Art&gt;Sprites&gt;VFX</strong>，并找到<strong>CollectibleHealth</strong>(你想的添加的素材)</p>
-<p> 将这个游戏对象导入到<strong>场景中</strong>（拖拽），并调整<strong>PPU值</strong>以设置为适当大小。（在Hierarchy中，把这个对象拖到Perfabs中，我们要开始做预制件了）</p>
-<p> 将<strong>Box Collider 2D</strong>组件添加到新游戏对象，调整碰撞体大小，以便更好地适应精灵</p>
-</li>
-<li><p>2.现在，如果你单击Play，就像（Ruby）会与箱子碰撞一样，她也会与生命值可收集对象碰撞。但是，这不是你需要的效果</p>
-</li>
-<li><p>3.退出运行模式</p>
-</li>
-<li><p>4.在Inspector中，找到<strong>Box Collider 2D</strong>组件，启用<strong>Is Trigger复选框</strong>（是否是触发器）</p>
-</li>
-<li><p>5.在使用触发器的游戏对象上添加脚本组件，在其中添加事件</p>
-</li>
-</ul>
-<blockquote>
-<p>void OnTriggerEnter2D（Collider2D other）</p>
-</blockquote>
-<p>此事件会在每次碰撞时执行，将你需要的逻辑代码写入事件方法中即可</p>
-<p>eg</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class HealthCollectible : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    //用来记录碰撞次数</span><br><span class="line">    int collideCount;</span><br><span class="line">    //2D的一个触发器的碰撞事件</span><br><span class="line">    //挂了当前这个脚本组件的游戏对象，每次碰撞会激活这个方法来执行</span><br><span class="line">    //other（collision）是参数名，取什么都行</span><br><span class="line"></span><br><span class="line">    private void OnTriggerEnter2D(Collider2D other) &#123;</span><br><span class="line">        //怎么检测呢，最直接就是在控制台输出一段话</span><br><span class="line">        //这是字符串的一种特殊输出方式</span><br><span class="line">        //不再需要用字符串+连接常量/变量 把它们结合一起了</span><br><span class="line">        //括号内按值输出，括号外原样输出，但是前面必须加$</span><br><span class="line">        collideCount += 1;</span><br><span class="line">        Debug.Log($&quot;和当前物体发生碰撞的对象是：&#123;other&#125;,当前是第&#123;collideCount&#125;次碰撞！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<blockquote>
-<p>以下是关于(草莓)与（Ruby）完整的代码</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class HealthCollectible : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    //（草莓）加的血量</span><br><span class="line">    //公开出来，想要改的话，直接在Unity里也可以改</span><br><span class="line">    public int amount = 1;</span><br><span class="line"></span><br><span class="line">    //用来记录碰撞次数</span><br><span class="line">    int collideCount;</span><br><span class="line">    //2D的一个触发器的碰撞事件</span><br><span class="line">    //挂了当前这个脚本组件的游戏对象，每次碰撞会激活这个方法来执行</span><br><span class="line">    //other（collision）是参数名，取什么都行</span><br><span class="line">    private void OnTriggerEnter2D(Collider2D other) &#123;</span><br><span class="line">        //怎么检测呢，最直接就是在控制台输出一段话</span><br><span class="line">        //这是字符串的一种特殊输出方式</span><br><span class="line">        //不再需要用字符串+连接常量/变量 把它们结合一起了</span><br><span class="line">        //括号内按值输出，括号外原样输出，但是前面必须加$</span><br><span class="line">        collideCount += 1;</span><br><span class="line">        Debug.Log($&quot;和当前物体发生碰撞的对象是：&#123;other&#125;,当前是第&#123;collideCount&#125;次碰撞！&quot;);</span><br><span class="line"></span><br><span class="line">        //获取（Ruby）游戏对象的脚本组件对象</span><br><span class="line">        //创建一个（RubyController）这个类的对象</span><br><span class="line">        //用GetComponent获取游戏对象的组件</span><br><span class="line">        //什么类型的组件？这里是RubyController的组件</span><br><span class="line">        //GetComponent&lt;&gt;();是c#里一个泛型方法，取指定类型的组件</span><br><span class="line">        //在&lt;&gt;里写什么类型，根据这个类型来找到指定的组件</span><br><span class="line">        RubyController rubyController = other.GetComponent&lt;RubyController&gt;();</span><br><span class="line"></span><br><span class="line">        //这里若是想使用RubyController里的方法，记得改成public</span><br><span class="line">        //把当前（草莓）加的血量传过来</span><br><span class="line">        //更改生命值</span><br><span class="line">        rubyController.ChangeHealth(amount);</span><br><span class="line"></span><br><span class="line">        //吃完（草莓），让（草莓）消失</span><br><span class="line">        //Destory是object里的方法，组类的方法，用来在内存中把当前对象销毁</span><br><span class="line">        //销毁当前游戏对象</span><br><span class="line">        Destroy(gameObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br></br></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">public class RubyController : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    //设置最大生命值（生命上限）</span><br><span class="line">    public int maxHealth = 5;</span><br><span class="line">    private int currentHealth;//需要初始值，在start里设置合适</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2D;</span><br><span class="line">    //获取用户输入</span><br><span class="line">    float horizontal;</span><br><span class="line">    float vertical;</span><br><span class="line"></span><br><span class="line">    //将速度暴露出来，使其可调</span><br><span class="line">    public float speed = 0.1f;</span><br><span class="line"></span><br><span class="line">    private void Start() &#123;</span><br><span class="line">        //获取当前游戏对象的刚体组件</span><br><span class="line">        rigidbody2D = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //游戏刚开始，玩家满血</span><br><span class="line">        currentHealth = maxHealth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    //每帧调用一次Update</span><br><span class="line">    //让游戏对象每帧右移0.1</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //获取水平输入，按向左，会获得-1.0f；按向右，会获得1.0f</span><br><span class="line">        horizontal = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">        //获取垂直输入，按向下，会获得-1.0f；按向上，会获得1.0f</span><br><span class="line">        vertical = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //固定时间间隔执行的更新方法</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前对象位置</span><br><span class="line">        Vector2 position = transform.position;</span><br><span class="line">        //更改位置</span><br><span class="line">        position.x = position.x + 0.1f * horizontal;</span><br><span class="line">        position.y = position.y + 0.1f * vertical;</span><br><span class="line">        //新位置给游戏参数</span><br><span class="line">        rigidbody2D.position = position;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //不是系统函数，自定义来更改生命值的</span><br><span class="line">    public void ChangeHealth(int amount) &#123;</span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -678,6 +654,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/04/27/2D%E7%B2%BE%E7%81%B5%E5%8A%A8%E7%94%BB%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">2D精灵动画使用总结</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/04/27/%E5%88%B6%E4%BD%9C%E5%8A%A8%E7%94%BB%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/">制作动画状态转换</a>
             </li>
             
@@ -687,10 +667,6 @@
             
             <li>
                 <a class="footer-post" href="/2022/04/25/%E7%B2%BE%E7%81%B5%E5%8A%A8%E7%94%BB/">精灵动画</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/04/25/%E6%B7%BB%E5%8A%A0%E6%95%8C%E4%BA%BA%E4%BC%A4%E5%AE%B3/">添加敌人伤害</a>
             </li>
             
         </ul>

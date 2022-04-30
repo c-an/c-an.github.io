@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="发现一个问题，原先设置的时候是按c才发射飞盘，这并不方便，也不符合左手WASD，右手鼠标的习惯。所以要进行更改。
+
+更改按键设置：
+
+Edit&amp;gt;Project Settings&amp;gt;Input Manager(mouse 0是鼠标左键的意思)
+好了，更改代码，到RubyController&amp;">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="修复机器人脚本"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="c-an"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    
+        <meta name="twitter:card" content="summary" />
+    
+    
+    
+
+    <!-- Title -->
+    
+    <title>修复机器人脚本 - c-an</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2022/04/30/%E4%BF%AE%E5%A4%8D%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%84%9A%E6%9C%AC/">
+                修复机器人脚本
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>发现一个问题，原先设置的时候是按c才发射飞盘，这并不方便，也不符合左手WASD，右手鼠标的习惯。所以要进行更改。</p>
+<blockquote>
+<p>更改按键设置：</p>
+</blockquote>
+<p>Edit&gt;Project Settings&gt;Input Manager(mouse 0是鼠标左键的意思)</p>
+<p>好了，更改代码，到RubyController&gt;Update</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(Input.GetKeyDowm(KeyCode.C)||Input.GetAxis(&quot;Fire1&quot;)) &#123;</span><br><span class="line">    Launch();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然而上面的代码报错了，因为Input.GetKeyDowm(KeyCode.C)是一个bool值，真或假，Input.GetAxis(“Fire1”)是鼠标左键按下获取到的一个整型值，是+-1。一般按下以后是1.0，未按下是0。所以一般不等于0，认为是按下了鼠标左键或leftCtrl<br><br></br><br>下面这样就可以了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(Input.GetKeyDowm(KeyCode.C)||Input.GetAxis(&quot;Fire1&quot;)!=0) &#123;</span><br><span class="line">    Launch();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>下面是正文，修复机器人</p>
+<h1 id="修复机器人"><a href="#修复机器人" class="headerlink" title="修复机器人"></a>修复机器人</h1><p>目前飞弹在碰撞时只是销毁自身，但目标是用飞弹来修复损坏的机器人。</p>
+<p>要修复机器人，执行以下操纵：</p>
+<ol>
+<li>要在Enemy脚本中编写函数，添加一个名为broken的bool变量，并将变量初始化未true，这样机器人一开始就是损坏的。</li>
+<li>在Update函数的开头，添加一个测试用于检查机器人是否损坏。如果没有损坏则退出函数。</li>
+</ol>
+<p>修复后，机器人停止移动（就是bool值为false的时候，移动的代码失效）。由于这个原因，提前退出Update函数将导致机器人的代码停止执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//如果已修复机器人，则直接退出Update方法</span><br><span class="line">        //不再移动</span><br><span class="line">        if (!broked) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>把以上代码粘贴到Update和FixedUpdate里<br><br></br></p>
+<p>下面是修复机器人</p>
+<blockquote>
+<p>在Projectile1里的碰撞事件方法里让飞弹来调用修复机器人的脚本<br>另外，还需要注意的地方是，不可以只在飞弹碰撞到碰撞体的时候才进行销毁，没有碰撞到也应该进行销毁，不然一直clone，游戏性能会非常差。这个更改应该写到Projectile1的Update里，Update检测比较方便</p>
+</blockquote>
+<p><br></br></p>
+<p>下列是EnemyController2的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line">public class EnemyController2 : MonoBehaviour &#123;</span><br><span class="line">    //代表移动速度（实际上是每次刷新时移动的距离）</span><br><span class="line">    public float speed;</span><br><span class="line">    //是否垂直移动，true按y轴移动，false按x轴移动</span><br><span class="line">    public bool vertical;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    //rigidbody2D先前我们已经用过了，如果不希望rigidbody2D被覆盖</span><br><span class="line">    //这里可以取比如rigidbody2d这种不一样的名字</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line"></span><br><span class="line">    //朝一个方向移动的总时间</span><br><span class="line">    public float changeTime = 3.0f;</span><br><span class="line"></span><br><span class="line">    //计时器</span><br><span class="line">    float timer;</span><br><span class="line">    //方向</span><br><span class="line">    int direction = 1;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line"></span><br><span class="line">    //在字段里面声明一个Animator,动画管理者组件</span><br><span class="line">    Animator animator;</span><br><span class="line"></span><br><span class="line">    //设定一个bool值，初始值代表机器人刚开始是“坏”的</span><br><span class="line">    bool broked = true;</span><br><span class="line"></span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //通过当前这个代码组件，获取到这个代码组件所在的游戏对象</span><br><span class="line">        //再通过游戏对象，获取到刚体组件</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line"></span><br><span class="line">        //游戏对象一般都是通过Start获取</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //计时器也要给它设置好</span><br><span class="line">        timer = changeTime;</span><br><span class="line">        //把Animator实例化，拿到脚本组件所挂接的游戏对象的Animator组件</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //Update本来是每帧来调用，但是和FixedUpdate结合使用，它又是固定的</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //如果已修复机器人，则直接退出Update方法</span><br><span class="line">        //不再移动</span><br><span class="line">        if (!broked) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        //每次减少</span><br><span class="line">        //但是每秒减少还是一样的</span><br><span class="line">        timer -= Time.deltaTime;</span><br><span class="line">        //如果timer到0，重置</span><br><span class="line">        if (timer &lt; 0) &#123;</span><br><span class="line">            //方向取反</span><br><span class="line">            direction = -direction;</span><br><span class="line">            //时间重置</span><br><span class="line">            timer = changeTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //若是希望移动非常稳定的话，用FixedUpdate</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //如果已修复机器人，则直接退出Update方法</span><br><span class="line">        //不再移动</span><br><span class="line">        if (!broked) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //获取当前游戏对象所在的位置</span><br><span class="line">        Vector2 position = rigidbody2d.position;</span><br><span class="line"></span><br><span class="line">        //纵向移动，沿y轴移动</span><br><span class="line">        //加不加Time.deltaTime都可以</span><br><span class="line">        if (vertical) &#123;</span><br><span class="line">            position.y = position.y + Time.deltaTime * speed*direction;</span><br><span class="line">            animator.SetFloat(&quot;Move X&quot;, 0);</span><br><span class="line">            animator.SetFloat(&quot;Move Y&quot;, direction);</span><br><span class="line">        &#125;</span><br><span class="line">        //否则，沿x轴移动</span><br><span class="line">         else &#123;</span><br><span class="line">            position.x = position.x + Time.deltaTime * speed*direction;</span><br><span class="line">            animator.SetFloat(&quot;Move X&quot;, direction);</span><br><span class="line">            animator.SetFloat(&quot;Move Y&quot;, 0);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //和直接赋值的效果是一样的，但是这个更严谨些</span><br><span class="line">        rigidbody2d.MovePosition(position);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //刚体碰撞的方法</span><br><span class="line">    //在这个方法中，添加对玩家伤害的逻辑</span><br><span class="line">    private void OnCollisionEnter2D(Collision2D other) &#123;</span><br><span class="line">        //获取和敌人碰撞的玩家角色</span><br><span class="line">        //先获取玩家控制器脚本</span><br><span class="line">        //这个类的设置不能直接GetComponent</span><br><span class="line">        //要先获得gameObject</span><br><span class="line">        //这个是类设定的规则，记住这个方式来使用</span><br><span class="line">        RubyController rubyController = other.gameObject.GetComponent&lt;RubyController&gt;();</span><br><span class="line"></span><br><span class="line">        //如果不为空，直接让它减血</span><br><span class="line">        if (rubyController != null) &#123;</span><br><span class="line">            //玩家角色掉血</span><br><span class="line">            rubyController.ChangeHealth(-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //修复机器人的方法</span><br><span class="line">    //这个修复的脚本肯定是要别人来调用的，所以设置为public</span><br><span class="line">    //这里要调用修复的应该是飞弹，所以调用Fix写在飞弹的脚本里</span><br><span class="line">    public void Fix() &#123;</span><br><span class="line">        //更改状态为已经修复</span><br><span class="line">        broked = false;</span><br><span class="line">        //让机器人不会再碰撞</span><br><span class="line">        //这里采取的是刚体对象取消物理引擎效果</span><br><span class="line">        rigidbody2d.simulated = false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></br><br>下列是Projectile1的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">//子弹预制件脚本</span><br><span class="line">public class Projectile1 : MonoBehaviour &#123;</span><br><span class="line">    //声明刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Awake() &#123;</span><br><span class="line">        //通过这个脚本对象获取当前游戏对象所绑定的刚体</span><br><span class="line">        //获取刚体对象实例</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    private void Update() &#123;</span><br><span class="line">        //transform.position.magnitude是拿到飞弹飞出去的绝对长度</span><br><span class="line">        //如果没有碰到任何碰撞体，在飞行距离超过100单位后，自动销毁</span><br><span class="line">        if (transform.position.magnitude &gt; 100.0f) &#123;</span><br><span class="line">            Destroy(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //把当前的子弹抛射出去</span><br><span class="line">    //传入参数（方向，力）</span><br><span class="line">    public void Launch(Vector2 direction,float force) &#123;</span><br><span class="line">        //这次不使用移动，使用物理系统</span><br><span class="line">        //通过刚体对象调用物理系统的AddForce方法</span><br><span class="line">        //对游戏对象施加一个力，使其移动</span><br><span class="line">        rigidbody2d.AddForce(direction*force);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //碰撞事件方法</span><br><span class="line">    private void OnCollisionEnter2D(Collision2D collision) &#123;</span><br><span class="line">        //获取齿轮飞弹碰撞到机器人对象的脚本组件</span><br><span class="line">        EnemyController2 enemyController2 = collision.collider.GetComponent&lt;EnemyController2&gt;();</span><br><span class="line">        //如果获取到不为空</span><br><span class="line">        if(enemyController2!=null) &#123;</span><br><span class="line">            enemyController2.Fix();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //向控制台输出信息，打印出当前子弹碰撞的游戏对象是谁</span><br><span class="line">        Debug.Log($&quot;齿轮子弹碰撞到了：&#123;collision.gameObject&#125;&quot;);</span><br><span class="line">        //碰撞完后，子弹应该消失，即销毁当前子弹游戏对象</span><br><span class="line">        Destroy(gameObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a target="_blank" rel="noopener" href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2022/04/30/%E4%BF%AE%E5%A4%8D%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%84%9A%E6%9C%AC/">修复机器人脚本</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2022/04/27/%E4%B8%96%E7%95%8C%E4%BA%A4%E4%BA%92-%E9%A3%9E%E5%BC%B9/">世界交互-飞弹</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2022/04/27/2D%E7%B2%BE%E7%81%B5%E5%8A%A8%E7%94%BB%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">2D精灵动画使用总结</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2022/04/27/%E5%88%B6%E4%BD%9C%E5%8A%A8%E7%94%BB%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/">制作动画状态转换</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://telegram.org/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-telegram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a target="_blank" rel="noopener" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

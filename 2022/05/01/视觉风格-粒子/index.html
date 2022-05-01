@@ -10,9 +10,9 @@
 
     <!--Description-->
     
-        <meta name="description" content="显示区域是归Unity里的Main Camera管的。目前为止，游戏只在一个屏幕上运行，这时因为用了一个静态摄像机。
-摄像机-Cinemachine无需编写代码，使用Cinemachine的Unity包来自动控制摄像机。摄像机会跟随主角。
-对Cinemachine的介绍：Cinemachine是一套">
+        <meta name="description" content="粒子系统粒子系统（Particle System）组件通过在场景中生成和动画化大量小型的2D图像来模拟流动实体。
+粒子系统可以创建数十个甚至数百个粒子，这些粒子是很小的图像，具备方向、速度、生命周期、颜色等其他属性。
+一个粒子系统可以模拟并渲染许多称为粒子的小的图像或者网格并产生视觉效果。系统中的每">
     
 
     <!--Author-->
@@ -22,7 +22,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="摄像机跟随和边界"/>
+        <meta property="og:title" content="视觉风格-粒子"/>
     
 
     <!--Open Graph Description-->
@@ -47,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>摄像机跟随和边界 - c-an</title>
+    <title>视觉风格-粒子 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -153,13 +153,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/30/%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F%E5%92%8C%E8%BE%B9%E7%95%8C/">
-                摄像机跟随和边界
+            <a href="/2022/05/01/%E8%A7%86%E8%A7%89%E9%A3%8E%E6%A0%BC-%E7%B2%92%E5%AD%90/">
+                视觉风格-粒子
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-30</span>
+                <span class="date">2022-05-01</span>
             
             
             
@@ -172,37 +172,117 @@
         
 
         <!-- Post Content -->
-        <p>显示区域是归Unity里的Main Camera管的。目前为止，游戏只在一个屏幕上运行，这时因为用了一个静态摄像机。</p>
-<h1 id="摄像机-Cinemachine"><a href="#摄像机-Cinemachine" class="headerlink" title="摄像机-Cinemachine"></a>摄像机-Cinemachine</h1><p>无需编写代码，使用Cinemachine的Unity包来自动控制摄像机。摄像机会跟随主角。</p>
-<p>对Cinemachine的介绍：Cinemachine是一套用于操作Unity摄像机的模块。Cinemachine解决了跟踪目标、合成、混合和镜头之间剪切的复杂数学和逻辑。它旨在减少开发过程中耗时的手动操作和脚本修订的数量。<br><br></br></p>
-<blockquote>
-<p>我在安装Cinemachine的过程中，遇到了点问题。先是在Pack Manager中安装Cinemachine 2.6.11，可能是版本太高了，在Hierarchy中右键并不会显示Cinemachine，并且按教程中说是顶部菜单栏中也找不到Cinemachine。就安装了2020年，3月10日和我2020.3.30的Unity相近的版本。同样在Hierarchy中右键并不会显示Cinemachine，但是在重启项目后，顶部菜单栏显示了Cinemachine。</p>
-</blockquote>
-<p><br></br><br>Cinemachine&gt;Create 2D Camera,会建成一个摄像机，这个摄像机默认的名字的CM vcam1（CM&#x3D;&#x3D;Cinmachine，v&#x3D;&#x3D;虚拟的，cma&#x3D;&#x3D;Camera）</p>
-<p>最终的目标是把摄像机限定在特定的范围内，这样就不显示地图边界外的对象，并且要让摄像机跟随2D目标移动。</p>
-<blockquote>
-<p>Cinemachine可以与多个摄像机配合使用，并根据游戏的需要切换在多个摄像机之间进行切换，例如在对话中对某个镜头与反拍镜头进行切换。可以在每个摄像机中显示不同的设置，告诉实际的摄像机（在Hierarchy中名为Main Camera主摄像机）当前哪个虚拟摄像机处于活动状态，以便复制设置。<br><br></br></p>
-</blockquote>
-<h2 id="摄像机模式"><a href="#摄像机模式" class="headerlink" title="摄像机模式"></a>摄像机模式</h2><ul>
-<li>透视（一般是3d的摄像机进行透视）：离得近的看起来大，离得远的看起来小</li>
-<li>正交：所有平行线将保持平行</li>
+        <h1 id="粒子系统"><a href="#粒子系统" class="headerlink" title="粒子系统"></a>粒子系统</h1><p><strong>粒子系统（Particle System）</strong>组件通过在场景中生成和动画化大量小型的2D图像来模拟流动实体。</p>
+<p><strong>粒子系统</strong>可以创建数十个甚至数百个粒子，这些粒子是很小的图像，具备方向、速度、生命周期、颜色等其他属性。</p>
+<p>一个粒子系统可以模拟并渲染许多称为粒子的小的图像或者网格并产生视觉效果。系统中的每个粒子代表效果中单个图形元素。系统共同模拟每个粒子以产生完整效果和印象。</p>
+<p>需要创建如火、烟、液体之类动态对象时，由于很难有网格（3D）或精灵（2D）描绘这种对象，所以粒子系统很有用。</p>
+<p><br></br></p>
+<h1 id="选择粒子系统解决方案"><a href="#选择粒子系统解决方案" class="headerlink" title="选择粒子系统解决方案"></a>选择粒子系统解决方案</h1><ul>
+<li>内置粒子系统</li>
+<li>Visual Effect Graph</li>
 </ul>
-<h1 id="跟随主角"><a href="#跟随主角" class="headerlink" title="跟随主角"></a>跟随主角</h1><p>让Cinemachine设置摄像机跟随角色</p>
+<p>内置粒子系统比较简单，它解决不了的让Visual Effect Graph来。</p>
+<p>内置粒子系统在CPU上模拟粒子行为（Visual Effect Graph是在显卡的GPU上的），这种技术具有以下主要优点：</p>
 <ol>
-<li>在Hierarchy中点击创建的虚拟摄像机，Inspector中有Follow（跟随）和Look At（看向）</li>
-<li>把（Ruby）拖到Follow里就行了</li>
+<li>可以使用c#脚本与系统及其中的各个粒子进行交互</li>
+<li>粒子系统可以使用Unity的基础物理系统，从而与场景中的碰撞体进行交互</li>
 </ol>
+<hr>
+<p>制作粒子系统，首先找到素材，下载的项目中Art&gt;Sprites&gt;Environment&gt;VFX已经有给我们准备的素材了，VFX本身也就是特效的意思。</p>
+<p>但那本身是一个完整的图形，首先要对它进行分割。</p>
+<p>分割很简单。</p>
+<h2 id="素材切割"><a href="#素材切割" class="headerlink" title="素材切割"></a>素材切割</h2><ol>
+<li>先选中素材</li>
+<li>Inspector&gt;Sprite Mode选中Multiple</li>
+<li>打开Sprite Editor，用Slice按Grid By Cell Count把它切割成4*4吧。（C、R改成4）</li>
+</ol>
+<p>切割好，接下来就是粒子特效的生成</p>
+<h2 id="生成粒子特效"><a href="#生成粒子特效" class="headerlink" title="生成粒子特效"></a>生成粒子特效</h2><ol>
+<li>Hierarchy右键，Effects&gt;Partcle System(按教程上，把它改名为SmokeEffect，添加这个，默认会生成白色的小球)</li>
+<li>添进来以后，会发现SmokeEffect只包含Particle System这个组件，这个组件就是所谓的内置物理系统，下面有非常多的属性可以进行配置。</li>
+<li>要换素材的话，选择（Texture Sheet Animation），打开以后，把Mode由Grid改成Sprites，Sprites就 可以换素材了，默认会有一个Sprite，但是你有几个素材就添加几个，有个“+”号。然后把素材拖进去就可以了。</li>
+</ol>
+<hr>
 <blockquote>
-<p>OK,问题解决一个了</p>
+<p>以上内容是完成了，是生成了粒子特效了，可是明明添加了两种Sprite，有两种烟雾素材，它却只播放一种烟雾素材。想要随机播放粒子素材。</p>
 </blockquote>
-<h1 id="设置边界（超出地图的部分不再显示）"><a href="#设置边界（超出地图的部分不再显示）" class="headerlink" title="设置边界（超出地图的部分不再显示）"></a>设置边界（超出地图的部分不再显示）</h1><p>用碰撞体配合扩展的控件。</p>
+<p>下面开始修改</p>
 <ol>
-<li>在Hierarchy中点击创建的虚拟摄像机，Inspector&gt;Add Extension&gt;CinemachineConfiner,添加进去后会有一个Bounding Shape 2D（要绑定一个2D的碰撞体），如何设置呢？请看下一步。</li>
-<li>Hierarchy，右键，Create Empty（如果按教程上，把它重命名为CameraConfiner），在这个空的游戏对象中添加碰撞体（教程上让我们添加Polygon Collider 2D，虽然感觉box就可以了，当然场景不一定是规则的，多边形也好），点中Edit Collider，在场景中可以看到碰撞体的边界区域了。</li>
-<li>接上，出现的多边形区域是五边形的。若需要去掉顶点：Inspector&gt;Points&gt;Paths&gt;Element 0 &gt;Size,Size是几就是几边形</li>
-<li>之后调整场景里的边际就可以了</li>
-<li>但是请注意！要把碰撞体拖到摄像机上，否则会出现例如角色被挤出边界等现象。 <strong>CM vcam1&gt;Inspector&gt;Cinemachine Confiner&gt;Bounding Shape 2D,把Hierarchy上的（CameraConfiner）拖过去。摄像机虽然已经在场景内了，但是因为碰撞体仍未取消碰撞的功能，角色仍然被挤出场景外。</strong></li>
-<li>但是，我们已经会改变碰撞体的层次了，可以用这方法来解决。（修改Tag，可以添加新的层次，名字随你；Layer设定为特定的层；更改游戏配置，找到Physics 2D，把默认碰撞的层都取消，它只是做摄像机边界用的）</li>
+<li>点击SmokeEffect&gt;Inspector&gt;Texture Sheet Animation&gt;Start Frame,把Constant改成Random Between Tow Constants（在两个数之间交互）。</li>
+<li>在Start Frame 填入0，2。就是2不包含。</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是如果在烟雾播放一段时间后，希望其中一个不在出现呢？</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>还是上面的Texture Sheet Animation,选择Frame over Time，横向是时间，纵向是值。</li>
+<li>把它往下拉，或者点中，右键删除也行。</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是这个烟雾播放是一个锥形的，想要修改形状。</p>
+</blockquote>
+<p>下面进行修改</p>
+<p>要更改显示发射烟雾配置</p>
+<ol>
+<li>修改Shape，改Angle（角度），Radius（半径，若是输入0，不允许是绝对的0，回车会自动改成0.0001）</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是速度不太对，想要修改速度</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>Inspector&gt;Start Speed</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是每次生成的都一样，这不符合现实</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>Inspector&gt;Start Size，每次生成的大小，选择Random Between Two Constants（在两个约束间进行随机）</li>
+<li>其实上面的Start Speed也可以这样设</li>
+<li>另外所有的烟都在同一高度消失，要逆反这种现象，修改Start Lifetime，也在两个随机数之间改变，依葫芦画瓢</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是还想让烟雾消失有一个渐变的效果</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>Color over Lifetimes属性打上对勾，让它生效。</li>
+<li>点击白色区域，会生成Gradient Editor</li>
+<li>有4个箭头，上面是不透明度，下面是颜色。自己更改</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是还是不行啊，想让烟雾一开始大，消失的时候变小</p>
+</blockquote>
+<p>下面进行更改</p>
+<ol>
+<li>Size over Lifetime，打上对勾以后，上面也会出现曲线。从0开始逐渐增大。曲线调节。</li>
+</ol>
+<p><br></br></p>
+<hr>
+<blockquote>
+<p>但是想让这个特效和游戏对象绑定啊</p>
+</blockquote>
+<p>下面进行操作</p>
+<ol>
+<li>把做好的特效对象拖拽到Prefabs文件夹中，做预制件。</li>
+<li>选择Hierarchy中的游戏对象，打开（像预制件那样）</li>
+<li>把Prefabs中的特效拖拽到Hierarchy中的游戏对象下，做游戏对象的子对象。像是特效相对于游戏对象的位置啊，自己调整噢。</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是还不行啊。我把烟雾绑定在机器人Robot的头上，可是Robot移动的时候，烟雾还是垂直的。</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>选中SmokeEffect对象，把Simuiation Space由原来的local改为World。就是不根据我们当前局部的位置，而是根据世界坐标的位置</li>
 </ol>
 
     </div>

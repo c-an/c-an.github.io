@@ -152,6 +152,42 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/04/23/%E8%AE%BE%E7%BD%AE%E6%97%A0%E6%95%8C%E6%97%B6%E9%97%B4/">
+                设置无敌时间
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-23</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <blockquote>
+<p>对角色设置无敌时间</p>
+</blockquote>
+<ul>
+<li>Part 1<br>设置无敌时间和无敌变量</li>
+<li>Part 2<br>判断是否处于无敌状态</li>
+<li>Part 3<br>对于是否处于无敌状态相对应的操作</li>
+</ul>
+<p><br></br></p>
+<p>下面是完整的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">public class RubyController : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    //设置玩家间隔无敌时间</span><br><span class="line">    public float timeInvincible = 2.0f;</span><br><span class="line">    //设置是否无敌的变量</span><br><span class="line">    bool isInvincible;</span><br><span class="line">    //定义变量，进行无敌时间的计时，无敌时间计时器</span><br><span class="line">    float invincibleTimer;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    //设置最大生命值（生命上限）</span><br><span class="line">    public int maxHealth = 5;</span><br><span class="line">    //设置当前生命值的属性health</span><br><span class="line"></span><br><span class="line">    //c#中支持面向对象程序设计中的封装概念，对数据成员的保护</span><br><span class="line">    //数据成员变量，默认一般都应该设置为私有，只能通过对当前类的方法或属性进行访问</span><br><span class="line">    //属性类似于特殊的函数结构，它get是一个关键字</span><br><span class="line">    //get是获取当前属性所绑定的字段的值</span><br><span class="line">    //属性相当于一个盒子，字段是在盒子里的某件东西</span><br><span class="line">    //属性限制了字段的访问规则，比如只能读或写</span><br><span class="line">    //或者读写的时候满足某种需求，才能往外进行操作</span><br><span class="line">    //相当于把它包装起来，这就称为封装</span><br><span class="line">    //属性是公有的，可以通过取值器get、赋值器set设定对应字段的访问规则，满足规则才能进行访问</span><br><span class="line"></span><br><span class="line">    public int health &#123; </span><br><span class="line">        get &#123; return currentHealth; &#125;</span><br><span class="line">        //set &#123; currentHealth = value; &#125;//可赋值</span><br><span class="line">    &#125;</span><br><span class="line">    int currentHealth;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2D;</span><br><span class="line">    //获取用户输入</span><br><span class="line">    float horizontal;</span><br><span class="line">    float vertical;</span><br><span class="line"></span><br><span class="line">    //将速度暴露出来，使其可调</span><br><span class="line">    public float speed = 0.1f;</span><br><span class="line"></span><br><span class="line">    private void Start() &#123;</span><br><span class="line">        //获取当前游戏对象的刚体组件</span><br><span class="line">        rigidbody2D = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //游戏刚开始，玩家满血</span><br><span class="line">        currentHealth = maxHealth;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    //每帧调用一次Update</span><br><span class="line">    //让游戏对象每帧右移0.1</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //获取水平输入，按向左，会获得-1.0f；按向右，会获得1.0f</span><br><span class="line">        horizontal = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">        //获取垂直输入，按向下，会获得-1.0f；按向上，会获得1.0f</span><br><span class="line">        vertical = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //判断是否处于无敌状态，来进行计时器的倒计时</span><br><span class="line">        if (isInvincible) &#123;</span><br><span class="line">            //每次Update减去一帧消耗的时间</span><br><span class="line">            invincibleTimer = invincibleTimer - Time.deltaTime;</span><br><span class="line">            if (invincibleTimer &lt; 0) &#123;</span><br><span class="line">                isInvincible = false;//无敌时间小于0了，让它不无敌了</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //固定时间间隔执行的更新方法</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前对象位置</span><br><span class="line">        Vector2 position = transform.position;</span><br><span class="line">        //更改位置</span><br><span class="line">        position.x = position.x + 0.1f * horizontal;</span><br><span class="line">        position.y = position.y + 0.1f * vertical;</span><br><span class="line">        //新位置给游戏参数</span><br><span class="line">        rigidbody2D.position = position;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //不是系统函数，自定义来更改生命值的</span><br><span class="line">    public void ChangeHealth(int amount) &#123;</span><br><span class="line">        //假设玩家受伤害的时间间隔是2秒</span><br><span class="line">        //不管是什么样的伤害，只要amount小于0，就判断是不是无敌</span><br><span class="line">        if (amount &lt; 0) &#123;</span><br><span class="line">            //判断当前是否处于无敌状态</span><br><span class="line">            if (isInvincible) &#123;</span><br><span class="line">                //无敌不伤血，跳出无敌状态</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当不是无敌状态时，会执行下面的代码</span><br><span class="line">        //重置无敌状态为真</span><br><span class="line">        isInvincible = true;</span><br><span class="line">        //设置无敌时间</span><br><span class="line">        invincibleTimer = timeInvincible;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/04/22/%E8%AE%BE%E7%BD%AE%E6%8E%89%E8%A1%80%E5%8C%BA%E5%9F%9F/">
                 设置掉血区域
             </a>
@@ -591,6 +627,10 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/04/30/%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F%E5%92%8C%E8%BE%B9%E7%95%8C/">摄像机跟随和边界</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/04/30/%E4%BF%AE%E5%A4%8D%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%84%9A%E6%9C%AC/">修复机器人脚本</a>
             </li>
             
@@ -600,10 +640,6 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
             
             <li>
                 <a class="footer-post" href="/2022/04/27/2D%E7%B2%BE%E7%81%B5%E5%8A%A8%E7%94%BB%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">2D精灵动画使用总结</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/04/27/%E5%88%B6%E4%BD%9C%E5%8A%A8%E7%94%BB%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/">制作动画状态转换</a>
             </li>
             
         </ul>

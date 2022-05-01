@@ -10,15 +10,9 @@
 
     <!--Description-->
     
-        <meta name="description" content="复刻动画状态的转换，肯定要先看源码。选择已经做好的Ruby的Animator，看关于Idle和Moving之间的转变。点击Idle，Idle-&amp;gt;Moving有个Has Exit Time，取消勾选，会立马转变
-
-
-关于新词汇：
-
-
-Fixed Duration
-
-解释：如果选中Fixed Du">
+        <meta name="description" content="显示区域是归Unity里的Main Camera管的。目前为止，游戏只在一个屏幕上运行，这时因为用了一个静态摄像机。
+摄像机-Cinemachine无需编写代码，使用Cinemachine的Unity包来自动控制摄像机。摄像机会跟随主角。
+对Cinemachine的介绍：Cinemachine是一套">
     
 
     <!--Author-->
@@ -28,7 +22,7 @@ Fixed Duration
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="制作动画状态转换"/>
+        <meta property="og:title" content="摄像机跟随和边界"/>
     
 
     <!--Open Graph Description-->
@@ -53,7 +47,7 @@ Fixed Duration
 
     <!-- Title -->
     
-    <title>制作动画状态转换 - c-an</title>
+    <title>摄像机跟随和边界 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -159,13 +153,13 @@ Fixed Duration
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/27/%E5%88%B6%E4%BD%9C%E5%8A%A8%E7%94%BB%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/">
-                制作动画状态转换
+            <a href="/2022/04/30/%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F%E5%92%8C%E8%BE%B9%E7%95%8C/">
+                摄像机跟随和边界
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-27</span>
+                <span class="date">2022-04-30</span>
             
             
             
@@ -178,22 +172,38 @@ Fixed Duration
         
 
         <!-- Post Content -->
-        <blockquote>
-<p>复刻动画状态的转换，肯定要先看源码。选择已经做好的Ruby的Animator，看关于Idle和Moving之间的转变。<br>点击Idle，Idle-&gt;Moving有个Has Exit Time，取消勾选，会立马转变</p>
-</blockquote>
+        <p>显示区域是归Unity里的Main Camera管的。目前为止，游戏只在一个屏幕上运行，这时因为用了一个静态摄像机。</p>
+<h1 id="摄像机-Cinemachine"><a href="#摄像机-Cinemachine" class="headerlink" title="摄像机-Cinemachine"></a>摄像机-Cinemachine</h1><p>无需编写代码，使用Cinemachine的Unity包来自动控制摄像机。摄像机会跟随主角。</p>
+<p>对Cinemachine的介绍：Cinemachine是一套用于操作Unity摄像机的模块。Cinemachine解决了跟踪目标、合成、混合和镜头之间剪切的复杂数学和逻辑。它旨在减少开发过程中耗时的手动操作和脚本修订的数量。<br><br></br></p>
 <blockquote>
-<p>关于新词汇：</p>
+<p>我在安装Cinemachine的过程中，遇到了点问题。先是在Pack Manager中安装Cinemachine 2.6.11，可能是版本太高了，在Hierarchy中右键并不会显示Cinemachine，并且按教程中说是顶部菜单栏中也找不到Cinemachine。就安装了2020年，3月10日和我2020.3.30的Unity相近的版本。同样在Hierarchy中右键并不会显示Cinemachine，但是在重启项目后，顶部菜单栏显示了Cinemachine。</p>
 </blockquote>
-<ul>
-<li>Fixed Duration</li>
+<p><br></br><br>Cinemachine&gt;Create 2D Camera,会建成一个摄像机，这个摄像机默认的名字的CM vcam1（CM&#x3D;&#x3D;Cinmachine，v&#x3D;&#x3D;虚拟的，cma&#x3D;&#x3D;Camera）</p>
+<p>最终的目标是把摄像机限定在特定的范围内，这样就不显示地图边界外的对象，并且要让摄像机跟随2D目标移动。</p>
+<blockquote>
+<p>Cinemachine可以与多个摄像机配合使用，并根据游戏的需要切换在多个摄像机之间进行切换，例如在对话中对某个镜头与反拍镜头进行切换。可以在每个摄像机中显示不同的设置，告诉实际的摄像机（在Hierarchy中名为Main Camera主摄像机）当前哪个虚拟摄像机处于活动状态，以便复制设置。<br><br></br></p>
+</blockquote>
+<h2 id="摄像机模式"><a href="#摄像机模式" class="headerlink" title="摄像机模式"></a>摄像机模式</h2><ul>
+<li>透视（一般是3d的摄像机进行透视）：离得近的看起来大，离得远的看起来小</li>
+<li>正交：所有平行线将保持平行</li>
 </ul>
-<p>解释：如果选中Fixed Duration复选框，则以秒为单位解读过渡时间。如果未选中Fixed Duration复选框，则过渡的时间解读未源状态的标准化时间的一部分。（没懂）</p>
-<ul>
-<li>Transition Duration（s）  对当前状态持续时间的过渡时间，以标准化或秒为单位（具体取决于Fixed Duration模式），慢慢渐变的一个过程，此时间在过渡图中显示为两个蓝色标记之间的部分，0代表没有重叠。</li>
-<li>Transition Offset        过渡到目标状态的起始播放的时间偏移。例如，值为0.5表示目标状态在其时间轴的50%出开始播放。</li>
-<li>Interruption Source      影响它的源</li>
-<li>BlendTree Parameters&gt; Conditions ，那个框满足它什么条件进行转换。</li>
-</ul>
+<h1 id="跟随主角"><a href="#跟随主角" class="headerlink" title="跟随主角"></a>跟随主角</h1><p>让Cinemachine设置摄像机跟随角色</p>
+<ol>
+<li>在Hierarchy中点击创建的虚拟摄像机，Inspector中有Follow（跟随）和Look At（看向）</li>
+<li>把（Ruby）拖到Follow里就行了</li>
+</ol>
+<blockquote>
+<p>OK,问题解决一个了</p>
+</blockquote>
+<h1 id="设置边界（超出地图的部分不再显示）"><a href="#设置边界（超出地图的部分不再显示）" class="headerlink" title="设置边界（超出地图的部分不再显示）"></a>设置边界（超出地图的部分不再显示）</h1><p>用碰撞体配合扩展的控件。</p>
+<ol>
+<li>在Hierarchy中点击创建的虚拟摄像机，Inspector&gt;Add Extension&gt;CinemachineConfiner,添加进去后会有一个Bounding Shape 2D（要绑定一个2D的碰撞体），如何设置呢？请看下一步。</li>
+<li>Hierarchy，右键，Create Empty（如果按教程上，把它重命名为CameraConfiner），在这个空的游戏对象中添加碰撞体（教程上让我们添加Ploygon Collider 2D，虽然感觉box就可以了，当然场景不一定是规则的，多边形也好），点中Edit Collider，在场景中可以看到碰撞体的边界区域了。</li>
+<li>接上，出现的多边形区域是五边形的。若需要去掉顶点：Inspector&gt;Points&gt;Paths&gt;Element 0 &gt;Size,Size是几就是几边形</li>
+<li>之后调整场景里的边际就可以了</li>
+<li>但是请注意！要把碰撞体拖到摄像机上，否则会出现例如角色被挤出边界等现象。 ***CM vcam1&gt;Inspector&gt;Cinemachine Confiner&gt;Bounding Shape 2D,把Hierarchy上的（CameraConfiner）拖过去。摄像机虽然已经在场景内了，但是因为碰撞体仍未取消碰撞的功能，角色仍然被挤出场景外。</li>
+<li>但是，我们已经会改变碰撞体的层次了，可以用这方法来解决。（修改Tag，可以添加新的层次，名字随你；Layer设定为特定的层；更改游戏配置，找到Physics 2D，把默认碰撞的层都取消，它只是做摄像机边界用的）</li>
+</ol>
 
     </div>
 

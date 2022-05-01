@@ -279,6 +279,26 @@
 <ol>
 <li>选中SmokeEffect对象，把Simuiation Space由原来的local改为World。就是不根据我们当前局部的位置，而是根据世界坐标的位置</li>
 </ol>
+<hr>
+<blockquote>
+<p>可是按原先的想法来的话，Robot被飞弹击中后不应该继续由冒烟的特效了。</p>
+</blockquote>
+<ol>
+<li>冒烟特效停止是在Robot被飞弹击中后，那么控制的脚本就应该在EnemyController2中，在Fix（）里改吧</li>
+<li>我知道Destory（销毁），那么试试销毁来取消特效吧</li>
+<li>先找到烟雾特效，让它暴露出来<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//对象类型很明显应该是内置的物理系统</span><br><span class="line">//开放一个属性，用来获取特效对象，方便我们用代码操作</span><br><span class="line">public ParticleSystem smokeEffect;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>在Unity里，Robot的Enemy Controller2脚本中已经能够看到Smoke Effect了</li>
+<li>就像以前很多次用过的方法那样，把Hierarchy中的对象（这里是SmokeEffect）拖到Enemy Controller2脚本中Smoke Effect框中。这样就能获取到了</li>
+<li>接下来就很简单了，用Unity自带的方法Destroy把对象拿过来，在Fix（）里把烟雾销毁掉就可以了<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void Fix() &#123;</span><br><span class="line">        //更改状态为已经修复</span><br><span class="line">        broked = false;</span><br><span class="line">        //让机器人不会再碰撞</span><br><span class="line">        //这里采取的是刚体对象取消物理引擎效果</span><br><span class="line">        rigidbody2d.simulated = false;</span><br><span class="line"></span><br><span class="line">        Destroy(smokeEffect);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<blockquote>
+<p>烟雾是消失了，但是是瞬间消失了，这样不好。</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>用特效本身带的方法smokeEffect.Stop（）；<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public void Fix() &#123;</span><br><span class="line">        //更改状态为已经修复</span><br><span class="line">        broked = false;</span><br><span class="line">        //让机器人不会再碰撞</span><br><span class="line">        //这里采取的是刚体对象取消物理引擎效果</span><br><span class="line">        rigidbody2d.simulated = false;</span><br><span class="line"></span><br><span class="line">        //Destroy(smokeEffect);//瞬间消失</span><br><span class="line">        //特效停止产生新的粒子，旧的的粒子会等它生命周期结束</span><br><span class="line">        //最好的方法</span><br><span class="line">        smokeEffect.Stop();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
 
         </div>
     

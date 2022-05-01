@@ -198,7 +198,7 @@
 <h1 id="设置边界（超出地图的部分不再显示）"><a href="#设置边界（超出地图的部分不再显示）" class="headerlink" title="设置边界（超出地图的部分不再显示）"></a>设置边界（超出地图的部分不再显示）</h1><p>用碰撞体配合扩展的控件。</p>
 <ol>
 <li>在Hierarchy中点击创建的虚拟摄像机，Inspector&gt;Add Extension&gt;CinemachineConfiner,添加进去后会有一个Bounding Shape 2D（要绑定一个2D的碰撞体），如何设置呢？请看下一步。</li>
-<li>Hierarchy，右键，Create Empty（如果按教程上，把它重命名为CameraConfiner），在这个空的游戏对象中添加碰撞体（教程上让我们添加Ploygon Collider 2D，虽然感觉box就可以了，当然场景不一定是规则的，多边形也好），点中Edit Collider，在场景中可以看到碰撞体的边界区域了。</li>
+<li>Hierarchy，右键，Create Empty（如果按教程上，把它重命名为CameraConfiner），在这个空的游戏对象中添加碰撞体（教程上让我们添加Polygon Collider 2D，虽然感觉box就可以了，当然场景不一定是规则的，多边形也好），点中Edit Collider，在场景中可以看到碰撞体的边界区域了。</li>
 <li>接上，出现的多边形区域是五边形的。若需要去掉顶点：Inspector&gt;Points&gt;Paths&gt;Element 0 &gt;Size,Size是几就是几边形</li>
 <li>之后调整场景里的边际就可以了</li>
 <li>但是请注意！要把碰撞体拖到摄像机上，否则会出现例如角色被挤出边界等现象。 ***CM vcam1&gt;Inspector&gt;Cinemachine Confiner&gt;Bounding Shape 2D,把Hierarchy上的（CameraConfiner）拖过去。摄像机虽然已经在场景内了，但是因为碰撞体仍未取消碰撞的功能，角色仍然被挤出场景外。</li>

@@ -152,6 +152,92 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/02/Unity-UI%E7%B3%BB%E7%BB%9F/">
+                Unity UI系统
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-02</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>前言：</p>
+<p>目前为止，一直使用Debug.Log在主角受伤时输出当前的生命值。但是玩家不会又Console窗口，因此无法查看最终游戏中的日志。所以，为了给玩家提供反馈，交互式应用测序使用<strong>用户界面（简称UI）</strong>将图像和文本叠加在<strong>场景</strong>上来显示信息。这种显示方式也成为<strong>抬头显示（HUD）</strong>。</p>
+<h1 id="最新Unity中的3大UI系统"><a href="#最新Unity中的3大UI系统" class="headerlink" title="最新Unity中的3大UI系统"></a>最新Unity中的3大UI系统</h1><ul>
+<li>UI工具包</li>
+</ul>
+<p>UI toolKit UI工具包是Unity中最新的UI系统。它旨在优化跨平台性能，并基于Web技术。您可以使用UI工具包为Unity编辑器创建扩展，用程序创建时运行UI（如果安装了UI工具包软件包）。</p>
+<p>Uinty打算让UI工具包成为新UI开发项目推荐UI系统，但它仍然缺少Unity UI（UGUI）和IMGUI中的一些功能。</p>
+<p>一句话总结：</p>
+<p>全能UI系统，而且是Unity未来UI发展方向，暂时还缺少部分功能，建议优先使用，遇到不足的，再选择别的UI系统补上。</p>
+<hr>
+<ul>
+<li>Unity软件包（UGUI）</li>
+</ul>
+<p>Unity用户界面（Unity UI）软件包（也成为UGUI）是一个较旧的、基于游戏对象的UI系统，宁可以使用它为游戏和应用程序开发运行时UI。Unity使用组件和Game视图来排列和定位用户界面并设置其样式。它支持高级渲染和文本渲染功能。</p>
+<p>现在使用Unity的公司，旧项目中大多数还在使用UGUI，甚至是它的前身nGUI（第三方ui），Ruby’s Adventure教程中，使用的还是UGUI</p>
+<blockquote>
+<p>注意：UGUI不能在Unity编辑器中创建或更改用户界面</p>
+</blockquote>
+<blockquote>
+<p>UGUI的优势</p>
+</blockquote>
+<ol>
+<li>所见即所得（WYSIWYG）设计工具</li>
+<li>支持多模式、多摄像机渲染</li>
+<li>面向对象的编程</li>
+</ol>
+<blockquote>
+<p>UGUI基本使用步骤</p>
+</blockquote>
+<ol>
+<li>创建画布Canves</li>
+<li>在画布Canves中添加UI组件（文本、文本框、按钮等等）</li>
+<li>设置好布局、动画、以及摄像机、特效等</li>
+<li>需要的话，再添加交互事件</li>
+</ol>
+<hr>
+<ul>
+<li>NGUI</li>
+</ul>
+<p>第三方UI系统，需付费（$95）,除非入职公司旧系统，还在使用NGUI，否则不推荐学习，UGUI是模仿NGUI做出来的，已经比NGUI更好用，功能更强。</p>
+<hr>
+<ul>
+<li>IMGUI<br>立即模式图形用户界面（IMGUI）是一个代码驱动的UI工具包，它使用OnGUI函数以及实现它的脚本来绘制和管理用户界面以及实现它的脚本绘制和管理用户界面。宁可以使用IMGUI来创建自定义Inspector，Unity编辑器的扩展以及游戏内调显示。不推荐用于构建运行时UI。<br>纯代码UI系统，适合程序员做游戏内部测试系统、控制台的UI</li>
+</ul>
+<hr>
+<blockquote>
+<p>学习建议：Unity的三个都学，首先是UGUI（兼容旧项目），其次是UI toolKit，之后是IMGUI，不建议再学NGUI</p>
+</blockquote>
+<blockquote>
+<p>如果近期不以Unity就业为目标，建议开始学UI toolKit</p>
+</blockquote>
+<blockquote>
+<p>旧项目：保持系统一致性为原则，使用UGUI或NGUI</p>
+</blockquote>
+<blockquote>
+<p>新项目：尽量使用Unity UI ToolKit，这个是Unity主推的方向，用它不能实现的再考虑UGUI</p>
+</blockquote>
+<blockquote>
+<p>游戏内部测试系统（包括控制台）：Unity UI ToolKit不能实现的话，就使用IMGUI</p>
+</blockquote>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/02/%E6%88%91%E7%9A%84%E6%B8%B8%E6%88%8F%E5%91%93%E8%AF%AD/">
                 我的游戏呓语
             </a>
@@ -340,6 +426,11 @@
 <ol>
 <li>用特效本身带的方法smokeEffect.Stop（）；<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public void Fix() &#123;</span><br><span class="line">        //更改状态为已经修复</span><br><span class="line">        broked = false;</span><br><span class="line">        //让机器人不会再碰撞</span><br><span class="line">        //这里采取的是刚体对象取消物理引擎效果</span><br><span class="line">        rigidbody2d.simulated = false;</span><br><span class="line"></span><br><span class="line">        //Destroy(smokeEffect);//瞬间消失</span><br><span class="line">        //特效停止产生新的粒子，旧的的粒子会等它生命周期结束</span><br><span class="line">        //最好的方法</span><br><span class="line">        smokeEffect.Stop();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
+<hr>
+<blockquote>
+<p>tip:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//公开一个属性特效，用来在Unity中挂接碰撞特效</span><br><span class="line">public ParticleSystem hitEffect;</span><br><span class="line"></span><br><span class="line">//实例化一个特效</span><br><span class="line">//第一个参数：实例化的是谁</span><br><span class="line">//第二个参数：实例化的位置</span><br><span class="line">//第三个参数：不旋转（旋转为0）</span><br><span class="line">Instantiate(hitEffect,transform.position,Quaternion.identity);</span><br></pre></td></tr></table></figure>
 
         </div>
     
@@ -781,50 +872,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/25/%E6%B7%BB%E5%8A%A0%E6%95%8C%E4%BA%BA%E4%BC%A4%E5%AE%B3/">
-                添加敌人伤害
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-25</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <blockquote>
-<p>若是要实现敌人对角色的伤害，而并非通过触发器的碰撞（Box Collider 2D&gt;Is Trigger，若是触发器会导致玩家像鬼魂一样穿过敌人)</p>
-</blockquote>
-<blockquote>
-<p>若是要敌人<strong>碰撞体</strong>为实心，并且与角色实际碰撞，使用OnCollisionEnter2D(刚体与某个对象碰撞时调用的函数)，类似于伤害区的OnTriggerEnter2D</p>
-</blockquote>
-<blockquote>
-<p>下面是EnemyController2完整的代码</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">public class EnemyController2 : MonoBehaviour &#123;</span><br><span class="line">    //代表移动速度（实际上是每次刷新时移动的距离）</span><br><span class="line">    public float speed;</span><br><span class="line">    //是否垂直移动，true按y轴移动，false按x轴移动</span><br><span class="line">    public bool vertical;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    //rigidbody2D先前我们已经用过了，如果不希望rigidbody2D被覆盖</span><br><span class="line">    //这里可以取比如rigidbody2d这种不一样的名字</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line"></span><br><span class="line">    //朝一个方向移动的总时间</span><br><span class="line">    public float changeTime = 3.0f;</span><br><span class="line"></span><br><span class="line">    //计时器</span><br><span class="line">    float timer;</span><br><span class="line">    //方向</span><br><span class="line">    int direction = 1;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //通过当前这个代码组件，获取到这个代码组件所在的游戏对象</span><br><span class="line">        //再通过游戏对象，获取到刚体组件</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //Update本来是每帧来调用，但是和FixedUpdate结合使用，它又是固定的</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //每次减少</span><br><span class="line">        //但是每秒减少还是一样的</span><br><span class="line">        timer -= Time.deltaTime;</span><br><span class="line">        //如果timer到0，重置</span><br><span class="line">        if (timer &lt; 0) &#123;</span><br><span class="line">            //方向取反</span><br><span class="line">            direction = -direction;</span><br><span class="line">            //时间重置</span><br><span class="line">            timer = changeTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //若是希望移动非常稳定的话，用FixedUpdate</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前游戏对象所在的位置</span><br><span class="line">        Vector2 position = rigidbody2d.position;</span><br><span class="line"></span><br><span class="line">        //纵向移动，沿y轴移动</span><br><span class="line">        //加不加Time.deltaTime都可以</span><br><span class="line">        if (vertical) &#123;</span><br><span class="line">            position.y = position.y + Time.deltaTime * speed*direction;</span><br><span class="line">        &#125;</span><br><span class="line">        //否则，沿x轴移动</span><br><span class="line">        else &#123;</span><br><span class="line">            position.x = position.x + Time.deltaTime * speed*direction;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //和直接赋值的效果是一样的，但是这个更严谨些</span><br><span class="line">        rigidbody2d.MovePosition(position);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //刚体碰撞的方法</span><br><span class="line">    //在这个方法中，添加对玩家伤害的逻辑</span><br><span class="line">    private void OnCollisionEnter2D(Collision2D other) &#123;</span><br><span class="line">        //获取和敌人碰撞的玩家角色</span><br><span class="line">        //先获取玩家控制器脚本</span><br><span class="line">        //这个类的设置不能直接GetComponent</span><br><span class="line">        //要先获得gameObject</span><br><span class="line">        //这个是类设定的规则，记住这个方式来使用</span><br><span class="line">        RubyController rubyController = other.gameObject.GetComponent&lt;RubyController&gt;();</span><br><span class="line"></span><br><span class="line">        //如果不为空，直接让它减血</span><br><span class="line">        if (rubyController != null) &#123;</span><br><span class="line">            //玩家角色掉血</span><br><span class="line">            rubyController.ChangeHealth(-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="关于Collision2D"><a href="#关于Collision2D" class="headerlink" title="关于Collision2D"></a>关于Collision2D</h1><p>该类对象是回调函数返回的碰撞细节。用来描述碰撞本身。<br>是包含碰撞信息的一个类</p>
-<p>可以通过碰撞细节事件函数（回调函数）来编写两个刚体碰撞后的游戏逻辑</p>
-<h2 id="碰撞回调函数有三个"><a href="#碰撞回调函数有三个" class="headerlink" title="碰撞回调函数有三个"></a>碰撞回调函数有三个</h2><ul>
-<li>OnCollisionEnter2D(MonoBehaviour.OnCollisionEnter2D)</li>
-<li>OnCollisionStay2D(OnCollisionEnter2D.OnCollisionStay2D)</li>
-<li>OnCollisionExit2D(OnCollisionEnter2D.OnCollisionExity2D)</li>
-</ul>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -867,6 +914,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/02/Unity-UI%E7%B3%BB%E7%BB%9F/">Unity UI系统</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/02/%E6%88%91%E7%9A%84%E6%B8%B8%E6%88%8F%E5%91%93%E8%AF%AD/">我的游戏呓语</a>
             </li>
             
@@ -876,10 +927,6 @@
             
             <li>
                 <a class="footer-post" href="/2022/04/30/%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F%E5%92%8C%E8%BE%B9%E7%95%8C/">摄像机跟随和边界</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/04/30/%E4%BF%AE%E5%A4%8D%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%84%9A%E6%9C%AC/">修复机器人脚本</a>
             </li>
             
         </ul>

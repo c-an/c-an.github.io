@@ -10,10 +10,9 @@
 
     <!--Description-->
     
-        <meta name="description" content="Tilemap概念Tilemap是2D游戏中，用来构建世界的工具瓦片地图组件，是一个存储和操作Tile资源的系统，用来创建2D关卡
-瓦片 Tile瓦片是排列在瓦片地图上的资源，用于构建2D环境。每个瓦片引用一个选定的精灵，然后在瓦片地图网格上的瓦片位置处渲染该精灵。
-
-Tile：新版本中已经看不到，">
+        <meta name="description" content="前言：
+目前为止，一直使用Debug.Log在主角受伤时输出当前的生命值。但是玩家不会又Console窗口，因此无法查看最终游戏中的日志。所以，为了给玩家提供反馈，交互式应用测序使用用户界面（简称UI）将图像和文本叠加在场景上来显示信息。这种显示方式也成为抬头显示（HUD）。
+最新Unity中的3大">
     
 
     <!--Author-->
@@ -23,7 +22,7 @@ Tile：新版本中已经看不到，">
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Unity Tilemap"/>
+        <meta property="og:title" content="Unity UI系统"/>
     
 
     <!--Open Graph Description-->
@@ -48,7 +47,7 @@ Tile：新版本中已经看不到，">
 
     <!-- Title -->
     
-    <title>Unity Tilemap - c-an</title>
+    <title>Unity UI系统 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -154,13 +153,13 @@ Tile：新版本中已经看不到，">
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/19/Unity-Tilemap/">
-                Unity Tilemap
+            <a href="/2022/05/02/Unity-UI%E7%B3%BB%E7%BB%9F/">
+                Unity UI系统
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-19</span>
+                <span class="date">2022-05-02</span>
             
             
             
@@ -173,52 +172,66 @@ Tile：新版本中已经看不到，">
         
 
         <!-- Post Content -->
-        <h2 id="Tilemap概念"><a href="#Tilemap概念" class="headerlink" title="Tilemap概念"></a>Tilemap概念</h2><p>Tilemap是2D游戏中，用来构建世界的工具<br>瓦片地图组件，是一个存储和操作Tile资源的系统，用来创建2D关卡</p>
-<h2 id="瓦片-Tile"><a href="#瓦片-Tile" class="headerlink" title="瓦片 Tile"></a>瓦片 Tile</h2><p>瓦片是排列在瓦片地图上的资源，用于构建2D环境。每个瓦片引用一个选定的精灵，然后在瓦片地图网格上的瓦片位置处渲染该精灵。</p>
+        <p>前言：</p>
+<p>目前为止，一直使用Debug.Log在主角受伤时输出当前的生命值。但是玩家不会又Console窗口，因此无法查看最终游戏中的日志。所以，为了给玩家提供反馈，交互式应用测序使用<strong>用户界面（简称UI）</strong>将图像和文本叠加在<strong>场景</strong>上来显示信息。这种显示方式也成为<strong>抬头显示（HUD）</strong>。</p>
+<h1 id="最新Unity中的3大UI系统"><a href="#最新Unity中的3大UI系统" class="headerlink" title="最新Unity中的3大UI系统"></a>最新Unity中的3大UI系统</h1><ul>
+<li>UI工具包</li>
+</ul>
+<p>UI toolKit UI工具包是Unity中最新的UI系统。它旨在优化跨平台性能，并基于Web技术。您可以使用UI工具包为Unity编辑器创建扩展，用程序创建时运行UI（如果安装了UI工具包软件包）。</p>
+<p>Uinty打算让UI工具包成为新UI开发项目推荐UI系统，但它仍然缺少Unity UI（UGUI）和IMGUI中的一些功能。</p>
+<p>一句话总结：</p>
+<p>全能UI系统，而且是Unity未来UI发展方向，暂时还缺少部分功能，建议优先使用，遇到不足的，再选择别的UI系统补上。</p>
+<hr>
 <ul>
-<li>Tile：新版本中已经看不到，但是可以使用</li>
-<li>Scriptable Tile：自编程瓦片</li>
-<li>Rule Tile：规则瓦片 </li>
-<li>Animated Tile：动画瓦片</li>
+<li>Unity软件包（UGUI）</li>
 </ul>
+<p>Unity用户界面（Unity UI）软件包（也成为UGUI）是一个较旧的、基于游戏对象的UI系统，宁可以使用它为游戏和应用程序开发运行时UI。Unity使用组件和Game视图来排列和定位用户界面并设置其样式。它支持高级渲染和文本渲染功能。</p>
+<p>现在使用Unity的公司，旧项目中大多数还在使用UGUI，甚至是它的前身nGUI（第三方ui），Ruby’s Adventure教程中，使用的还是UGUI</p>
+<blockquote>
+<p>注意：UGUI不能在Unity编辑器中创建或更改用户界面</p>
+</blockquote>
+<blockquote>
+<p>UGUI的优势</p>
+</blockquote>
+<ol>
+<li>所见即所得（WYSIWYG）设计工具</li>
+<li>支持多模式、多摄像机渲染</li>
+<li>面向对象的编程</li>
+</ol>
+<blockquote>
+<p>UGUI基本使用步骤</p>
+</blockquote>
+<ol>
+<li>创建画布Canves</li>
+<li>在画布Canves中添加UI组件（文本、文本框、按钮等等）</li>
+<li>设置好布局、动画、以及摄像机、特效等</li>
+<li>需要的话，再添加交互事件</li>
+</ol>
 <hr>
-<h2 id="素材相关"><a href="#素材相关" class="headerlink" title="素材相关"></a>素材相关</h2><blockquote>
-<p>Sprite（精灵）：纹理的容器，大型纹理图集可以转为精灵图集（Sprite Sheet）</p>
-</blockquote>
-<blockquote>
-<p>Tile（瓦片）：包含一个精灵，以及两个属性，颜色和碰撞体类型。使用瓦片就像在画布上画画一样，画画时可以设置一些颜色和属性   [紫色的瓦图标]</p>
-</blockquote>
-<h2 id="工具相关"><a href="#工具相关" class="headerlink" title="工具相关"></a>工具相关</h2><blockquote>
-<p>Tile Palette（瓦片调色板）：当你在画布上（Canvas）上画画时，会需要一个位置来保存绘画的结果。 类似地，调色板（Palette）的功能就是保存瓦片，将它们绘制到网格上</p>
-</blockquote>
-<blockquote>
-<p>Brush（笔刷）：用于将画好的东西绘制到画布上。使用Tilemap时，可以在多个笔刷中任意选择，绘制出线条、方块等各种形状</p>
-</blockquote>
-<h2 id="组件相关"><a href="#组件相关" class="headerlink" title="组件相关"></a>组件相关</h2><blockquote>
-<p>Tilemap（瓦片地图）：类似于Photoshop中的图层，我们可以在Tilemap上画上Tile</p>
-</blockquote>
-<blockquote>
-<p>Grid（网格）：用于控制网格属性的组件。Tilemap是Grid的子对象。Grid类似于UI Cancas（UI）画布</p>
-</blockquote>
-<blockquote>
-<p>Tilemap Renderer（瓦片地图渲染器）：是Tilemap游戏中对象的一部分，用于控制Tilemap上的渲染，控制如排序、材质、遮罩等<br><br></br></p>
-</blockquote>
-<hr>
-<h2 id="切割大的瓦片地图"><a href="#切割大的瓦片地图" class="headerlink" title="切割大的瓦片地图"></a>切割大的瓦片地图</h2><p>选择Sprite Editor进入编辑，并且还得把Sprite Mode的多模式改成单模式（Single-&gt;Multiple）<br>Sprite中slice的类型中的Automatic一般适合不连续的区域，按照区域的边界进行自动的分割</p>
-<hr>
-<p>但是使用普通的瓦片来构建世界，一个一个格子用笔刷填充，非常费时，以下方法可减少绘制地图所需的时间  <b></p>
 <ul>
-<li>瓦片编程 Scriptable Tile<br>Unity也支持创建自己的Tile类，自己书写瓦片的绘制规则。<br>还可以为瓦片自定义编辑器。这与脚本化对象的自定义编辑器的工作方式相同。<br>创建一个继承自TileBase（或TileBase的任何有用的子类，如Tile）的新类。重写新的Tile类所需的所有方法</li>
-<li>编程画笔 Scriptable Brush<br>Unity也支持创建自己的Brush类，设计适合自己的网格画笔。<br>创建一个继承自GridBrushBase（或GridBrushBase的任何有用子类，如GridBrush）的新类。重写的Brush类所需的所有方法。<br>创建可编程画笔后，画笔将列在Palette窗口的Brushes下拉选单中。默认情况下，可编程画笔脚本的实例将经过实例化并存储在项目的Library文件夹中。这些画笔资源将在Brush下拉选档中单独列出。<h3 id="2D-Tilemap-Extras（2D瓦片地图扩展）"><a href="#2D-Tilemap-Extras（2D瓦片地图扩展）" class="headerlink" title="2D Tilemap Extras（2D瓦片地图扩展）"></a>2D Tilemap Extras（2D瓦片地图扩展）</h3></li>
-<li>1.Animated Tile 动画瓦片<br>动画瓦片在游戏运行时，按顺序显示Sprite列表以创建逐帧动画</li>
-<li>2.Rule Tile 规则瓦片<br>可以为每个瓦片创建规则，在绘制时，unity会自动响应这些规则，绘制地图更加智能</li>
+<li>NGUI</li>
+</ul>
+<p>第三方UI系统，需付费（$95）,除非入职公司旧系统，还在使用NGUI，否则不推荐学习，UGUI是模仿NGUI做出来的，已经比NGUI更好用，功能更强。</p>
+<hr>
+<ul>
+<li>IMGUI<br>立即模式图形用户界面（IMGUI）是一个代码驱动的UI工具包，它使用OnGUI函数以及实现它的脚本来绘制和管理用户界面以及实现它的脚本绘制和管理用户界面。宁可以使用IMGUI来创建自定义Inspector，Unity编辑器的扩展以及游戏内调显示。不推荐用于构建运行时UI。<br>纯代码UI系统，适合程序员做游戏内部测试系统、控制台的UI</li>
 </ul>
 <hr>
-<h3 id="一般Tilemap创建三个，分别为："><a href="#一般Tilemap创建三个，分别为：" class="headerlink" title="一般Tilemap创建三个，分别为："></a>一般Tilemap创建三个，分别为：</h3><ul>
-<li>background(地图背景)</li>
-<li>bound(边界)</li>
-<li>foreground(前景，主要是地形)<br><br></br></li>
-</ul>
+<blockquote>
+<p>学习建议：Unity的三个都学，首先是UGUI（兼容旧项目），其次是UI toolKit，之后是IMGUI，不建议再学NGUI</p>
+</blockquote>
+<blockquote>
+<p>如果近期不以Unity就业为目标，建议开始学UI toolKit</p>
+</blockquote>
+<blockquote>
+<p>旧项目：保持系统一致性为原则，使用UGUI或NGUI</p>
+</blockquote>
+<blockquote>
+<p>新项目：尽量使用Unity UI ToolKit，这个是Unity主推的方向，用它不能实现的再考虑UGUI</p>
+</blockquote>
+<blockquote>
+<p>游戏内部测试系统（包括控制台）：Unity UI ToolKit不能实现的话，就使用IMGUI</p>
+</blockquote>
 
     </div>
 

@@ -152,6 +152,40 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/04/24/%E6%95%8C%E4%BA%BA%E7%A7%BB%E5%8A%A8%E6%96%B9%E5%BC%8F/">
+                敌人移动方式
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-24</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <blockquote>
+<p>来设计一个敌人，并设计敌人的移动方式吧。下面是敌人移动方式的代码</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">public class EnemyController : MonoBehaviour &#123;</span><br><span class="line">    //设定移动变量速度</span><br><span class="line">    public float speed = 0.1f;</span><br><span class="line">    //声明一个2D刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2D;</span><br><span class="line">    //声明Vector2对象来存放敌人当前位置</span><br><span class="line">    Vector2 position;</span><br><span class="line">    //声明一个初始y坐标变量</span><br><span class="line">    float initY;</span><br><span class="line">    //声明一个移动方向的变量</span><br><span class="line">    float direction;</span><br><span class="line">    //存放移动距离的变量，设置为公有，开放在unity中的访问</span><br><span class="line">    public float distance = 4;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123; </span><br><span class="line">        //获取这些对象或变量在游戏开始时的值</span><br><span class="line">        rigidbody2D = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //获取起始位置</span><br><span class="line">        position = transform.position;</span><br><span class="line">        //获取起始位置，最终还是为了获取y坐标</span><br><span class="line">        initY = position.y;</span><br><span class="line">        //设定初始移动方向</span><br><span class="line">        //我们设定direction要么是1.0，要么是-1.0</span><br><span class="line">        //-1.0代表折返</span><br><span class="line">        direction = 1.0f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //通过刚体移动的方法调用，放入fixupdate方法中，0.02秒执行一次</span><br><span class="line">        MovePositon();//这是我们自定义的一个方法</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //自定义在Y轴折返移动的算法</span><br><span class="line">    private void MovePositon() &#123;</span><br><span class="line">        //每次满足其中的一种或两种条件</span><br><span class="line">        if(position.y-initY&lt;distance&amp;&amp;direction&gt;0)v&#123;</span><br><span class="line">            position.y += speed;</span><br><span class="line">        &#125;</span><br><span class="line">        if (position.y - initY &gt;= distance &amp;&amp; direction &gt; 0) &#123;</span><br><span class="line">            direction = -0.1f;</span><br><span class="line">        &#125;</span><br><span class="line">        if (position.y - initY &gt; 0 &amp;&amp; direction &lt; 0) &#123;</span><br><span class="line">            position.y -= speed;</span><br><span class="line">        &#125;</span><br><span class="line">        if (position.y - initY &lt;= distance &amp;&amp; direction &gt; 0) &#123;</span><br><span class="line">            direction = 0.1f;</span><br><span class="line">        &#125;</span><br><span class="line">        //通过刚体系统移动游戏对象</span><br><span class="line">        rigidbody2D.position = position;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>把上述的移动方式屏蔽（取消脚本勾选），来看另一种方法吧（更完善）</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">public class EnemyController2 : MonoBehaviour &#123;</span><br><span class="line">    //代表移动速度（实际上是每次刷新时移动的距离）</span><br><span class="line">    public float speed;</span><br><span class="line">    //是否垂直移动，true按y轴移动，false按x轴移动</span><br><span class="line">    public bool vertical;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    //rigidbody2D先前我们已经用过了，如果不希望rigidbody2D被覆盖</span><br><span class="line">    //这里可以取比如rigidbody2d这种不一样的名字</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line"></span><br><span class="line">    //朝一个方向移动的总时间</span><br><span class="line">    public float changeTime = 3.0f;</span><br><span class="line"></span><br><span class="line">    //计时器</span><br><span class="line">    float timer;</span><br><span class="line">    //方向</span><br><span class="line">    int direction = 1;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //通过当前这个代码组件，获取到这个代码组件所在的游戏对象</span><br><span class="line">        //再通过游戏对象，获取到刚体组件</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //Update本来是每帧来调用，但是和FixedUpdate结合使用，它又是固定的</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //每次减少</span><br><span class="line">        //但是每秒减少还是一样的</span><br><span class="line">        timer -= Time.deltaTime;</span><br><span class="line">        //如果timer到0，重置</span><br><span class="line">        if (timer &lt; 0) &#123;</span><br><span class="line">            //方向取反</span><br><span class="line">            direction = -direction;</span><br><span class="line">            //时间重置</span><br><span class="line">            timer = changeTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //若是希望移动非常稳定的话，用FixedUpdate</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前游戏对象所在的位置</span><br><span class="line">        Vector2 position = rigidbody2d.position;</span><br><span class="line"></span><br><span class="line">        //纵向移动，沿y轴移动</span><br><span class="line">        //加不加Time.deltaTime都可以</span><br><span class="line">        if (vertical) &#123;</span><br><span class="line">            position.y = position.y + Time.deltaTime * speed*direction;</span><br><span class="line">        &#125;</span><br><span class="line">        //否则，沿x轴移动</span><br><span class="line">        else &#123;</span><br><span class="line">            position.x = position.x + Time.deltaTime * speed*direction;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //和直接赋值的效果是一样的，但是这个更严谨些</span><br><span class="line">        rigidbody2d.MovePosition(position);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/04/23/%E5%B9%B3%E9%93%BA%E6%8E%89%E8%A1%80%E5%8C%BA%E5%9F%9F/">
                 平铺掉血区域
             </a>
@@ -587,45 +621,6 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/17/hello-world/">
-                Hello World
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-17</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -638,7 +633,7 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
                 <a class="" href="/">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 </a>
-                <a class="disabled" href="/">
+                <a class="" href="/page/3/">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </a>
             </div>
@@ -668,6 +663,10 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/02/%E6%88%91%E7%9A%84%E6%B8%B8%E6%88%8F%E5%91%93%E8%AF%AD/">我的游戏呓语</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/01/%E8%A7%86%E8%A7%89%E9%A3%8E%E6%A0%BC-%E7%B2%92%E5%AD%90/">视觉风格-粒子</a>
             </li>
             
@@ -677,10 +676,6 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
             
             <li>
                 <a class="footer-post" href="/2022/04/30/%E4%BF%AE%E5%A4%8D%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%84%9A%E6%9C%AC/">修复机器人脚本</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/04/27/%E4%B8%96%E7%95%8C%E4%BA%A4%E4%BA%92-%E9%A3%9E%E5%BC%B9/">世界交互-飞弹</a>
             </li>
             
         </ul>

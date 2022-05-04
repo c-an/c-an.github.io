@@ -152,6 +152,82 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/04/TextMeshPro%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E4%B8%8E%E7%BF%BB%E9%A1%B5/">
+                TextMeshPro正常显示中文与翻页
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-04</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="TextMeshPro正常显示中文"><a href="#TextMeshPro正常显示中文" class="headerlink" title="TextMeshPro正常显示中文"></a>TextMeshPro正常显示中文</h1><p>TMP也是原先第三方收购的，一般来自这种模板里没有，都需要通过包管理器来加。但是这块文档怎么找呢？这里的话，通过关键字来找不是很规范。到Unity官方手册里Packages and feature sets&gt;按关键字排列的包（包括自带的和不自带要通过包管理器安装的）</p>
+<p>要解决TextMeshPro显示中文的问题，实际就是解决显示TextMeshPro字体的问题。有以下两种解决方式</p>
+<ul>
+<li>动态加载字体（优先使用，比较简单，性能稍微差些）</li>
+</ul>
+<ol>
+<li>下载字体，最好是开源字体，未来在项目中可以使用</li>
+<li>在Unity projetc窗口中，在Assets下新建Fonts文件夹，导入下载好的字体（就是把下载好的字体，解压出来的.ttf拖拽进去）</li>
+<li>创建动态字体:在Prject窗口中，选择下载好的字体，右键-Create-TextMeshPro-Font Asset创建好的动态字体，会根据你使用过的文字，自动储存到Atlas中</li>
+</ol>
+<ul>
+<li>静态字体（静态字体效率会比动态的高，适合文字较多时使用）</li>
+</ul>
+<ol>
+<li>下载一个“常用汉字”的txt文件，必须使用Unicode编码保存，比如utf-8，将其导入Unity</li>
+<li>在Unity菜单中，选择Window–TextMeshPro–Font Asset Creator，打开窗口</li>
+</ol>
+<ul>
+<li>Source Font File，选择添加好的中文字体文件</li>
+<li>Character Set：选中Characters from File 从文件获取文字</li>
+<li>Character File：选中txt文件</li>
+<li>Generate Font Atlas：点击按钮，生成静态字体图集（比较慢的一个过程）</li>
+<li>Save：保存生成的字体asset</li>
+</ul>
+<blockquote>
+<p>字体后备 Font Fallback</p>
+</blockquote>
+<p>某些动态字体，在使用中文标点符号和一些特殊文字符号的时候，依旧会出现方块，这个时候可以使用TextMeshPro的FontFallback。Font Fallback可以从另一个FontAsset中获取不包含当前FontAsset中的字符。</p>
+<p><br></br></p>
+<h1 id="TextMeshPro翻页"><a href="#TextMeshPro翻页" class="headerlink" title="TextMeshPro翻页"></a>TextMeshPro翻页</h1><p>当Text Input内容超出文本框，如果还要显示，就会溢出。如何解决溢出呢？</p>
+<ol>
+<li>选中DialogTMP找到Overflow（溢出），把它设置成Page</li>
+<li>Page就是分页显示，后面那个文本框就是显示第几页，静态的、刚开始起始状态下显示第几页</li>
+</ol>
+<hr>
+<blockquote>
+<p>设置完以后，溢出的文字不会再显示了。那么就要添加翻页的功能，翻页需要翻页键。</p>
+</blockquote>
+<p>我们可以通过在对话时，按下一个按钮，比如空格，激活翻页功能。</p>
+<ul>
+<li>在Update方法中，通过if判断是否按下空格，最好使用GetKetUp，避免按一次键，事件多次触发</li>
+<li>设定一个变量，代表当前页码，还要知道总页数</li>
+<li>每次按键，只要没到最后一页，都是当前页数加一；是最后一页，让其循环到第一页</li>
+</ul>
+<p>代码应该在NPC中改吧</p>
+<p>下面进行修改：</p>
+<p>这是NonPlayerCharacter的完整代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using TMPro;</span><br><span class="line"></span><br><span class="line">public class NonPlayerCharater : MonoBehaviour &#123;</span><br><span class="line">    //添加对话显示时长，public要不不合适直接在Unity里改</span><br><span class="line">    public float displayTime = 4.0f;</span><br><span class="line">    //用来获取对话框对象</span><br><span class="line">    public GameObject dialogBox;</span><br><span class="line">    //计时器，用来倒计时文本框显示的时间</span><br><span class="line">    float timerDisplay;</span><br><span class="line"></span><br><span class="line">    //创建一个游戏对象，来获取TMP控件</span><br><span class="line">    public GameObject dlgTxtProGameObject;</span><br><span class="line">    //创建游戏组件类对象</span><br><span class="line">    //TextMeshProGUI是在TMPro这个包里的，注意命名空间引用</span><br><span class="line">    //私有的都在前面给它取个下划线</span><br><span class="line">    TextMeshProUGUI _tmTxtBox;</span><br><span class="line">    //设置变量存储当前页数</span><br><span class="line">    int _currentPage = 1;</span><br><span class="line">    //声明变量，用来存储总页数</span><br><span class="line">    int _totalPages;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //游戏一开始，不显示对话框</span><br><span class="line">        dialogBox.SetActive(false);</span><br><span class="line">        //设置计时器刚开始不可用，直到玩家投射射线，激活文本框,才开始倒计时</span><br><span class="line">        timerDisplay = -1.0f;</span><br><span class="line"></span><br><span class="line">        //获取对话框TMP组件</span><br><span class="line">        _tmTxtBox = dlgTxtProGameObject.GetComponent&lt;TextMeshProUGUI&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    //在Update中进行倒计时</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //还需要拿总页数，但是在start期间TMP还没实例化总页数，所以要在Update里拿</span><br><span class="line">        //获取对话框组件中，对话文字的总页数</span><br><span class="line">        _totalPages = _tmTxtBox.textInfo.pageCount;</span><br><span class="line">        //如果倒计时没结束</span><br><span class="line">        if (timerDisplay &gt;= 0.0f) &#123;</span><br><span class="line">            //翻页功能写入倒计时逻辑中</span><br><span class="line">            //监测用户输入，每次Space键弹起时激活对话</span><br><span class="line">            //为什么不能是GetKey，因为那样会乱翻</span><br><span class="line">            if (Input.GetKeyUp(KeyCode.Space)) &#123;</span><br><span class="line">                //如果没翻到最后一页，向后翻页</span><br><span class="line">                if (_currentPage &lt; _totalPages) &#123;</span><br><span class="line">                    _currentPage++;</span><br><span class="line">                &#125;</span><br><span class="line">                //否则回到第一页</span><br><span class="line">                else &#123;</span><br><span class="line">                    _currentPage = 1;</span><br><span class="line">                &#125;</span><br><span class="line">                //设置当前显示的页数</span><br><span class="line">                _tmTxtBox.pageToDisplay = _currentPage;</span><br><span class="line">            &#125;</span><br><span class="line">            //倒计时</span><br><span class="line">            //-=一帧消耗的时间</span><br><span class="line">            timerDisplay -= Time.deltaTime;</span><br><span class="line">        &#125; else&#123;</span><br><span class="line">            //否则，倒计时结束，对话框隐藏</span><br><span class="line">            dialogBox.SetActive(false);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //npc说话方法</span><br><span class="line">    public void DisplayDialog() &#123;</span><br><span class="line">        //重置计时器</span><br><span class="line">        timerDisplay = displayTime;</span><br><span class="line">        //显示对话框</span><br><span class="line">        dialogBox.SetActive(true);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面代码添加完，回到Unity，点击Jambi，代码找到，会发现多了一个公开的属性Dig Txt Pro Game Object,需要把TMP组件所在的游戏对象拖过去。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/04/%E4%BB%A3%E7%A0%81%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%AF%9D%E6%A1%86/">
                 代码控制对话框
             </a>
@@ -847,99 +923,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/27/%E4%B8%96%E7%95%8C%E4%BA%A4%E4%BA%92-%E9%A3%9E%E5%BC%B9/">
-                世界交互-飞弹
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-27</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="飞弹预制件及脚本"><a href="#飞弹预制件及脚本" class="headerlink" title="飞弹预制件及脚本"></a>飞弹预制件及脚本</h1><p>tip:本文子弹等同于飞弹</p>
-<p>我在Sprites里拖拽素材到场景中发现飞弹太大了，Pixels Per Unit（一个单元格内用多少像素来绘制图像，如果你希望它没那么精细，可以把值改小一点，这样图形绘制的面积就会大一些了）由100改成500比较合适。</p>
-<p>我们必须要把刚刚拖出来的飞盘制作成预制件才可以使用。为什么呢？因为攻击时要用很多的飞弹，每个飞弹不可能每次都去创建。</p>
-<p>把素材拖拽到Perfabs里，让它称为预制件</p>
-<p>这个预制件是通过代码生成的，就是按键盘上的某个键，创建这个建的游戏对象，然后发射这个游戏对象作为一个飞弹</p>
-<p>既然能够飞出去并且还能发生碰撞，那么我们在修改预制件的时候，应该有刚体和碰撞体。添加Rigidbody 2D（记得把重力取消了，不需要那么真实，平飞就行）和Box Collider 2D</p>
-<p>下面是子弹预制件脚本代码（写在Projectilr1.cs）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//子弹预制件脚本</span><br><span class="line">public class Projectile1 : MonoBehaviour &#123;</span><br><span class="line">    //声明刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //通过这个脚本对象获取当前游戏对象所绑定的刚体</span><br><span class="line">        //获取刚体对象实例</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    //把当前的子弹抛射出去</span><br><span class="line">    //传入参数（方向，力）</span><br><span class="line">     public void Launch(Vector2 direction,float force) &#123;</span><br><span class="line">        //这次不使用移动，使用物理系统</span><br><span class="line">        //通过刚体对象调用物理系统的AddForce方法</span><br><span class="line">        //对游戏对象施加一个力，使其移动</span><br><span class="line">        rigidbody2d.AddForce(direction*force);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //碰撞事件方法</span><br><span class="line">    private void OnCollisionEnter2D(Collision2D collision) &#123;</span><br><span class="line">        //向控制台输出信息，打印出当前子弹碰撞的游戏对象是谁</span><br><span class="line">        Debug.Log($&quot;齿轮子弹碰撞到了：&#123;collision.gameObject&#125;&quot;);</span><br><span class="line">        //碰撞完后，子弹应该消失，即销毁当前子弹游戏对象</span><br><span class="line">        Destroy(gameObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br></br></p>
-<h1 id="玩家发射飞弹脚本"><a href="#玩家发射飞弹脚本" class="headerlink" title="玩家发射飞弹脚本"></a>玩家发射飞弹脚本</h1><p>发射预制件是由玩家角色发射的，所以应该在（Ruby）的脚本中写入（发射飞弹）</p>
-<ul>
-<li>玩家角色创建游戏对象（子弹）</li>
-<li>并把它发射出去</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//声明一个公开的游戏对象projectilePrefab，用来获取子弹预制件对象</span><br><span class="line">//把它设置为公开是为了在Unity里把Ruby和子弹关联起来了</span><br><span class="line">public GameObject projectilePrefab;</span><br></pre></td></tr></table></figure>
-<p><br></br></p>
-<blockquote>
-<p>在Unity的Ruby Controller（Script）能看到刚添加的Projectile Prefab，在这里，把子弹预制件挂上去。（在Select GameObject里搜就行了，默认是Scence，选择Assets，挂接Projectile）。</p>
-</blockquote>
-<blockquote>
-<p>挂接上了，就可以拿到所挂的预制件，用代码生成这个预制件的游戏对象（在这就是不停生成子弹）</p>
-</blockquote>
-<blockquote>
-<p>获取到子弹以后就需要有一个发射子弹的方法，并且调用子弹的发射</p>
-</blockquote>
-<blockquote>
-<p>发射，如何发射？需要获取玩家的输入，玩家的输入添加在update里</p>
-</blockquote>
-<p>下列是玩家发射飞弹脚本代码（写在RubyCintroller.cs）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">public class RubyController : MonoBehaviour &#123;</span><br><span class="line">    //声明一个公开的游戏对象projectilePrefab，用来获取子弹预制件对象</span><br><span class="line">    //把它设置为公开是为了在Unity里把Ruby和子弹关联起来了</span><br><span class="line">    public GameObject projectilePrefab;</span><br><span class="line">    //设置玩家间隔无敌时间</span><br><span class="line">    public float timeInvincible = 2.0f;</span><br><span class="line">    //设置是否无敌的变量</span><br><span class="line">    bool isInvincible;</span><br><span class="line">    //定义变量，进行无敌时间的计时，无敌时间计时器</span><br><span class="line">    float invincibleTimer;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //设置最大生命值（生命上限）</span><br><span class="line">    public int maxHealth = 5;</span><br><span class="line">    //设置当前生命值的属性health</span><br><span class="line"></span><br><span class="line">    //c#中支持面向对象程序设计中的封装概念，对数据成员的保护</span><br><span class="line">    //数据成员变量，默认一般都应该设置为私有，只能通过对当前类的方法或属性进行访问</span><br><span class="line">    //属性类似于特殊的函数结构，它get是一个关键字</span><br><span class="line">    //get是获取当前属性所绑定的字段的值</span><br><span class="line">    //属性相当于一个盒子，字段是在盒子里的某件东西</span><br><span class="line">    //属性限制了字段的访问规则，比如只能读或写</span><br><span class="line">    //或者读写的时候满足某种需求，才能往外进行操作</span><br><span class="line">    //相当于把它包装起来，这就称为封装</span><br><span class="line">    //属性是公有的，可以通过取值器get、赋值器set设定对应字段的访问规则，满足规则才能进行访问</span><br><span class="line"></span><br><span class="line">    public int health &#123; </span><br><span class="line">        get &#123; return currentHealth; &#125;</span><br><span class="line">        //set &#123; currentHealth = value; &#125;//可赋值</span><br><span class="line">    &#125;</span><br><span class="line">    int currentHealth;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2D;</span><br><span class="line">    //获取用户输入</span><br><span class="line">    float horizontal;</span><br><span class="line">    float vertical;</span><br><span class="line"></span><br><span class="line">    //将速度暴露出来，使其可调</span><br><span class="line">    public float speed = 0.1f;</span><br><span class="line"></span><br><span class="line">    //声明一个动画管理者组件对象</span><br><span class="line">    Animator animator;</span><br><span class="line">    //创建一个二维矢量，用来存储Ruby静止不动时看的方向（即面向的方向）</span><br><span class="line">    //与机器人相比，Ruby可以站立不动。她站立不动时，Move X和Y均为0，这时状态机就没法获取Ruby静止时的朝向</span><br><span class="line">    //所以需要手动设置一个</span><br><span class="line">    Vector2 lookDirection = new Vector2(1, 0);</span><br><span class="line">    //移动二维矢量</span><br><span class="line">    Vector2 move;</span><br><span class="line"></span><br><span class="line">    private void Start() &#123;</span><br><span class="line">        //获取当前游戏对象的刚体组件</span><br><span class="line">        rigidbody2D = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //游戏刚开始，玩家满血</span><br><span class="line">        currentHealth = maxHealth;</span><br><span class="line"></span><br><span class="line">        //获取组件对象</span><br><span class="line">        animator = GetComponent&lt;Animator&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    //每帧调用一次Update</span><br><span class="line">    //让游戏对象每帧右移0.1</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //获取水平输入，按向左，会获得-1.0f；按向右，会获得1.0f</span><br><span class="line">        horizontal = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">        //获取垂直输入，按向下，会获得-1.0f；按向上，会获得1.0f</span><br><span class="line">        vertical = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //判断是否处于无敌状态，来进行计时器的倒计时</span><br><span class="line">        if (isInvincible) &#123;</span><br><span class="line">            //每次Update减去一帧消耗的时间</span><br><span class="line">            invincibleTimer = invincibleTimer - Time.deltaTime;</span><br><span class="line">            if (invincibleTimer &lt; 0) &#123;</span><br><span class="line">                isInvincible = false;//无敌时间小于0了，让它不无敌了</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //创建一个二维矢量对象来表示Ruby移动的数据信息</span><br><span class="line">        move = new Vector2(horizontal, vertical);</span><br><span class="line">        //如果move中的x/y不为零，表示正在移动</span><br><span class="line">        //将ruby面向方向设置为移动方向</span><br><span class="line">        //停止移动，保持以前方向，所以这个if结构用于转向时重新赋值面向方向</span><br><span class="line">        //if条件表示正在移动</span><br><span class="line">        if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f)&#123;</span><br><span class="line">            ////将ruby面向方向设置为移动方向（ruby朝向移动方向）</span><br><span class="line">            lookDirection.Set(move.x, move.y);//lookDirection.x=move.x  lookDirection.y=move.y</span><br><span class="line"></span><br><span class="line">            //使向量长度为1，可以将此方法称为向量的“归一化”方法</span><br><span class="line">            //通常在表示方向，而非位置的方向上</span><br><span class="line">            //因为blend tree中表示方向的参数值的取值方位是-1.0到1.0，</span><br><span class="line">            //所以一般用向量作为Animator.SetFloat方法的参数时，一般要对向量先进行“归一化”处理</span><br><span class="line">            lookDirection.Normalize();//lookDirection在这里只表示方向</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //传递Ruby面朝方向给blend tree</span><br><span class="line">        animator.SetFloat(&quot;Look X&quot;, lookDirection.x);</span><br><span class="line">        animator.SetFloat(&quot;Look Y&quot;, lookDirection.y);</span><br><span class="line">        //传递Ruby速度给blend tree</span><br><span class="line">        //矢量的magnitue属性，用来返回矢量的长度,是一个绝对值</span><br><span class="line">        animator.SetFloat(&quot;Speed&quot;, move.magnitude);</span><br><span class="line"></span><br><span class="line">        //添加发射子弹的逻辑</span><br><span class="line">        //KeyCode.C 指和键盘C上的键对应</span><br><span class="line">        if (Input.GetKeyDown(KeyCode.C)) &#123;</span><br><span class="line">            //调用发射</span><br><span class="line">            Launch();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //固定时间间隔执行的更新方法</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前对象位置</span><br><span class="line">        Vector2 position = transform.position;</span><br><span class="line">        //更改位置</span><br><span class="line">        position.x = position.x + 0.1f * horizontal;</span><br><span class="line">        position.y = position.y + 0.1f * vertical;</span><br><span class="line">        //新位置给游戏参数</span><br><span class="line">        rigidbody2D.position = position;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //不是系统函数，自定义来更改生命值的</span><br><span class="line">    public void ChangeHealth(int amount) &#123;</span><br><span class="line">        //假设玩家受伤害的时间间隔是2秒</span><br><span class="line">        //不管是什么样的伤害，只要amount小于0，就判断是不是无敌</span><br><span class="line">        if (amount &lt; 0) &#123;</span><br><span class="line">            //判断当前是否处于无敌状态</span><br><span class="line">            if (isInvincible) &#123;</span><br><span class="line">                //无敌不伤血，跳出无敌状态</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当不是无敌状态时，会执行下面的代码</span><br><span class="line">        //重置无敌状态为真</span><br><span class="line">        isInvincible = true;</span><br><span class="line">        //设置无敌时间</span><br><span class="line">        invincibleTimer = timeInvincible;</span><br><span class="line"></span><br><span class="line">        //播放受伤动画</span><br><span class="line">        animator.SetTrigger(&quot;Hit&quot;);</span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //游戏对象发子弹的方法，不需要任何的参数</span><br><span class="line">    void Launch() &#123;</span><br><span class="line">        //创建子弹游戏对象</span><br><span class="line">        //如果要调用这个Launch，子弹就出来了</span><br><span class="line">        //Instantiate()是Unity自带的一个方法,用来实例化一个对象</span><br><span class="line">        //第一个参数是实例化对象用到的预制件</span><br><span class="line">        //这里实例化对象要用到的预制件应该是传递过来的projectilePrefab</span><br><span class="line">        //第二个参数是起始位置，经过计算应该是Ruby手的位置(身高的一半)</span><br><span class="line">        //Quaternion.identity不要旋转</span><br><span class="line">        GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2D.position + Vector2.up * 0.5f, Quaternion.identity);</span><br><span class="line">        //调整子弹的飞行，不能让它每次出来以后都是静止的</span><br><span class="line">        //要调用Projectile控制器组件，Projectile脚本组件本身也是一个类</span><br><span class="line">        //调用子弹里的Launch，这个Launch能让子弹向指定的方向移动</span><br><span class="line">        //先通过游戏对象get当前这个脚本组件</span><br><span class="line">        //get到以后就能用子弹里的Launch方法</span><br><span class="line">        Projectile1 projectile = projectileObject.GetComponent&lt;Projectile1&gt;();</span><br><span class="line">        //通过脚本组件调用子弹移动方向</span><br><span class="line">        //第一个参数是移动的方向，取的是玩家面朝的方向</span><br><span class="line">        //第二个参数是力，如果先要速度快些，可以加大</span><br><span class="line">        projectile.Launch(lookDirection, 300);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="关于Unity与vs019的调试"><a href="#关于Unity与vs019的调试" class="headerlink" title="关于Unity与vs019的调试"></a>关于Unity与vs019的调试</h3><p>打完断点后，在vs里开始附加到Unity（前提是Edit&gt;Preferences&gt;External Tools&gt;External Script Editor绑定了）,编辑器卡住，不再往下运行。一般查看局部变量就行，如果要查看某个值的话，在监视里自己添加。</p>
-<p>调试的过程中，我们发现projectile中的rigidbldy2d是空的，没有刚体对象，不能AddForce，没法往外发射</p>
-<h1 id="修复错误行"><a href="#修复错误行" class="headerlink" title="修复错误行"></a>修复错误行</h1><p>上述代码运行后，控制台有两个错误行</p>
-<ul>
-<li>1.null 引用异常</li>
-</ul>
-<p>双击null引用异常错误，会打卡Projectile脚本并定位到Rigidbody2d.AddForce(direction*force)行，这表示尽管我梦在Start中获得了刚体，但Rigidbody2d变量还是为空（包含null）。</p>
-<p>这是因为在创建对象时，Unity不会允许Start，而是在下一帧才开始运行。因此，在飞弹上调用Launch时，只实例化（Instantiate），不调用Start，因此Rigidbody2d仍然为空。要解决此问题，请将Projectile（我的是Projectile1）脚本中的void Start（）函数重命名为void Awake（）。</p>
-<blockquote>
-<p>与Start刚好相反，在创建对象时（调用Instantile时）就会立即调用Awake，因此在调用Launch之间前已经正确初始化Rigidbody2d</p>
-</blockquote>
-<blockquote>
-<p>tip:在Unity游戏程序运行时，所有附加到游戏对象上的脚本组件都会运行<br>Awake方法和Start方法都只会运行一次，多用于数据初始化。这两个方法的执行顺序是：先执行Awake方法，再执行Start方法，最后才是Update（）</p>
-</blockquote>
-<ul>
-<li>2.飞弹与Ruby发生了碰撞</li>
-</ul>
-<p>因为飞弹是在Ruby上创建的飞弹。一旦创建，物理系统就会告知，飞弹刚体正在与Ruby碰撞体碰撞。然后再OnCollisitionEnter函数中调用Destroy，立刻销毁飞弹。</p>
-<p>为了测试一下飞弹是否与Ruby碰撞，不销毁飞弹。但是又会遇到一个问题，那就是碰撞后会立刻停止移动。<br><br></br></p>
-<h1 id="图层和碰撞"><a href="#图层和碰撞" class="headerlink" title="图层和碰撞"></a>图层和碰撞</h1><p>要修复这个问题，正确方法是使用图层，图层可以讲游戏对象分组在一起，以便可以对它们就行筛选。现在的目标是创建一个角色图层来放入Ruby游戏对象，然后创建一个飞弹图层来放入所以飞弹。</p>
-<p>然后告诉物理系统，角色图层和飞弹图层不能碰撞，要物理系统忽略这些图层中的对象之间的所有碰撞。</p>
-<ul>
-<li><p>1.要查看某个游戏对象在哪个图层，单击游戏对象Inspector右上角的Layers下拉选单。所有对象都从Default层开始（即图层编号为0）.游戏最多可以包含32个不同的图层。</p>
-</li>
-<li><p>2.更改游戏对象的图层后，还需要在项目配置（Project Settings）里的Physics 2D里的Projectile和Character之间的对勾取消选择，这表示它们不会互相碰撞。这些横向和纵向都代表图层。</p>
-</li>
-</ul>
-<hr>
-<p><br></br><br>^_^<br><br></br></p>
-<hr>
-<p>以上修改完就Ruby就可以正常发射飞弹了，但是似乎还没挂接发射飞弹的动作，只需要在RubyController的末尾中添加一句代码就行了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> void Launch() &#123;</span><br><span class="line">        //创建子弹游戏对象</span><br><span class="line">        //如果要调用这个Launch，子弹就出来了</span><br><span class="line">        //Instantiate()是Unity自带的一个方法,用来实例化一个对象</span><br><span class="line">        //第一个参数是实例化对象用到的预制件</span><br><span class="line">        //这里实例化对象要用到的预制件应该是传递过来的projectilePrefab</span><br><span class="line">        //第二个参数是起始位置，经过计算应该是Ruby手的位置(身高的一半)</span><br><span class="line">        //Quaternion.identity不要旋转</span><br><span class="line">        GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2D.position + Vector2.up * 0.5f, Quaternion.identity);</span><br><span class="line">        //调整子弹的飞行，不能让它每次出来以后都是静止的</span><br><span class="line">        //要调用Projectile控制器组件，Projectile脚本组件本身也是一个类</span><br><span class="line">        //调用子弹里的Launch，这个Launch能让子弹向指定的方向移动</span><br><span class="line">        //先通过游戏对象get当前这个脚本组件</span><br><span class="line">        //get到以后就能用子弹里的Launch方法</span><br><span class="line">        Projectile1 projectile = projectileObject.GetComponent&lt;Projectile1&gt;();</span><br><span class="line">        //通过脚本组件调用子弹移动方向</span><br><span class="line">        //第一个参数是移动的方向，取的是玩家面朝的方向</span><br><span class="line">        //第二个参数是力，如果先要速度快些，可以加大</span><br><span class="line">        projectile.Launch(lookDirection, 300);</span><br><span class="line"></span><br><span class="line">        //把SetTrigger参数输进去就行了，它会自动挂接</span><br><span class="line">        //在Launch这个状态下能接收到这个参数，激活Launch状态</span><br><span class="line">        animator.SetTrigger(&quot;Launch&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -982,6 +965,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/04/TextMeshPro%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E4%B8%8E%E7%BF%BB%E9%A1%B5/">TextMeshPro正常显示中文与翻页</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/04/%E4%BB%A3%E7%A0%81%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%AF%9D%E6%A1%86/">代码控制对话框</a>
             </li>
             
@@ -991,10 +978,6 @@
             
             <li>
                 <a class="footer-post" href="/2022/05/03/%E6%8E%A7%E5%88%B6%E8%A1%80%E6%9D%A1%E4%BB%A3%E7%A0%81/">控制血条代码</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/02/%E5%88%B6%E4%BD%9C%E5%A4%B4%E5%83%8F%E3%80%81%E8%A1%80%E6%9D%A1%E6%A1%86UI/">制作头像、血条框UI</a>
             </li>
             
         </ul>

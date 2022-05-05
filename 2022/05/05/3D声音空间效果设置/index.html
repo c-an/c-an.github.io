@@ -10,15 +10,13 @@
 
     <!--Description-->
     
-        <meta name="description" content="这里使用UGUI，所有的GUI都是在画布上进行操作的
+        <meta name="description" content="无论距离音频多远，播放的音量都是一样的，这种声音就不是属于世界的“游戏体验”声音（也成为故事外叙述&amp;#x2F;非剧情声音）。
+希望声音存在于世界。
+下面是案例
+开始修改
 
-下面进行操作：
-
-Hierarchy，右键，UI&amp;gt;Canvas，创建Canvas后，会自动生成一个Event System游戏对象，它里面挂接的是事件系统，做一些用户交互的事件 
-Canvas自带了4个组件。
-
-
-Rect Transfo">
+打开敌人机器人预制件，并向这预制件添加一个音频源：
+将剪辑设置为Audio文件中命名为Robot Walking_Broken的">
     
 
     <!--Author-->
@@ -28,7 +26,7 @@ Rect Transfo">
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="制作头像、血条框UI"/>
+        <meta property="og:title" content="3D声音空间效果设置"/>
     
 
     <!--Open Graph Description-->
@@ -53,7 +51,7 @@ Rect Transfo">
 
     <!-- Title -->
     
-    <title>制作头像、血条框UI - c-an</title>
+    <title>3D声音空间效果设置 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -159,13 +157,13 @@ Rect Transfo">
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/05/02/%E5%88%B6%E4%BD%9C%E5%A4%B4%E5%83%8F%E3%80%81%E8%A1%80%E6%9D%A1%E6%A1%86UI/">
-                制作头像、血条框UI
+            <a href="/2022/05/05/3D%E5%A3%B0%E9%9F%B3%E7%A9%BA%E9%97%B4%E6%95%88%E6%9E%9C%E8%AE%BE%E7%BD%AE/">
+                3D声音空间效果设置
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-05-02</span>
+                <span class="date">2022-05-05</span>
             
             
             
@@ -178,82 +176,27 @@ Rect Transfo">
         
 
         <!-- Post Content -->
-        <blockquote>
-<p>这里使用UGUI，所有的GUI都是在画布上进行操作的</p>
-</blockquote>
-<p>下面进行操作：</p>
+        <p>无论距离音频多远，播放的音量都是一样的，这种声音就不是属于世界的“游戏体验”声音（也成为故事外叙述&#x2F;非剧情声音）。</p>
+<p>希望声音存在于世界。</p>
+<p>下面是案例</p>
+<p>开始修改</p>
 <ol>
-<li>Hierarchy，右键，UI&gt;Canvas，创建Canvas后，会自动生成一个Event System游戏对象，它里面挂接的是事件系统，做一些用户交互的事件 </li>
-<li>Canvas自带了4个组件。</li>
-</ol>
-<ul>
-<li><p>Rect Transform（矩形变换）</p>
-</li>
-<li><p>Canvas：配置整体组件显示模式。</p>
-<p> Screen Space-Overlay：这时默认模式，可以让Unity始终在游戏的上层绘制UI。大多数应用程序使用此模式，因为它们希望UI始终位于最上层以提供所有信息。</p>
-<p> Screen Space-Camera：这种模式在于摄像机对齐的平面上绘制UI。平面的大小确定为始终填充整个屏幕，这样撕扯移动摄像机，平面随摄像机一起移动，从而显示于Overlay图形相同的形状。但是，由于平面是在世界中绘制的，而不是在屏幕上绘制的，因此世界中的对象可以绘制在UI的上层。</p>
-<p> World Space：这种模式可以在世界中的任何位置绘制平面。例如，你可以将此平面作游戏中的计算机屏幕，或者用作墙壁，或者放在角色的上层。这在3D游戏中更有用，因为UI会随着距离变小。</p>
-</li>
-<li><p>Canvas Scaler（缩放方式）<br>Constant Pixel Size 固定的像素大小</p>
-<p>Scale With Screen Size 根据显示的大小进行缩放</p>
-<p>Constant Physical Szie 固定物理大小</p>
-</li>
-<li><p>Canvas玩家是否点中画布对象的（比如按钮）</p>
-</li>
-</ul>
-<ol start="3">
-<li>在Hierarchy中点中Canvas，右键&gt;UI&gt;Image,把它命名为（HealthFrame）这就是一个图片了</li>
-<li>选中想选的精灵，把它从文件夹中拖拽到HealthFrame的Inspector中的Image的第一栏（Source Image）。一个头像框就做好了。（我指的是图片，还有一个大框，那个是相对于游戏屏幕的位置。对了，一开始拖拽精灵进去的时候，精灵大小被改了，按Set Native Szie可以恢复成原来的尺寸。要在场景中通过拖拽改大小，可以按住shift来改，这样比例不会变）</li>
-<li>但是设备不同，显示器不同，分辨率不同，分辨率一改，头像框就会和原先的位置不一样了。</li>
-<li>下面牵扯到锚点的概念，那个白色的风车就是锚点</li>
-<li>拖动白色的框框，有一个是不变的，那就是白色风车的和头像框的相对位置。</li>
-<li>把锚点和头像框设置成同一位置，就可以满足需要。</li>
-<li>HealthFrame的Inspector&gt;Rect Transform ,点击框框，可以快速改变锚点的位置</li>
+<li>打开敌人机器人预制件，并向这预制件添加一个音频源：</li>
+<li>将剪辑设置为Audio文件中命名为Robot Walking_Broken的音频剪辑。</li>
+<li>选中Loop设置</li>
+<li>最后，将Spatial Blend 滑动条一直向有移动到3D，以使声音成为空间化声音</li>
+<li>但是这是不够的，要修改3D Sound Settings中的Max Distance ，500unity其实很大了，一直缩放就能看到那个大圆圈，那个就是范围啊。改成5什么的小一点吧</li>
+<li>下面那个图，横轴距离，纵轴声音。记得拖拽声音，达到大于等于5时声音为0</li>
+<li>摄像机挂的Audio Listener听力范围达不到Robot虽然这个游戏是2D的，但是摄像机是3D的。需要最大声音距离能达到摄像机的位置，否则听不到声音。（点击一下Scence上的2D按钮就可以回到3D视图）</li>
+<li>3D的话，和距离相关。点击Main Camera，可以看到Position中z是-10</li>
+<li>虚拟摄像机是跟着玩家角色的。Audio Listener放在Main Camera上并不合适，应该放在虚拟摄像机上。</li>
+<li>Main Camera上的Audio Listener就不需要了，可以删了。把声音挂到虚拟摄像机上。点击CM vcam1，右键，Create Empty，命名为Listener，在上面挂一个Audio Listener的组件。并且需要把Listener的position-z改成10，抵消空间距离。（抵消摄像机-10的位置）</li>
 </ol>
 <hr>
 <blockquote>
-<p>好了，在头像框里，应该有个头像，一层包一层，点击HealthFrame，右键，UI&gt;Image,命名为HeadImage。</p>
+<p>现在就改完了。<br>但是，当机器人被修复时，不再播放走路声音。<br>找到修复机器人的代码，获取机器人挂接的Audio Sourece组件，调用Stop方法，停止播放走路音频</p>
 </blockquote>
-<ol>
-<li>依葫芦画瓢，把头像的精灵拖拽到HeadImage中的Inspector中的Image的第一栏（Source Image），调整大小</li>
-</ol>
-<hr>
-<blockquote>
-<p>但是，发现一个问题，在移动头像框的时候，头像的位置并不会贴合。因为锚点不光控制位置，还会控制图像的大小缩放。</p>
-</blockquote>
-<p>想让头像根据外部容器缩放，需要锚点和头像外框进行匹配。</p>
-<p>下面进行操作：</p>
-<ol>
-<li>把锚点的四个风车花瓣包裹头像（网上说得很详细啦，搜Unity锚点就行）</li>
-</ol>
-<hr>
-<p>下面开始制作血条</p>
-<h2 id="制作血条"><a href="#制作血条" class="headerlink" title="制作血条"></a>制作血条</h2><blockquote>
-<p>首先介绍遮罩的概念</p>
-</blockquote>
-<h4 id="遮罩"><a href="#遮罩" class="headerlink" title="遮罩"></a>遮罩</h4><p>两个图像，一个是原图像，一个是遮罩图像。显示的是原图像，遮罩图像控制原图像的显示范围，只显示遮罩区域的原图像。所以可以通过修改遮罩图像的大小，来不失帧地显示原图像的部分区域。</p>
-<blockquote>
-<p>制作遮罩血条的方式是，先添加遮罩，然后把血条作为遮罩层的子元素。</p>
-</blockquote>
-<ol>
-<li><p>遮罩血条应该是在头像框架里面，点击HealthFrame，右键，UI&gt;Image。</p>
-</li>
-<li><p>出现了一个白色的遮罩层，遮罩无所谓什么颜色，也不需要任何精灵，它只是用来占位的，命名为Mask。调整遮罩层的位置，让它正好把应该在头像框里的位置完全遮住。并且需要把轴心（蓝色的圆圈）移动到最左侧的位置。因为如果把轴心留在中间，若减少百分之二十，那么左右两侧都会减少百分之十，就很怪。</p>
-</li>
-<li><p>但是我在移动轴心点的时候遇到一个问题：轴心点无法移动，是灰色的。</p>
-<p>解决办法：在顶部菜单栏找到ToggleToolHandlePosition（切换工具手柄位置），把现在的Center模式点击修改为Pivot模式就可以了</p>
-</li>
-<li><p>然后在Mask中建一个子对象，它是真正显示血液血条的子对象。Mask，右键，UI&gt;Image,重命名为HealthBar，然后血条上需要挂精灵，遮罩上不需要挂精灵，因为遮罩本身不显示嘛</p>
-</li>
-<li><p>这次显示血条不需要把它恢复成原来大小再缩放，只需要让它填充父对象就可以了。在HealthBar的Inspector的Rect Transform，点击快速调控的面板（那个正方形图标），激活以后，按着alt键不松，点最右下角的方格，这个左右就是填充整个区域。</p>
-</li>
-<li><p>还想把锚点位置放在左上角，不用按alt键了，点左上角的正方形。（这样会不随遮罩层的缩放而缩放血条）</p>
-</li>
-<li><p>下面添加遮罩的功能。回到Mask，选用Mask组件。选中Mask游戏对象（有白色的遮罩的那个），添加“Mask”组件。不想看到遮罩的图形（一般来说，都不想看到），就把“Show Mask Graphic”取消</p>
-</li>
-<li><p>现在，选中Mask，调整它的大小，发现血条也在变化</p>
-</li>
-</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//获取和机器人预制件挂接的声音源组件，让其停止播放声音</span><br><span class="line">GetComponent&lt;AudioSource&gt;().Stop();</span><br></pre></td></tr></table></figure>
 
     </div>
 

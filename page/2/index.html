@@ -152,6 +152,169 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/01/%E8%A7%86%E8%A7%89%E9%A3%8E%E6%A0%BC-%E7%B2%92%E5%AD%90/">
+                视觉风格-粒子
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-01</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="粒子系统"><a href="#粒子系统" class="headerlink" title="粒子系统"></a>粒子系统</h1><p><strong>粒子系统（Particle System）</strong>组件通过在场景中生成和动画化大量小型的2D图像来模拟流动实体。</p>
+<p><strong>粒子系统</strong>可以创建数十个甚至数百个粒子，这些粒子是很小的图像，具备方向、速度、生命周期、颜色等其他属性。</p>
+<p>一个粒子系统可以模拟并渲染许多称为粒子的小的图像或者网格并产生视觉效果。系统中的每个粒子代表效果中单个图形元素。系统共同模拟每个粒子以产生完整效果和印象。</p>
+<p>需要创建如火、烟、液体之类动态对象时，由于很难有网格（3D）或精灵（2D）描绘这种对象，所以粒子系统很有用。</p>
+<p><br></br></p>
+<h1 id="选择粒子系统解决方案"><a href="#选择粒子系统解决方案" class="headerlink" title="选择粒子系统解决方案"></a>选择粒子系统解决方案</h1><ul>
+<li>内置粒子系统</li>
+<li>Visual Effect Graph</li>
+</ul>
+<p>内置粒子系统比较简单，它解决不了的让Visual Effect Graph来。</p>
+<p>内置粒子系统在CPU上模拟粒子行为（Visual Effect Graph是在显卡的GPU上的），这种技术具有以下主要优点：</p>
+<ol>
+<li>可以使用c#脚本与系统及其中的各个粒子进行交互</li>
+<li>粒子系统可以使用Unity的基础物理系统，从而与场景中的碰撞体进行交互</li>
+</ol>
+<hr>
+<p>制作粒子系统，首先找到素材，下载的项目中Art&gt;Sprites&gt;Environment&gt;VFX已经有给我们准备的素材了，VFX本身也就是特效的意思。</p>
+<p>但那本身是一个完整的图形，首先要对它进行分割。</p>
+<p>分割很简单。</p>
+<h2 id="素材切割"><a href="#素材切割" class="headerlink" title="素材切割"></a>素材切割</h2><ol>
+<li>先选中素材</li>
+<li>Inspector&gt;Sprite Mode选中Multiple</li>
+<li>打开Sprite Editor，用Slice按Grid By Cell Count把它切割成4*4吧。（C、R改成4）</li>
+</ol>
+<p>切割好，接下来就是粒子特效的生成</p>
+<h2 id="生成粒子特效"><a href="#生成粒子特效" class="headerlink" title="生成粒子特效"></a>生成粒子特效</h2><ol>
+<li>Hierarchy右键，Effects&gt;Particle System(按教程上，把它改名为SmokeEffect，添加这个，默认会生成白色的小球)(Particle System Force Field结合Particle System会产生物理效果；Trail是笔记、Line是线)（记得合理利用Particle Effect的那个框）</li>
+<li>添进来以后，会发现SmokeEffect只包含Particle System这个组件，这个组件就是所谓的内置物理系统，下面有非常多的属性可以进行配置。</li>
+<li>要换素材的话，选择（Texture Sheet Animation），打开以后，把Mode由Grid改成Sprites，Sprites就 可以换素材了，默认会有一个Sprite，但是你有几个素材就添加几个，有个“+”号。然后把素材拖进去就可以了。</li>
+</ol>
+<hr>
+<blockquote>
+<p>以上内容是完成了，是生成了粒子特效了，可是明明添加了两种Sprite，有两种烟雾素材，它却只播放一种烟雾素材。想要随机播放粒子素材。</p>
+</blockquote>
+<p>下面开始修改</p>
+<ol>
+<li>点击SmokeEffect&gt;Inspector&gt;Texture Sheet Animation&gt;Start Frame,把Constant改成Random Between Tow Constants（在两个数之间交互）。</li>
+<li>在Start Frame 填入0，2。就是2不包含。</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是如果在烟雾播放一段时间后，希望其中一个不在出现呢？</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>还是上面的Texture Sheet Animation,选择Frame over Time，横向是时间，纵向是值。</li>
+<li>把它往下拉，或者点中，右键删除也行。</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是这个烟雾播放是一个锥形的，想要修改形状。</p>
+</blockquote>
+<p>下面进行修改</p>
+<p>要更改显示发射烟雾配置</p>
+<ol>
+<li>修改Shape，改Angle（角度），Radius（半径，若是输入0，不允许是绝对的0，回车会自动改成0.0001）</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是速度不太对，想要修改速度</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>Inspector&gt;Start Speed</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是每次生成的都一样，这不符合现实</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>Inspector&gt;Start Size，每次生成的大小，选择Random Between Two Constants（在两个约束间进行随机）</li>
+<li>其实上面的Start Speed也可以这样设</li>
+<li>另外所有的烟都在同一高度消失，要逆反这种现象，修改Start Lifetime，也在两个随机数之间改变，依葫芦画瓢</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是还想让烟雾消失有一个渐变的效果</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>Color over Lifetimes属性打上对勾，让它生效。</li>
+<li>点击白色区域，会生成Gradient Editor</li>
+<li>有4个箭头，上面是不透明度，下面是颜色。自己更改</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是还是不行啊，想让烟雾一开始大，消失的时候变小</p>
+</blockquote>
+<p>下面进行更改</p>
+<ol>
+<li>Size over Lifetime，打上对勾以后，上面也会出现曲线。从0开始逐渐增大。曲线调节。</li>
+</ol>
+<p><br></br></p>
+<hr>
+<blockquote>
+<p>但是想让这个特效和游戏对象绑定啊</p>
+</blockquote>
+<p>下面进行操作</p>
+<ol>
+<li>把做好的特效对象拖拽到Prefabs文件夹中，做预制件。</li>
+<li>选择Hierarchy中的游戏对象，打开（像预制件那样）</li>
+<li>把Prefabs中的特效拖拽到Hierarchy中的游戏对象下，做游戏对象的子对象。像是特效相对于游戏对象的位置啊，自己调整噢。</li>
+</ol>
+<hr>
+<blockquote>
+<p>但是还不行啊。我把烟雾绑定在机器人Robot的头上，可是Robot移动的时候，烟雾还是垂直的。</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>选中SmokeEffect对象，把Simuiation Space由原来的local改为World。就是不根据我们当前局部的位置，而是根据世界坐标的位置</li>
+</ol>
+<hr>
+<blockquote>
+<p>可是按原先的想法来的话，Robot被飞弹击中后不应该继续由冒烟的特效了。</p>
+</blockquote>
+<ol>
+<li>冒烟特效停止是在Robot被飞弹击中后，那么控制的脚本就应该在EnemyController2中，在Fix（）里改吧</li>
+<li>我知道Destory（销毁），那么试试销毁来取消特效吧</li>
+<li>先找到烟雾特效，让它暴露出来<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//对象类型很明显应该是内置的物理系统</span><br><span class="line">//开放一个属性，用来获取特效对象，方便我们用代码操作</span><br><span class="line">public ParticleSystem smokeEffect;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>在Unity里，Robot的Enemy Controller2脚本中已经能够看到Smoke Effect了</li>
+<li>就像以前很多次用过的方法那样，把Hierarchy中的对象（这里是SmokeEffect）拖到Enemy Controller2脚本中Smoke Effect框中。这样就能获取到了</li>
+<li>接下来就很简单了，用Unity自带的方法Destroy把对象拿过来，在Fix（）里把烟雾销毁掉就可以了<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void Fix() &#123;</span><br><span class="line">        //更改状态为已经修复</span><br><span class="line">        broked = false;</span><br><span class="line">        //让机器人不会再碰撞</span><br><span class="line">        //这里采取的是刚体对象取消物理引擎效果</span><br><span class="line">        rigidbody2d.simulated = false;</span><br><span class="line"></span><br><span class="line">        Destroy(smokeEffect);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<blockquote>
+<p>烟雾是消失了，但是是瞬间消失了，这样不好。</p>
+</blockquote>
+<p>下面进行修改</p>
+<ol>
+<li>用特效本身带的方法smokeEffect.Stop（）；<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public void Fix() &#123;</span><br><span class="line">        //更改状态为已经修复</span><br><span class="line">        broked = false;</span><br><span class="line">        //让机器人不会再碰撞</span><br><span class="line">        //这里采取的是刚体对象取消物理引擎效果</span><br><span class="line">        rigidbody2d.simulated = false;</span><br><span class="line"></span><br><span class="line">        //Destroy(smokeEffect);//瞬间消失</span><br><span class="line">        //特效停止产生新的粒子，旧的的粒子会等它生命周期结束</span><br><span class="line">        //最好的方法</span><br><span class="line">        smokeEffect.Stop();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<blockquote>
+<p>tip:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//公开一个属性特效，用来在Unity中挂接碰撞特效</span><br><span class="line">public ParticleSystem hitEffect;</span><br><span class="line"></span><br><span class="line">//实例化一个特效</span><br><span class="line">//第一个参数：实例化的是谁</span><br><span class="line">//第二个参数：实例化的位置</span><br><span class="line">//第三个参数：不旋转（旋转为0）</span><br><span class="line">Instantiate(hitEffect,transform.position,Quaternion.identity);</span><br></pre></td></tr></table></figure>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/04/30/%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F%E5%92%8C%E8%BE%B9%E7%95%8C/">
                 摄像机跟随和边界
             </a>
@@ -660,47 +823,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/23/%E5%B9%B3%E9%93%BA%E6%8E%89%E8%A1%80%E5%8C%BA%E5%9F%9F/">
-                平铺掉血区域
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-23</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>假设我们已做好了关于掉血区域的预制件，要做一片连续的掉血区域。把预制件一个一个进行拼接，就显得有点呆。</p>
-<blockquote>
-<p>Unity自带平铺的功能<br>下面我们来看看如何进行使用</p>
-</blockquote>
-<p>Damageable是我已做好的掉血区域的预制件。</p>
-<p>让我们对它的属性进行一个更改</p>
-<ul>
-<li>1.首先，先把游戏对象的缩放进行取消。把Transform中的Scale中的x，y，z都设置为1</li>
-<li>2.Sprite Renderer&gt;Draw Mode(可选Simple，Slice,Tiled)，把原来的Simple改成Tiled（平铺）</li>
-<li>3.在操作2后，我们能看到出现了一个警告“Sprite Tilling might not appear correctly because the Sprite used is not generated with Full Rect or Sprite Mode is set to Polygon mode.To fix this,change the Mesh Type in the Sprite’s import setting to Full Rect and Sprite Mode is either Single or Multiple。”</li>
-<li>4.打开对应的素材，单击它。在Sprite Mode中的Mesh Type，把Tight改成Full Rect</li>
-<li>5.设置往之后，apply（应用&#x2F;保存）</li>
-<li>6.这时回到Scence，再拉去选框（矩形工具），就是平铺的效果了。当然，在Scale也能进行缩放</li>
-<li>7.但是要注意，在设置完平铺的效果后，碰撞区域依然的原来的大小，这是不对的。在Box Collider 2D（碰撞体）里面，勾选Auto Tiling（自动平铺）</li>
-</ul>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -743,6 +865,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/06/%E6%9E%84%E5%BB%BA%E3%80%81%E8%BF%90%E8%A1%8C%E3%80%81%E5%88%86%E5%8F%91/">构建、运行、分发</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/05/3D%E5%A3%B0%E9%9F%B3%E7%A9%BA%E9%97%B4%E6%95%88%E6%9E%9C%E8%AE%BE%E7%BD%AE/">3D声音空间效果设置</a>
             </li>
             
@@ -752,10 +878,6 @@
             
             <li>
                 <a class="footer-post" href="/2022/05/04/TextMeshPro%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E4%B8%8E%E7%BF%BB%E9%A1%B5/">TextMeshPro正常显示中文与翻页</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/04/%E4%BB%A3%E7%A0%81%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%AF%9D%E6%A1%86/">代码控制对话框</a>
             </li>
             
         </ul>

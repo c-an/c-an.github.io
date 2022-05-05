@@ -152,6 +152,92 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/05/%E9%9F%B3%E9%A2%91/">
+                音频
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-05</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>为了模拟位置的影响，Unity要求声音源来自附加到对象的音频源Audio Source（发射声音）。然后，发出的声音由附加到另一个对象（通常是主摄像机）上的音频监听器Audio Listener拾取（接收声音）。Unity然后可以模拟音频源与监听器物体之间的距离和位置的影响，并相应地播放给用户。此外还使用源对象和监听器对象的相对深度来模拟多普勒效应以增加真实感。</p>
+<p>Unity混音器（Audio Mixer）允许混合各种声音源，对音频源应用效果，以执行母带制作（mastering）</p>
+<p>Unity可以导入大多数标准音频文件格式，音频文件再Unity中音频剪辑Audio Clip</p>
+<p>AIFF、WAV、MP3和Ogg等格式的音频文件，只需要将文件拖入Project面板即可</p>
+<p>导入音频文件会创建音频剪辑，然后可以将音频剪辑拖动到音频源中，或通过脚本来使用音频剪辑。</p>
+<p>对于音乐，Unity还支持音轨模块，这些模块使用短音频样本作为“编曲”，然后进行安排以播放曲调。可以从.xm、.mod、.it和.s3m文件导入音轨模块，但与普通音频剪辑的其他使用方式大致相同。</p>
+<p>下面要把音频剪辑Audio Clip塞到音频源Audio Source中发出声音，由音频监听器Audio Listener拾取</p>
+<h1 id="音频源Audio-Source"><a href="#音频源Audio-Source" class="headerlink" title="音频源Audio Source"></a>音频源Audio Source</h1><p>音频源Audio Source 在场景中播放 音频剪辑Audio Clip</p>
+<p>如果不为音频源指定音频剪辑，音频源不起作用</p>
+<p>音频源就像一个控制器，用于启动和停止该剪辑音源的播放，以修改其他音频属性</p>
+<p>关于配置：</p>
+<ul>
+<li>Audio Clip：将要播放的声音剪辑文件</li>
+<li>Output：默认情况下，剪辑键直接输出到场景中的音频监听器（Audio Listener），因为一般来说，一共场景只有一个音频监听器</li>
+<li>Mute：如果启用此选项，则为静音</li>
+<li>Play On Awake：如果启用此选项，声音将在场景启动时开始播放，如果禁用此选项，需要通过脚本使用Play（）命令启用播放</li>
+<li>Loop：启用此选项可在音频剪辑结束后循环</li>
+<li>Priority：从场景中存在的所有音频源中确定此音频源的优先级。（Priority值为0表示优先级最高。值为256，表示优先级最低。默认值为128）</li>
+<li>Volume：设置声音的大小，但请注意，除了这个属性外，玩家听到的声音，与离音频监听器的距离成正比，以米为世界单位</li>
+<li>Spatial Blend：设置3D引擎对音频源的影响程度。</li>
+</ul>
+<h1 id="音频监听器Audio-Listener"><a href="#音频监听器Audio-Listener" class="headerlink" title="音频监听器Audio Listener"></a>音频监听器Audio Listener</h1><p>音频监听器（Audio Listener）充当类似于麦克风的设备。它接收来自场景中任何给定音频源的输入，并通过计算机扬声器播放声音。对于大多数应用程序，最有意义的是将监听器附加到主摄像机。</p>
+<p>音频监听器与音频源配合使用，可以让您为游戏营造听觉体验。当音频监听器连接到场景中的游戏对象是，任何足够接近监听器的源都将被拾取并输出到计算机的扬声器。每个场景指能有1个音频监听器才能正常工作。</p>
+<p>通常，应该将音频监听器连接到主摄像机或代表玩家的游戏对象。</p>
+<blockquote>
+<p>注意：每个场景只能有一个音频监听器</p>
+</blockquote>
+<h1 id="Unity中播放声音的基本使用步骤"><a href="#Unity中播放声音的基本使用步骤" class="headerlink" title="Unity中播放声音的基本使用步骤"></a>Unity中播放声音的基本使用步骤</h1><h4 id="通过Unity面板可视化控制"><a href="#通过Unity面板可视化控制" class="headerlink" title="通过Unity面板可视化控制"></a>通过Unity面板可视化控制</h4><ol>
+<li>为当前场景配置Audio Listener，可以连接到主摄像机，或玩家游戏对象（第一人称或第三人称追尾游戏）</li>
+<li>将音频文件素材拖拽入project窗口，生成音频剪辑Audio Clip</li>
+<li>创建空游戏对象，并为其添加音频源Audio Source组件，用来配置管理Audio Clip</li>
+</ol>
+<h4 id="使用代码"><a href="#使用代码" class="headerlink" title="使用代码"></a>使用代码</h4><ul>
+<li><p>方式一（一对一）：为游戏中的每个要播放声音的游戏对象都配置音频源组件，并绑定音频源的音频剪辑，通过代码来控制该音频源组件来播放其中的音频剪辑，</p>
+</li>
+<li><p>方式二（一对多）：通过一个音频源，用代码控制播放多个不同音频剪辑，使用AudiO<br>Source类对象的一个名为PlayOneShot的函数来实现（这种方法性能好于第一种）<br><br></br></p>
+</li>
+</ul>
+<h1 id="添加并播放声效"><a href="#添加并播放声效" class="headerlink" title="添加并播放声效"></a>添加并播放声效</h1><ol>
+<li>我的Project窗口中的Assets的Aduio文件夹里已经有很多的音频素材</li>
+<li>第一种添加声效的方法：添加固定的声音源来播放固定的音频。新建一个空的对象create Empty，把它命名为BackgroundMusic，给它添加组件Audio Source。把想要播放的音乐，拖拽到AudioClip里面。把Loop打上勾。再按教程上设置一个属性，Spatial Blend由2D设置为3D</li>
+</ol>
+<h1 id="为吃草莓添加音效"><a href="#为吃草莓添加音效" class="headerlink" title="为吃草莓添加音效"></a>为吃草莓添加音效</h1><p>这个不再是背景音乐的音效了，是特定的行为下播放的音效，需要用代码来控制。这里，代码中使用一对多的方式。</p>
+<p>要使用一对多，那么要找到挂接Audio Source组件的游戏对象。毫无疑问，这里需要把音频源挂接到主角游戏对象上。</p>
+<ol>
+<li>我决定在预制件里添加，比较实用。</li>
+<li>为Ruby添加Audio Source组件，并且取消Play on Awake勾选。（Ruby的身上会有一个大喇叭的图像，不喜欢显示的话，点一下Gizmos点没了就行）</li>
+<li>选择RubyController脚本进行代码控制</li>
+</ol>
+<hr>
+<ol>
+<li>先声明音频对象</li>
+<li>在start里获取当前的AudioSource</li>
+<li>新增一个公有的方法，播放音频剪辑</li>
+<li>（学习一个新的方法、新的类的时候，使用脚本API）</li>
+<li>吃草莓加血，那么音效应该设置在加血的脚本里（下面跳转到HealthCollectible脚本）</li>
+<li>声明一个公开的音频剪辑字段，用来在unity inspector中，挂接要播放的音频剪辑</li>
+<li>添加播放音频的代码</li>
+<li>回到Unity别忘了在Health Collectible-Collected Clip中挂接素材</li>
+</ol>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/04/TextMeshPro%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E4%B8%8E%E7%BF%BB%E9%A1%B5/">
                 TextMeshPro正常显示中文与翻页
             </a>
@@ -868,61 +954,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/30/%E4%BF%AE%E5%A4%8D%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%84%9A%E6%9C%AC/">
-                修复机器人脚本
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-30</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>发现一个问题，原先设置的时候是按c才发射飞盘，这并不方便，也不符合左手WASD，右手鼠标的习惯。所以要进行更改。</p>
-<blockquote>
-<p>更改按键设置：</p>
-</blockquote>
-<p>Edit&gt;Project Settings&gt;Input Manager(mouse 0是鼠标左键的意思)</p>
-<p>好了，更改代码，到RubyController&gt;Update</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(Input.GetKeyDowm(KeyCode.C)||Input.GetAxis(&quot;Fire1&quot;)) &#123;</span><br><span class="line">    Launch();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然而上面的代码报错了，因为Input.GetKeyDowm(KeyCode.C)是一个bool值，真或假，Input.GetAxis(“Fire1”)是鼠标左键按下获取到的一个整型值，是+-1。一般按下以后是1.0，未按下是0。所以一般不等于0，认为是按下了鼠标左键或leftCtrl<br><br></br><br>下面这样就可以了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(Input.GetKeyDowm(KeyCode.C)||Input.GetAxis(&quot;Fire1&quot;)!=0) &#123;</span><br><span class="line">    Launch();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>下面是正文，修复机器人</p>
-<h1 id="修复机器人"><a href="#修复机器人" class="headerlink" title="修复机器人"></a>修复机器人</h1><p>目前飞弹在碰撞时只是销毁自身，但目标是用飞弹来修复损坏的机器人。</p>
-<p>要修复机器人，执行以下操纵：</p>
-<ol>
-<li>要在Enemy脚本中编写函数，添加一个名为broken的bool变量，并将变量初始化未true，这样机器人一开始就是损坏的。</li>
-<li>在Update函数的开头，添加一个测试用于检查机器人是否损坏。如果没有损坏则退出函数。</li>
-</ol>
-<p>修复后，机器人停止移动（就是bool值为false的时候，移动的代码失效）。由于这个原因，提前退出Update函数将导致机器人的代码停止执行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//如果已修复机器人，则直接退出Update方法</span><br><span class="line">        //不再移动</span><br><span class="line">        if (!broked) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>把以上代码粘贴到Update和FixedUpdate里<br><br></br></p>
-<p>下面是修复机器人</p>
-<blockquote>
-<p>在Projectile1里的碰撞事件方法里让飞弹来调用修复机器人的脚本<br>另外，还需要注意的地方是，不可以只在飞弹碰撞到碰撞体的时候才进行销毁，没有碰撞到也应该进行销毁，不然一直clone，游戏性能会非常差。这个更改应该写到Projectile1的Update里，Update检测比较方便</p>
-</blockquote>
-<p><br></br></p>
-<p>下列是EnemyController2的代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line">public class EnemyController2 : MonoBehaviour &#123;</span><br><span class="line">    //代表移动速度（实际上是每次刷新时移动的距离）</span><br><span class="line">    public float speed;</span><br><span class="line">    //是否垂直移动，true按y轴移动，false按x轴移动</span><br><span class="line">    public bool vertical;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    //rigidbody2D先前我们已经用过了，如果不希望rigidbody2D被覆盖</span><br><span class="line">    //这里可以取比如rigidbody2d这种不一样的名字</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line"></span><br><span class="line">    //朝一个方向移动的总时间</span><br><span class="line">    public float changeTime = 3.0f;</span><br><span class="line"></span><br><span class="line">    //计时器</span><br><span class="line">    float timer;</span><br><span class="line">    //方向</span><br><span class="line">    int direction = 1;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line"></span><br><span class="line">    //在字段里面声明一个Animator,动画管理者组件</span><br><span class="line">    Animator animator;</span><br><span class="line"></span><br><span class="line">    //设定一个bool值，初始值代表机器人刚开始是“坏”的</span><br><span class="line">    bool broked = true;</span><br><span class="line"></span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //通过当前这个代码组件，获取到这个代码组件所在的游戏对象</span><br><span class="line">        //再通过游戏对象，获取到刚体组件</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line"></span><br><span class="line">        //游戏对象一般都是通过Start获取</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //计时器也要给它设置好</span><br><span class="line">        timer = changeTime;</span><br><span class="line">        //把Animator实例化，拿到脚本组件所挂接的游戏对象的Animator组件</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //Update本来是每帧来调用，但是和FixedUpdate结合使用，它又是固定的</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //如果已修复机器人，则直接退出Update方法</span><br><span class="line">        //不再移动</span><br><span class="line">        if (!broked) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        //每次减少</span><br><span class="line">        //但是每秒减少还是一样的</span><br><span class="line">        timer -= Time.deltaTime;</span><br><span class="line">        //如果timer到0，重置</span><br><span class="line">        if (timer &lt; 0) &#123;</span><br><span class="line">            //方向取反</span><br><span class="line">            direction = -direction;</span><br><span class="line">            //时间重置</span><br><span class="line">            timer = changeTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //若是希望移动非常稳定的话，用FixedUpdate</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //如果已修复机器人，则直接退出Update方法</span><br><span class="line">        //不再移动</span><br><span class="line">        if (!broked) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //获取当前游戏对象所在的位置</span><br><span class="line">        Vector2 position = rigidbody2d.position;</span><br><span class="line"></span><br><span class="line">        //纵向移动，沿y轴移动</span><br><span class="line">        //加不加Time.deltaTime都可以</span><br><span class="line">        if (vertical) &#123;</span><br><span class="line">            position.y = position.y + Time.deltaTime * speed*direction;</span><br><span class="line">            animator.SetFloat(&quot;Move X&quot;, 0);</span><br><span class="line">            animator.SetFloat(&quot;Move Y&quot;, direction);</span><br><span class="line">        &#125;</span><br><span class="line">        //否则，沿x轴移动</span><br><span class="line">         else &#123;</span><br><span class="line">            position.x = position.x + Time.deltaTime * speed*direction;</span><br><span class="line">            animator.SetFloat(&quot;Move X&quot;, direction);</span><br><span class="line">            animator.SetFloat(&quot;Move Y&quot;, 0);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //和直接赋值的效果是一样的，但是这个更严谨些</span><br><span class="line">        rigidbody2d.MovePosition(position);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //刚体碰撞的方法</span><br><span class="line">    //在这个方法中，添加对玩家伤害的逻辑</span><br><span class="line">    private void OnCollisionEnter2D(Collision2D other) &#123;</span><br><span class="line">        //获取和敌人碰撞的玩家角色</span><br><span class="line">        //先获取玩家控制器脚本</span><br><span class="line">        //这个类的设置不能直接GetComponent</span><br><span class="line">        //要先获得gameObject</span><br><span class="line">        //这个是类设定的规则，记住这个方式来使用</span><br><span class="line">        RubyController rubyController = other.gameObject.GetComponent&lt;RubyController&gt;();</span><br><span class="line"></span><br><span class="line">        //如果不为空，直接让它减血</span><br><span class="line">        if (rubyController != null) &#123;</span><br><span class="line">            //玩家角色掉血</span><br><span class="line">            rubyController.ChangeHealth(-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //修复机器人的方法</span><br><span class="line">    //这个修复的脚本肯定是要别人来调用的，所以设置为public</span><br><span class="line">    //这里要调用修复的应该是飞弹，所以调用Fix写在飞弹的脚本里</span><br><span class="line">    public void Fix() &#123;</span><br><span class="line">        //更改状态为已经修复</span><br><span class="line">        broked = false;</span><br><span class="line">        //让机器人不会再碰撞</span><br><span class="line">        //这里采取的是刚体对象取消物理引擎效果</span><br><span class="line">        rigidbody2d.simulated = false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br></br><br>下列是Projectile1的代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">//子弹预制件脚本</span><br><span class="line">public class Projectile1 : MonoBehaviour &#123;</span><br><span class="line">    //声明刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Awake() &#123;</span><br><span class="line">        //通过这个脚本对象获取当前游戏对象所绑定的刚体</span><br><span class="line">        //获取刚体对象实例</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    private void Update() &#123;</span><br><span class="line">        //transform.position.magnitude是拿到飞弹飞出去的绝对长度</span><br><span class="line">        //如果没有碰到任何碰撞体，在飞行距离超过100单位后，自动销毁</span><br><span class="line">        if (transform.position.magnitude &gt; 100.0f) &#123;</span><br><span class="line">            Destroy(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //把当前的子弹抛射出去</span><br><span class="line">    //传入参数（方向，力）</span><br><span class="line">    public void Launch(Vector2 direction,float force) &#123;</span><br><span class="line">        //这次不使用移动，使用物理系统</span><br><span class="line">        //通过刚体对象调用物理系统的AddForce方法</span><br><span class="line">        //对游戏对象施加一个力，使其移动</span><br><span class="line">        rigidbody2d.AddForce(direction*force);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //碰撞事件方法</span><br><span class="line">    private void OnCollisionEnter2D(Collision2D collision) &#123;</span><br><span class="line">        //获取齿轮飞弹碰撞到机器人对象的脚本组件</span><br><span class="line">        EnemyController2 enemyController2 = collision.collider.GetComponent&lt;EnemyController2&gt;();</span><br><span class="line">        //如果获取到不为空</span><br><span class="line">        if(enemyController2!=null) &#123;</span><br><span class="line">            enemyController2.Fix();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //向控制台输出信息，打印出当前子弹碰撞的游戏对象是谁</span><br><span class="line">        Debug.Log($&quot;齿轮子弹碰撞到了：&#123;collision.gameObject&#125;&quot;);</span><br><span class="line">        //碰撞完后，子弹应该消失，即销毁当前子弹游戏对象</span><br><span class="line">        Destroy(gameObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -965,6 +996,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/05/%E9%9F%B3%E9%A2%91/">音频</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/04/TextMeshPro%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E4%B8%8E%E7%BF%BB%E9%A1%B5/">TextMeshPro正常显示中文与翻页</a>
             </li>
             
@@ -974,10 +1009,6 @@
             
             <li>
                 <a class="footer-post" href="/2022/05/03/%E5%AF%B9%E8%AF%9D%E5%B0%84%E7%BA%BF%E6%8A%95%E5%B0%84/">对话射线投射</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/03/%E6%8E%A7%E5%88%B6%E8%A1%80%E6%9D%A1%E4%BB%A3%E7%A0%81/">控制血条代码</a>
             </li>
             
         </ul>

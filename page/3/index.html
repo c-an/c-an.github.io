@@ -152,6 +152,43 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/04/22/%E8%AE%BE%E7%BD%AE%E6%8E%89%E8%A1%80%E5%8C%BA%E5%9F%9F/">
+                设置掉血区域
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-22</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class damageZone2 : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    //每次伤血量</span><br><span class="line">    public int damageNum = -1;</span><br><span class="line"></span><br><span class="line">    //这个触发器是Enter，进入</span><br><span class="line">    //Enter只有在角色进入是时才执行</span><br><span class="line">    //可以将函数名从OnTriggerEnter2D改为OnTriggerStay2D</span><br><span class="line">    //这样，刚体在触发器内的每一帧都会调用此函数</span><br><span class="line">    private void OnTriggerEnter2D(Collider2D other)</span><br><span class="line">    &#123;</span><br><span class="line">        //rubyController获取到这个对象</span><br><span class="line">        RubyController rubyController = other.GetComponent&lt;RubyController&gt;();</span><br><span class="line">        //如果不为空，就进行更改</span><br><span class="line">        if(rubyController!=null) &#123;</span><br><span class="line">            rubyController.ChangeHealth(damageNum);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><br></br></p>
+<p>为了优化资源，物理系统在刚体停止移动式会停止计算刚体的碰撞；此时刚体进入“睡眠状态”。若是希望在停止时也进行检测，把角色的Rigidbody 2D中的Sleeping Mode选择未Never Sleep(永不睡眠)</p>
+<blockquote>
+<p>下列是关于Sleeping Mode的信息</p>
+</blockquote>
+<ul>
+<li>Never Sleep  禁用睡眠（应尽可能避免此设置，否则会影响系统资源）</li>
+<li>Start Awake  游戏对象最初处于唤醒状态</li>
+<li>Start Asleep 游戏对象最处于睡眠状态，但可以被碰撞唤醒</li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/04/21/%E5%AE%8C%E5%96%84%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%A3%E7%A0%81/">
                 完善触发器代码
             </a>
@@ -554,6 +591,10 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/05/%E9%9F%B3%E9%A2%91/">音频</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/04/TextMeshPro%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E4%B8%8E%E7%BF%BB%E9%A1%B5/">TextMeshPro正常显示中文与翻页</a>
             </li>
             
@@ -563,10 +604,6 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
             
             <li>
                 <a class="footer-post" href="/2022/05/03/%E5%AF%B9%E8%AF%9D%E5%B0%84%E7%BA%BF%E6%8A%95%E5%B0%84/">对话射线投射</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/03/%E6%8E%A7%E5%88%B6%E8%A1%80%E6%9D%A1%E4%BB%A3%E7%A0%81/">控制血条代码</a>
             </li>
             
         </ul>

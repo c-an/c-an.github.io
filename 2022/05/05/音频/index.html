@@ -10,13 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="血条随着Ruby的血量增减而增减，实际上控制的是Mask（遮罩层）而不是HealthBar。
-用代码控制遮罩层显示的长短
-下面开始操作：
-
-在Scripts文件夹里，右键，新建一个脚本：create&amp;gt;c# Script,重命名为UIHealthBar
-点脚本进去
-先添加一个能获取到实体的静态对">
+        <meta name="description" content="为了模拟位置的影响，Unity要求声音源来自附加到对象的音频源Audio Source（发射声音）。然后，发出的声音由附加到另一个对象（通常是主摄像机）上的音频监听器Audio Listener拾取（接收声音）。Unity然后可以模拟音频源与监听器物体之间的距离和位置的影响，并相应地播放给用户。此外">
     
 
     <!--Author-->
@@ -26,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="控制血条代码"/>
+        <meta property="og:title" content="音频"/>
     
 
     <!--Open Graph Description-->
@@ -51,7 +45,7 @@
 
     <!-- Title -->
     
-    <title>控制血条代码 - c-an</title>
+    <title>音频 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -157,13 +151,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/05/03/%E6%8E%A7%E5%88%B6%E8%A1%80%E6%9D%A1%E4%BB%A3%E7%A0%81/">
-                控制血条代码
+            <a href="/2022/05/05/%E9%9F%B3%E9%A2%91/">
+                音频
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-05-03</span>
+                <span class="date">2022-05-05</span>
             
             
             
@@ -176,24 +170,66 @@
         
 
         <!-- Post Content -->
-        <p>血条随着Ruby的血量增减而增减，实际上控制的是Mask（遮罩层）而不是HealthBar。</p>
-<p>用代码控制遮罩层显示的长短</p>
-<p>下面开始操作：</p>
-<ol>
-<li>在Scripts文件夹里，右键，新建一个脚本：create&gt;c# Script,重命名为UIHealthBar</li>
-<li>点脚本进去</li>
-<li>先添加一个能获取到实体的静态对象（我们可以使用static关键字把类成员定义为静态的，当我们声明一个类成员为静态时，意味着无论有多少个类的对象被创建，只会有一个静态成员的副本，被所有的类对象所共享）。因为无论在多少个场景中切换，生命条都只有一个</li>
+        <p>为了模拟位置的影响，Unity要求声音源来自附加到对象的音频源Audio Source（发射声音）。然后，发出的声音由附加到另一个对象（通常是主摄像机）上的音频监听器Audio Listener拾取（接收声音）。Unity然后可以模拟音频源与监听器物体之间的距离和位置的影响，并相应地播放给用户。此外还使用源对象和监听器对象的相对深度来模拟多普勒效应以增加真实感。</p>
+<p>Unity混音器（Audio Mixer）允许混合各种声音源，对音频源应用效果，以执行母带制作（mastering）</p>
+<p>Unity可以导入大多数标准音频文件格式，音频文件再Unity中音频剪辑Audio Clip</p>
+<p>AIFF、WAV、MP3和Ogg等格式的音频文件，只需要将文件拖入Project面板即可</p>
+<p>导入音频文件会创建音频剪辑，然后可以将音频剪辑拖动到音频源中，或通过脚本来使用音频剪辑。</p>
+<p>对于音乐，Unity还支持音轨模块，这些模块使用短音频样本作为“编曲”，然后进行安排以播放曲调。可以从.xm、.mod、.it和.s3m文件导入音轨模块，但与普通音频剪辑的其他使用方式大致相同。</p>
+<p>下面要把音频剪辑Audio Clip塞到音频源Audio Source中发出声音，由音频监听器Audio Listener拾取</p>
+<h1 id="音频源Audio-Source"><a href="#音频源Audio-Source" class="headerlink" title="音频源Audio Source"></a>音频源Audio Source</h1><p>音频源Audio Source 在场景中播放 音频剪辑Audio Clip</p>
+<p>如果不为音频源指定音频剪辑，音频源不起作用</p>
+<p>音频源就像一个控制器，用于启动和停止该剪辑音源的播放，以修改其他音频属性</p>
+<p>关于配置：</p>
+<ul>
+<li>Audio Clip：将要播放的声音剪辑文件</li>
+<li>Output：默认情况下，剪辑键直接输出到场景中的音频监听器（Audio Listener），因为一般来说，一共场景只有一个音频监听器</li>
+<li>Mute：如果启用此选项，则为静音</li>
+<li>Play On Awake：如果启用此选项，声音将在场景启动时开始播放，如果禁用此选项，需要通过脚本使用Play（）命令启用播放</li>
+<li>Loop：启用此选项可在音频剪辑结束后循环</li>
+<li>Priority：从场景中存在的所有音频源中确定此音频源的优先级。（Priority值为0表示优先级最高。值为256，表示优先级最低。默认值为128）</li>
+<li>Volume：设置声音的大小，但请注意，除了这个属性外，玩家听到的声音，与离音频监听器的距离成正比，以米为世界单位</li>
+<li>Spatial Blend：设置3D引擎对音频源的影响程度。</li>
+</ul>
+<h1 id="音频监听器Audio-Listener"><a href="#音频监听器Audio-Listener" class="headerlink" title="音频监听器Audio Listener"></a>音频监听器Audio Listener</h1><p>音频监听器（Audio Listener）充当类似于麦克风的设备。它接收来自场景中任何给定音频源的输入，并通过计算机扬声器播放声音。对于大多数应用程序，最有意义的是将监听器附加到主摄像机。</p>
+<p>音频监听器与音频源配合使用，可以让您为游戏营造听觉体验。当音频监听器连接到场景中的游戏对象是，任何足够接近监听器的源都将被拾取并输出到计算机的扬声器。每个场景指能有1个音频监听器才能正常工作。</p>
+<p>通常，应该将音频监听器连接到主摄像机或代表玩家的游戏对象。</p>
+<blockquote>
+<p>注意：每个场景只能有一个音频监听器</p>
+</blockquote>
+<h1 id="Unity中播放声音的基本使用步骤"><a href="#Unity中播放声音的基本使用步骤" class="headerlink" title="Unity中播放声音的基本使用步骤"></a>Unity中播放声音的基本使用步骤</h1><h4 id="通过Unity面板可视化控制"><a href="#通过Unity面板可视化控制" class="headerlink" title="通过Unity面板可视化控制"></a>通过Unity面板可视化控制</h4><ol>
+<li>为当前场景配置Audio Listener，可以连接到主摄像机，或玩家游戏对象（第一人称或第三人称追尾游戏）</li>
+<li>将音频文件素材拖拽入project窗口，生成音频剪辑Audio Clip</li>
+<li>创建空游戏对象，并为其添加音频源Audio Source组件，用来配置管理Audio Clip</li>
 </ol>
-<p>下面是HealthBar的代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line"></span><br><span class="line">public class UIHealthBar: MonoBehaviour &#123;</span><br><span class="line">    //设置静态成员，获取当前血条本身，也就是一个静态的血条实例对象</span><br><span class="line">    //get和set是取值器和赋值器，是一个属性</span><br><span class="line">    public static UIHealthBar Instance &#123; get; private set; &#125;</span><br><span class="line"></span><br><span class="line">    //创建一个公有的变量mask。这里报错了“未找到命名空间Image”</span><br><span class="line">    //因为前面引用的命名空间里没有这个类</span><br><span class="line">    //用“alt”和“enter”可以激活，会提示几种改错的处理方案</span><br><span class="line">    //既然没有命名空间，那加上命名空间就好了</span><br><span class="line">    //现在需要加上UI图形的命名空间using UnityEngine.UI</span><br><span class="line">    //创建UI图形对象mask，用它来获取遮罩层对象</span><br><span class="line">    public Image mask;</span><br><span class="line"></span><br><span class="line">    //设置一个变量，记录遮罩层初始长度</span><br><span class="line">    float originalSize;</span><br><span class="line">    private void Awake() &#123;</span><br><span class="line">        //设置静态实例为当前对象</span><br><span class="line">        Instance = this;</span><br><span class="line">    &#125;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //拿到mask的宽度值</span><br><span class="line">        originalSize = mask.rectTransform.rect.width;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //创建一个方法，用来设置（更改）现在的mask遮罩层的宽度</span><br><span class="line">    public void SetValue(float value) &#123;</span><br><span class="line">        //根据当前的锚设置</span><br><span class="line">        //参数是（当前的宽度设置到横轴上面，具体的值是原始的长度乘以血量变化的百分比）</span><br><span class="line">        //设置更改的是mask遮罩层的宽度，并且依据传递过来的参数进行更改</span><br><span class="line">        mask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>设置好上面的代码就要和Ruby连接在一起</p>
-<ol>
-<li>在Ruby减血和增血的脚本位置控制遮罩层的代码</li>
-<li>找到RubyController的changeHealth</li>
-<li>给HealthFrame添加创建的UIHealthBar脚本，把遮罩放到mask栏去</li>
+<h4 id="使用代码"><a href="#使用代码" class="headerlink" title="使用代码"></a>使用代码</h4><ul>
+<li><p>方式一（一对一）：为游戏中的每个要播放声音的游戏对象都配置音频源组件，并绑定音频源的音频剪辑，通过代码来控制该音频源组件来播放其中的音频剪辑，</p>
+</li>
+<li><p>方式二（一对多）：通过一个音频源，用代码控制播放多个不同音频剪辑，使用AudiO<br>Source类对象的一个名为PlayOneShot的函数来实现（这种方法性能好于第一种）<br><br></br></p>
+</li>
+</ul>
+<h1 id="添加并播放声效"><a href="#添加并播放声效" class="headerlink" title="添加并播放声效"></a>添加并播放声效</h1><ol>
+<li>我的Project窗口中的Assets的Aduio文件夹里已经有很多的音频素材</li>
+<li>第一种添加声效的方法：添加固定的声音源来播放固定的音频。新建一个空的对象create Empty，把它命名为BackgroundMusic，给它添加组件Audio Source。把想要播放的音乐，拖拽到AudioClip里面。把Loop打上勾。再按教程上设置一个属性，Spatial Blend由2D设置为3D</li>
 </ol>
-<p>以下是RubyController的ChangeHealth的脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public void ChangeHealth(int amount) &#123;</span><br><span class="line">        //假设玩家受伤害的时间间隔是2秒</span><br><span class="line">        //不管是什么样的伤害，只要amount小于0，就判断是不是无敌</span><br><span class="line">        if (amount &lt; 0) &#123;</span><br><span class="line">            //判断当前是否处于无敌状态</span><br><span class="line">            if (isInvincible) &#123;</span><br><span class="line">                //无敌不伤血，跳出无敌状态</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当不是无敌状态时，会执行下面的代码</span><br><span class="line">        //重置无敌状态为真</span><br><span class="line">        isInvincible = true;</span><br><span class="line">        //设置无敌时间</span><br><span class="line">        invincibleTimer = timeInvincible;</span><br><span class="line"></span><br><span class="line">        //播放受伤动画</span><br><span class="line">        animator.SetTrigger(&quot;Hit&quot;);</span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        //Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line"></span><br><span class="line">        //这个Instance是静态的，只有一个，用类就可以直接调用，不需要创建对象</span><br><span class="line">        //当前的生命值除以最大的生命值，传过去的应该是一个小数</span><br><span class="line">        UIHealthBar.Instance.SetValue(currentHealth / (float)maxHealth);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="为吃草莓添加音效"><a href="#为吃草莓添加音效" class="headerlink" title="为吃草莓添加音效"></a>为吃草莓添加音效</h1><p>这个不再是背景音乐的音效了，是特定的行为下播放的音效，需要用代码来控制。这里，代码中使用一对多的方式。</p>
+<p>要使用一对多，那么要找到挂接Audio Source组件的游戏对象。毫无疑问，这里需要把音频源挂接到主角游戏对象上。</p>
+<ol>
+<li>我决定在预制件里添加，比较实用。</li>
+<li>为Ruby添加Audio Source组件，并且取消Play on Awake勾选。（Ruby的身上会有一个大喇叭的图像，不喜欢显示的话，点一下Gizmos点没了就行）</li>
+<li>选择RubyController脚本进行代码控制</li>
+</ol>
+<hr>
+<ol>
+<li>先声明音频对象</li>
+<li>在start里获取当前的AudioSource</li>
+<li>新增一个公有的方法，播放音频剪辑</li>
+<li>（学习一个新的方法、新的类的时候，使用脚本API）</li>
+<li>吃草莓加血，那么音效应该设置在加血的脚本里（下面跳转到HealthCollectible脚本）</li>
+<li>声明一个公开的音频剪辑字段，用来在unity inspector中，挂接要播放的音频剪辑</li>
+<li>添加播放音频的代码</li>
+<li>回到Unity别忘了在Health Collectible-Collected Clip中挂接素材</li>
+</ol>
 
     </div>
 

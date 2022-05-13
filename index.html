@@ -152,6 +152,90 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/13/%E3%80%8AVitural-Train%E3%80%8B%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-Day-2/">
+                《Vitural Train》开发日志-Day-2
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-13</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <blockquote>
+<p>话说Day-X并不是按自然时间来的，而是以有在开发的日期开始计数。</p>
+</blockquote>
+<p>目前完成的：</p>
+<ol>
+<li>菜单制作</li>
+<li>主角绘制（不完整，后期补充人物行走素材）</li>
+<li>场景一-沙漠星空绘制</li>
+<li>头像框绘制</li>
+<li>血液（生命值）绘制</li>
+</ol>
+<p>下一步：沙漠星空 2D背景滚动</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2022/05/11/%E3%80%8AVirtual-Train%E3%80%8B%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-Day-1/">
+                《Virtual Train》开发日志-Day-1
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-11</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>其实这不算是我游戏开发的第一天了，在这之前，我在写剧情和制作素材。但花费的时间不多。</p>
+<p>好了，今天开始记录吧。</p>
+<blockquote>
+<p>题外话：嘻嘻，我的男朋友以前做了5年的游戏噢，他比我厉害好多好多。我最崇拜他啦<del>最喜欢的人也是他</del></p>
+</blockquote>
+<hr>
+<ol>
+<li><p>画了个Button Box的背景图片，但是传到Unity上，图片很糊。</p>
+<p> <strong>问题：“Unity像素图像保留硬边缘”</strong></p>
+<p> 解决方式：<strong>在精灵图像的Inspector里把Fliter Mode改成Point（no fliter）</strong></p>
+</li>
+</ol>
+<blockquote>
+<p>以后要弄一个动态的按钮，很漂亮的那种</p>
+</blockquote>
+<p>洗衣服，然后去吃个饭，一会回来。</p>
+<ol start="2">
+<li>关于游戏的场景：（1）沙漠星空（2）第一节车厢（3）第二节车厢（4）第三节车厢（5）车厢后（6）镜像空间（7）意识地狱（8）虚空长廊</li>
+</ol>
+<p>对应英文名：（1）Desert Starry Sky （2）Train-1 （3）Tranin-2 （4）Train-3  （5）Hinder Train （6）Contrary Space （5）Consciousness Hell （6）Nothingness Corridor</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/06/%E6%9E%84%E5%BB%BA%E3%80%81%E8%BF%90%E8%A1%8C%E3%80%81%E5%88%86%E5%8F%91/">
                 构建、运行、分发
             </a>
@@ -654,166 +738,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/02/Unity-UI%E7%B3%BB%E7%BB%9F/">
-                Unity UI系统
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-02</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>前言：</p>
-<p>目前为止，一直使用Debug.Log在主角受伤时输出当前的生命值。但是玩家不会又Console窗口，因此无法查看最终游戏中的日志。所以，为了给玩家提供反馈，交互式应用测序使用<strong>用户界面（简称UI）</strong>将图像和文本叠加在<strong>场景</strong>上来显示信息。这种显示方式也成为<strong>抬头显示（HUD）</strong>。</p>
-<h1 id="最新Unity中的3大UI系统"><a href="#最新Unity中的3大UI系统" class="headerlink" title="最新Unity中的3大UI系统"></a>最新Unity中的3大UI系统</h1><ul>
-<li>UI工具包</li>
-</ul>
-<p>UI toolKit UI工具包是Unity中最新的UI系统。它旨在优化跨平台性能，并基于Web技术。您可以使用UI工具包为Unity编辑器创建扩展，用程序创建时运行UI（如果安装了UI工具包软件包）。</p>
-<p>Uinty打算让UI工具包成为新UI开发项目推荐UI系统，但它仍然缺少Unity UI（UGUI）和IMGUI中的一些功能。</p>
-<p>一句话总结：</p>
-<p>全能UI系统，而且是Unity未来UI发展方向，暂时还缺少部分功能，建议优先使用，遇到不足的，再选择别的UI系统补上。</p>
-<hr>
-<ul>
-<li>Unity软件包（UGUI）</li>
-</ul>
-<p>Unity用户界面（Unity UI）软件包（也成为UGUI）是一个较旧的、基于游戏对象的UI系统，宁可以使用它为游戏和应用程序开发运行时UI。Unity使用组件和Game视图来排列和定位用户界面并设置其样式。它支持高级渲染和文本渲染功能。</p>
-<p>现在使用Unity的公司，旧项目中大多数还在使用UGUI，甚至是它的前身nGUI（第三方ui），Ruby’s Adventure教程中，使用的还是UGUI</p>
-<blockquote>
-<p>注意：UGUI不能在Unity编辑器中创建或更改用户界面</p>
-</blockquote>
-<blockquote>
-<p>UGUI的优势</p>
-</blockquote>
-<ol>
-<li>所见即所得（WYSIWYG）设计工具</li>
-<li>支持多模式、多摄像机渲染</li>
-<li>面向对象的编程</li>
-</ol>
-<blockquote>
-<p>UGUI基本使用步骤</p>
-</blockquote>
-<ol>
-<li>创建画布Canves</li>
-<li>在画布Canves中添加UI组件（文本、文本框、按钮等等）</li>
-<li>设置好布局、动画、以及摄像机、特效等</li>
-<li>需要的话，再添加交互事件</li>
-</ol>
-<hr>
-<ul>
-<li>NGUI</li>
-</ul>
-<p>第三方UI系统，需付费（$95）,除非入职公司旧系统，还在使用NGUI，否则不推荐学习，UGUI是模仿NGUI做出来的，已经比NGUI更好用，功能更强。</p>
-<hr>
-<ul>
-<li>IMGUI<br>立即模式图形用户界面（IMGUI）是一个代码驱动的UI工具包，它使用OnGUI函数以及实现它的脚本来绘制和管理用户界面以及实现它的脚本绘制和管理用户界面。宁可以使用IMGUI来创建自定义Inspector，Unity编辑器的扩展以及游戏内调显示。不推荐用于构建运行时UI。<br>纯代码UI系统，适合程序员做游戏内部测试系统、控制台的UI</li>
-</ul>
-<hr>
-<blockquote>
-<p>学习建议：Unity的三个都学，首先是UGUI（兼容旧项目），其次是UI toolKit，之后是IMGUI，不建议再学NGUI</p>
-</blockquote>
-<blockquote>
-<p>如果近期不以Unity就业为目标，建议开始学UI toolKit</p>
-</blockquote>
-<blockquote>
-<p>旧项目：保持系统一致性为原则，使用UGUI或NGUI</p>
-</blockquote>
-<blockquote>
-<p>新项目：尽量使用Unity UI ToolKit，这个是Unity主推的方向，用它不能实现的再考虑UGUI</p>
-</blockquote>
-<blockquote>
-<p>游戏内部测试系统（包括控制台）：Unity UI ToolKit不能实现的话，就使用IMGUI</p>
-</blockquote>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/02/%E6%88%91%E7%9A%84%E6%B8%B8%E6%88%8F%E5%91%93%E8%AF%AD/">
-                我的游戏呓语（长期更新）
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-02</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>我要做的游戏不应该是杂乱无章的，它可能是我灵感的迸发，但是否能对的上他人的电波，也是评判游戏好坏的标准之一。我要做的，不是只有我一个人玩的游戏。</p>
-<p>因此，游戏的创作需要有一定的约束，那么即使我创作的游戏无法称为精品，这个约束也会强制它不会成为太差的垃圾。那么，如何获取这个约束呢？它来源于我对信息的总和，各种游戏的总结。</p>
-<p><strong>汲取，是应该要做的事。</strong></p>
-<p><br></br></p>
-<h2 id="1-“与剧情紧密切合的症状”"><a href="#1-“与剧情紧密切合的症状”" class="headerlink" title="1. “与剧情紧密切合的症状”"></a>1. “与剧情紧密切合的症状”</h2><p><strong>恐惧症与躁狂症</strong></p>
-<blockquote>
-<p>eg.背景：埃及的沙漠石窟，与钻地魔虫相遇</p>
-</blockquote>
-<p>角色相对应的：</p>
-<ul>
-<li>攻击欲望、昆虫恐惧症(放大化、极端化)</li>
-</ul>
-<blockquote>
-<p>这些症状应该是剧情发展的动力而不是阻力，不能为了戏剧性的游戏效果而终止游戏。不能因这些症状，而让游戏的发展失控。<br>可以在角色获得这些症状后，让角色做出与理智时“相似”而又差异鲜明的行为。比如破坏一些本该保护的事物。<br><br></br></p>
-</blockquote>
-<h2 id="2-”塑造更加生动的NPC”"><a href="#2-”塑造更加生动的NPC”" class="headerlink" title="2.”塑造更加生动的NPC”"></a>2.”塑造更加生动的NPC”</h2><ol>
-<li>NPC在游戏中存在的意义<blockquote>
-<p>eg.背景：调查员收到老人的委托，希望调查员能将盘踞在他宅邸中可怕的怪物驱逐</p>
-</blockquote>
-</li>
-</ol>
-<p>老人相对应的作用：</p>
-<ul>
-<li>委托的发起者</li>
-</ul>
-<p>但也可以是</p>
-<ul>
-<li>线索的提供者、幕后真相的隐藏者</li>
-</ul>
-<blockquote>
-<p>但是这仅仅像是一个为了发起任务而发起任务的角色，因此需要对他塑造特点，塑造特点的同时需要考虑游戏的场景是否可以表现角色的特点。</p>
-</blockquote>
-<p><strong>一个角色能为我们带来深刻影响的原因究竟是什么？</strong></p>
-<ul>
-<li>性格？</li>
-<li>故事？</li>
-<li>行为？</li>
-</ul>
-<p>能够停留在我们印象中的，往往是一两个支离破碎的场景。塑造一个令人印象深刻的NPC非常关键的地方在于为角色添加一个难以忘记的特点，添加一个难以忘记的方法有很多，可以是一个冷幽默、冷笑话，或者是一个看上去就很离谱的设定或者台词，也可以是虽然普通但是被角色不停使用后逐渐成了代表这个角色的<strong>符号</strong>。</p>
-<blockquote>
-<p>重复可以带来洗脑的效果，不过最好少用这种方法，容易让人心烦。</p>
-</blockquote>
-<blockquote>
-<p>巧妙地设计一个外号、动作、场景，在博得玩家会心一笑的同时逐渐建立起这个特征与角色的关系，最终让这样一个特征甚至能代替角色本身。即要为角色创造一个足够被玩家记住的梗。</p>
-</blockquote>
-<blockquote>
-<p>优秀的剧情<strong>反转</strong>和设计精巧的<strong>悲剧</strong>结尾（注意需要是在意料之外，也得在情理之中）。<strong>悲剧是表达的手段，悲剧背后的矛盾才是让人难以忘怀的内容</strong></p>
-</blockquote>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -856,19 +780,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/13/%E3%80%8AVitural-Train%E3%80%8B%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-Day-2/">《Vitural Train》开发日志-Day-2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2022/05/11/%E3%80%8AVirtual-Train%E3%80%8B%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-Day-1/">《Virtual Train》开发日志-Day-1</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/06/%E6%9E%84%E5%BB%BA%E3%80%81%E8%BF%90%E8%A1%8C%E3%80%81%E5%88%86%E5%8F%91/">构建、运行、分发</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2022/05/05/3D%E5%A3%B0%E9%9F%B3%E7%A9%BA%E9%97%B4%E6%95%88%E6%9E%9C%E8%AE%BE%E7%BD%AE/">3D声音空间效果设置</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/05/%E9%9F%B3%E9%A2%91/">音频</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/04/TextMeshPro%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87%E4%B8%8E%E7%BF%BB%E9%A1%B5/">TextMeshPro正常显示中文与翻页</a>
             </li>
             
         </ul>

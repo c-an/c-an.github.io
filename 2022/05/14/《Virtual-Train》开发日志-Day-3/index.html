@@ -10,14 +10,6 @@
 
     <!--Description-->
     
-        <meta name="description" content="血条随着Ruby的血量增减而增减，实际上控制的是Mask（遮罩层）而不是HealthBar。
-用代码控制遮罩层显示的长短
-下面开始操作：
-
-在Scripts文件夹里，右键，新建一个脚本：create&amp;gt;c# Script,重命名为UIHealthBar
-点脚本进去
-先添加一个能获取到实体的静态对">
-    
 
     <!--Author-->
     
@@ -26,7 +18,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="控制血条代码"/>
+        <meta property="og:title" content="《Virtual Train》开发日志-Day-3"/>
     
 
     <!--Open Graph Description-->
@@ -51,7 +43,7 @@
 
     <!-- Title -->
     
-    <title>控制血条代码 - c-an</title>
+    <title>《Virtual Train》开发日志-Day-3 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -157,13 +149,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/05/03/%E6%8E%A7%E5%88%B6%E8%A1%80%E6%9D%A1%E4%BB%A3%E7%A0%81/">
-                控制血条代码
+            <a href="/2022/05/14/%E3%80%8AVirtual-Train%E3%80%8B%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-Day-3/">
+                《Virtual Train》开发日志-Day-3
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-05-03</span>
+                <span class="date">2022-05-14</span>
             
             
             
@@ -176,25 +168,7 @@
         
 
         <!-- Post Content -->
-        <p>血条随着Ruby的血量增减而增减，实际上控制的是Mask（遮罩层）而不是HealthBar。</p>
-<p>用代码控制遮罩层显示的长短</p>
-<p>下面开始操作：</p>
-<ol>
-<li>在Scripts文件夹里，右键，新建一个脚本：create&gt;c# Script,重命名为UIHealthBar</li>
-<li>点脚本进去</li>
-<li>先添加一个能获取到实体的静态对象（我们可以使用static关键字把类成员定义为静态的，当我们声明一个类成员为静态时，意味着无论有多少个类的对象被创建，只会有一个静态成员的副本，被所有的类对象所共享）。因为无论在多少个场景中切换，生命条都只有一个</li>
-</ol>
-<p>下面是HealthBar的代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line"></span><br><span class="line">public class UIHealthBar: MonoBehaviour &#123;</span><br><span class="line">    //设置静态成员，获取当前血条本身，也就是一个静态的血条实例对象</span><br><span class="line">    //get和set是取值器和赋值器，是一个属性</span><br><span class="line">    public static UIHealthBar Instance &#123; get; private set; &#125;</span><br><span class="line"></span><br><span class="line">    //创建一个公有的变量mask。这里报错了“未找到命名空间Image”</span><br><span class="line">    //因为前面引用的命名空间里没有这个类</span><br><span class="line">    //用“alt”和“enter”可以激活，会提示几种改错的处理方案</span><br><span class="line">    //既然没有命名空间，那加上命名空间就好了</span><br><span class="line">    //现在需要加上UI图形的命名空间using UnityEngine.UI</span><br><span class="line">    //创建UI图形对象mask，用它来获取遮罩层对象</span><br><span class="line">    public Image mask;</span><br><span class="line"></span><br><span class="line">    //设置一个变量，记录遮罩层初始长度</span><br><span class="line">    float originalSize;</span><br><span class="line">    private void Awake() &#123;</span><br><span class="line">        //设置静态实例为当前对象</span><br><span class="line">        Instance = this;</span><br><span class="line">    &#125;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //拿到mask的宽度值</span><br><span class="line">        originalSize = mask.rectTransform.rect.width;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //创建一个方法，用来设置（更改）现在的mask遮罩层的宽度</span><br><span class="line">    public void SetValue(float value) &#123;</span><br><span class="line">        //根据当前的锚设置</span><br><span class="line">        //参数是（当前的宽度设置到横轴上面，具体的值是原始的长度乘以血量变化的百分比）</span><br><span class="line">        //设置更改的是mask遮罩层的宽度，并且依据传递过来的参数进行更改</span><br><span class="line">        mask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>设置好上面的代码就要和Ruby连接在一起</p>
-<ol>
-<li>在Ruby减血和增血的脚本位置控制遮罩层的代码</li>
-<li>找到RubyController的changeHealth</li>
-<li>给HealthFrame添加创建的UIHealthBar脚本，把遮罩放到mask栏去</li>
-</ol>
-<p>以下是RubyController的ChangeHealth的脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public void ChangeHealth(int amount) &#123;</span><br><span class="line">        //假设玩家受伤害的时间间隔是2秒</span><br><span class="line">        //不管是什么样的伤害，只要amount小于0，就判断是不是无敌</span><br><span class="line">        if (amount &lt; 0) &#123;</span><br><span class="line">            //判断当前是否处于无敌状态</span><br><span class="line">            if (isInvincible) &#123;</span><br><span class="line">                //无敌不伤血，跳出无敌状态</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当不是无敌状态时，会执行下面的代码</span><br><span class="line">        //重置无敌状态为真</span><br><span class="line">        isInvincible = true;</span><br><span class="line">        //设置无敌时间</span><br><span class="line">        invincibleTimer = timeInvincible;</span><br><span class="line"></span><br><span class="line">        //播放受伤动画</span><br><span class="line">        animator.SetTrigger(&quot;Hit&quot;);</span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        //Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line"></span><br><span class="line">        //这个Instance是静态的，只有一个，用类就可以直接调用，不需要创建对象</span><br><span class="line">        //当前的生命值除以最大的生命值，传过去的应该是一个小数</span><br><span class="line">        UIHealthBar.Instance.SetValue(currentHealth / (float)maxHealth);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
+        
     </div>
 
     

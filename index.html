@@ -201,6 +201,7 @@
 <li>Cookie：遮罩贴图</li>
 <li>Lightmap：烘培贴图</li>
 <li>Advanced：高级（可自定义一些贴图属性）</li>
+<li></li>
 </ul>
 <h1 id="所遇问题"><a href="#所遇问题" class="headerlink" title="所遇问题"></a>所遇问题</h1><ol>
 <li><p>画了个Button Box的背景图片，但是传到Unity上，图片很糊。</p>
@@ -208,9 +209,18 @@
 <p> 解决方式：<strong>在精灵图像的Inspector里把Fliter Mode改成Point（no fliter）</strong></p>
 </li>
 </ol>
-<h1 id="参考教程链接"><a href="#参考教程链接" class="headerlink" title="参考教程链接"></a>参考教程链接</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wuhaishengxxx/article/details/53033095">2D背景滚动</a></p>
+<h1 id="参考教程链接"><a href="#参考教程链接" class="headerlink" title="参考教程链接"></a>参考教程链接</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wuhaishengxxx/article/details/53033095">2D背景滚动</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sun124608666/article/details/114630402">粒子系统</a><br>[拖尾]（<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Vh411n7gm?t=9.9%EF%BC%89">https://www.bilibili.com/video/BV1Vh411n7gm?t=9.9）</a></p>
 <hr>
-<p>修改中：游戏场景-（1）沙漠星空 Desert Starry Sky-动态流星</p>
+<p>修改中：游戏场景-（1）沙漠星空 Desert Starry Sky-动态流星(拖尾+粒子)</p>
+<h1 id="参数记录"><a href="#参数记录" class="headerlink" title="参数记录"></a>参数记录</h1><p>粒子系统：<br>Duration：1.00</p>
+<p>Start Lifetime:1</p>
+<p>Start Speed:0</p>
+<p>Start Size：0.2</p>
+<p>Simulation Space:World</p>
+<p>Emission&gt;Rate over Time:50</p>
+<p>Velocity over Lifetime勾选，Linear X、Y、Z全改成3，Z右边的小三角形，点击，把Constant改成Curve</p>
+<p>X、Y、Z曲线自调</p>
+<p>勾选Trails，取消此项内所有勾，Width over Trall右边三角形，改成曲线，自调</p>
 
         </div>
     

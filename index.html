@@ -152,6 +152,61 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/15/3DJonhLemon%E6%B7%BB%E5%8A%A0%E7%8E%A9%E5%AE%B6%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/">
+                3DJonhLemon添加玩家角色动画
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-15</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>导入资源包，把玩家角色拖入到Hierarchy，点击这个素材下的一个同名子模型。</p>
+<p>这个模型里面主要是一个大的Skinned Mesh Renderer（带蒙皮的网格渲染器）组件，用来显示3D模型，3D模型的外观配置。</p>
+<blockquote>
+<p>tips:Skinned Mesh Renderer是一种特殊类型的Mesh Renderer，可让网格根据模型所有骨骼的位置和旋转来改变形状。这些骨骼是模型的子游戏对象一JohnLemon的骨骼Root游戏对象的所有子对象</p>
+</blockquote>
+<blockquote>
+<p>在Hierarchy中，选择Root游戏对象。按住Alt（windows）或Option（mas OS）并单击该游戏对象的名称左侧的箭头以展开所有子对象</p>
+</blockquote>
+<p>要把JohnLemon做成预制件，直接把它从Hierarchy窗口中拖到Prefabs文件夹里。</p>
+<ol>
+<li><p>进入预制件。对于JohnLemon这个游戏对象，动画Animator本身已经作为组件添加到游戏对象中了，骨骼Avatar也已经有了，缺少的是Controller。做一个Controller，把它放在那里好呢？点击Animation文件夹，里面有一个Animators文件夹，放在那里吧。点击Animators文件夹，右键，Create&gt;Animator Controller，命名为JohnLemon。把这个控制器添加到刚才JohnLemon预制件下本应该有的那个缺失的地方。</p>
+</li>
+<li><p>点击JohnLemon预制件，双击打开刚才添加的JohnLemon控制器。</p>
+</li>
+<li><p>做3D动画是一个比较复杂的过程，这个游戏已经有资源了，在Animation文件夹中。可以看到Aimation文件夹中有那个动画，要用到哪个，把它拖拽到第一步双击打开的JohnLemon的Animator中。</p>
+</li>
+<li><p>我先拖了一个John_Idle,然后拖了一个John_Walk，先拖的John_dle直接和Entry相连，作为起始的动画。</p>
+</li>
+<li><p>点击Animator面板中的John_Idle，右键，Make Transition，连到John_Walk；点击John_Walk,同样的方法连到John_Idle。这样，John_Idle和John_Walk相连了。</p>
+</li>
+<li><p>需要上面两个动画进行转化，转化的条件需要改一改</p>
+</li>
+<li><p>在Animator面板中的Parameters，点击“+”号，选择bool类型，起名字叫IsWorking吧，把它作为条件</p>
+</li>
+<li><p>点击John_Walk到John_Idle连线上带三角形的箭头，可以看到右边Inspector面板，Conditions可以点“+”号，让John_Idle到John_Walk为true。另一条线用同样的方法让它为false</p>
+</li>
+<li><p>同样在那个Inspector面板，有个Has Exit Time复选框，把它取消了，目的是为了让只有两个变量进行更改的时候，才会让它进行状态转换，不会用时间倒计时自动退出</p>
+</li>
+</ol>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/14/%E3%80%8AVirtual-Train%E3%80%8B%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6%EF%BC%88x-100%EF%BC%89/">
                 《Virtual Train》开发进度（x/100）
             </a>
@@ -217,8 +272,8 @@
 <iframe src="//player.bilibili.com/player.html?aid=208655773&bvid=BV1Vh411n7gm&cid=427051630&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 <hr>
-<p>修改完成：游戏场景-（1）沙漠星空 Desert Starry Sky-动态陨石(拖尾+粒子)</p>
-<pre><code>    游戏场景-（1）沙漠星空 Desert Starry Sky-MeteorRain(帧动画)
+<p>修改完成：<br>游戏场景-（1）沙漠星空 Desert Starry Sky-动态陨石(拖尾+粒子)</p>
+<pre><code>    游戏场景-（1）沙漠星空 Desert Starry Sky-MeteorRain(帧动画)[加2个tap可隐藏诶]
 </code></pre>
 <p>修改中：空闲ing</p>
 <h1 id="参数记录"><a href="#参数记录" class="headerlink" title="参数记录"></a>参数记录</h1><p>粒子系统：<br>Duration：1.00</p>
@@ -743,92 +798,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/02/Unity-UI%E7%B3%BB%E7%BB%9F/">
-                Unity UI系统
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-02</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>前言：</p>
-<p>目前为止，一直使用Debug.Log在主角受伤时输出当前的生命值。但是玩家不会又Console窗口，因此无法查看最终游戏中的日志。所以，为了给玩家提供反馈，交互式应用测序使用<strong>用户界面（简称UI）</strong>将图像和文本叠加在<strong>场景</strong>上来显示信息。这种显示方式也成为<strong>抬头显示（HUD）</strong>。</p>
-<h1 id="最新Unity中的3大UI系统"><a href="#最新Unity中的3大UI系统" class="headerlink" title="最新Unity中的3大UI系统"></a>最新Unity中的3大UI系统</h1><ul>
-<li>UI工具包</li>
-</ul>
-<p>UI toolKit UI工具包是Unity中最新的UI系统。它旨在优化跨平台性能，并基于Web技术。您可以使用UI工具包为Unity编辑器创建扩展，用程序创建时运行UI（如果安装了UI工具包软件包）。</p>
-<p>Uinty打算让UI工具包成为新UI开发项目推荐UI系统，但它仍然缺少Unity UI（UGUI）和IMGUI中的一些功能。</p>
-<p>一句话总结：</p>
-<p>全能UI系统，而且是Unity未来UI发展方向，暂时还缺少部分功能，建议优先使用，遇到不足的，再选择别的UI系统补上。</p>
-<hr>
-<ul>
-<li>Unity软件包（UGUI）</li>
-</ul>
-<p>Unity用户界面（Unity UI）软件包（也成为UGUI）是一个较旧的、基于游戏对象的UI系统，宁可以使用它为游戏和应用程序开发运行时UI。Unity使用组件和Game视图来排列和定位用户界面并设置其样式。它支持高级渲染和文本渲染功能。</p>
-<p>现在使用Unity的公司，旧项目中大多数还在使用UGUI，甚至是它的前身nGUI（第三方ui），Ruby’s Adventure教程中，使用的还是UGUI</p>
-<blockquote>
-<p>注意：UGUI不能在Unity编辑器中创建或更改用户界面</p>
-</blockquote>
-<blockquote>
-<p>UGUI的优势</p>
-</blockquote>
-<ol>
-<li>所见即所得（WYSIWYG）设计工具</li>
-<li>支持多模式、多摄像机渲染</li>
-<li>面向对象的编程</li>
-</ol>
-<blockquote>
-<p>UGUI基本使用步骤</p>
-</blockquote>
-<ol>
-<li>创建画布Canves</li>
-<li>在画布Canves中添加UI组件（文本、文本框、按钮等等）</li>
-<li>设置好布局、动画、以及摄像机、特效等</li>
-<li>需要的话，再添加交互事件</li>
-</ol>
-<hr>
-<ul>
-<li>NGUI</li>
-</ul>
-<p>第三方UI系统，需付费（$95）,除非入职公司旧系统，还在使用NGUI，否则不推荐学习，UGUI是模仿NGUI做出来的，已经比NGUI更好用，功能更强。</p>
-<hr>
-<ul>
-<li>IMGUI<br>立即模式图形用户界面（IMGUI）是一个代码驱动的UI工具包，它使用OnGUI函数以及实现它的脚本来绘制和管理用户界面以及实现它的脚本绘制和管理用户界面。宁可以使用IMGUI来创建自定义Inspector，Unity编辑器的扩展以及游戏内调显示。不推荐用于构建运行时UI。<br>纯代码UI系统，适合程序员做游戏内部测试系统、控制台的UI</li>
-</ul>
-<hr>
-<blockquote>
-<p>学习建议：Unity的三个都学，首先是UGUI（兼容旧项目），其次是UI toolKit，之后是IMGUI，不建议再学NGUI</p>
-</blockquote>
-<blockquote>
-<p>如果近期不以Unity就业为目标，建议开始学UI toolKit</p>
-</blockquote>
-<blockquote>
-<p>旧项目：保持系统一致性为原则，使用UGUI或NGUI</p>
-</blockquote>
-<blockquote>
-<p>新项目：尽量使用Unity UI ToolKit，这个是Unity主推的方向，用它不能实现的再考虑UGUI</p>
-</blockquote>
-<blockquote>
-<p>游戏内部测试系统（包括控制台）：Unity UI ToolKit不能实现的话，就使用IMGUI</p>
-</blockquote>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -871,6 +840,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/15/3DJonhLemon%E6%B7%BB%E5%8A%A0%E7%8E%A9%E5%AE%B6%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/">3DJonhLemon添加玩家角色动画</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/14/%E3%80%8AVirtual-Train%E3%80%8B%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6%EF%BC%88x-100%EF%BC%89/">《Virtual Train》开发进度（x/100</a>
             </li>
             
@@ -880,10 +853,6 @@
             
             <li>
                 <a class="footer-post" href="/2022/05/05/3D%E5%A3%B0%E9%9F%B3%E7%A9%BA%E9%97%B4%E6%95%88%E6%9E%9C%E8%AE%BE%E7%BD%AE/">3D声音空间效果设置</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/05/%E9%9F%B3%E9%A2%91/">音频</a>
             </li>
             
         </ul>

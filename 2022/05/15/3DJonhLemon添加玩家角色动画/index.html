@@ -10,10 +10,10 @@
 
     <!--Description-->
     
-        <meta name="description" content="在“世界交互（2）”模块中，我们涉及到了（rubyController）这个游戏对象。如果是一个复杂的游戏，这个rubyController不是我们写的呢，是别人写的游戏对象呢？
-因此，使用其他代码里的游戏对象之前，最好先做一下检测，检测它是否获取到，是否为空。
+        <meta name="description" content="导入资源包，把玩家角色拖入到Hierarchy，点击这个素材下的一个同名子模型。
+这个模型里面主要是一个大的Skinned Mesh Renderer（带蒙皮的网格渲染器）组件，用来显示3D模型，3D模型的外观配置。
 
-123456789if (ruby">
+tips:Skinned Mesh Renderer是一种特殊类型的Mesh R">
     
 
     <!--Author-->
@@ -23,7 +23,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="完善触发器代码"/>
+        <meta property="og:title" content="3DJonhLemon添加玩家角色动画"/>
     
 
     <!--Open Graph Description-->
@@ -48,7 +48,7 @@
 
     <!-- Title -->
     
-    <title>完善触发器代码 - c-an</title>
+    <title>3DJonhLemon添加玩家角色动画 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -154,13 +154,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/21/%E5%AE%8C%E5%96%84%E8%A7%A6%E5%8F%91%E5%99%A8%E4%BB%A3%E7%A0%81/">
-                完善触发器代码
+            <a href="/2022/05/15/3DJonhLemon%E6%B7%BB%E5%8A%A0%E7%8E%A9%E5%AE%B6%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/">
+                3DJonhLemon添加玩家角色动画
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-21</span>
+                <span class="date">2022-05-15</span>
             
             
             
@@ -173,24 +173,35 @@
         
 
         <!-- Post Content -->
-        <p>在“世界交互（2）”模块中，我们涉及到了（rubyController）这个游戏对象。如果是一个复杂的游戏，这个rubyController不是我们写的呢，是别人写的游戏对象呢？</p>
-<p>因此，使用其他代码里的游戏对象之前，最好先做一下检测，检测它是否获取到，是否为空。</p>
-<p><br></br></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if (rubyController != null) &#123;</span><br><span class="line">            //吃完（草莓），让（草莓）消失</span><br><span class="line">            //Destory是object里的方法，组类的方法，用来在内存中把当前对象销毁</span><br><span class="line">            //销毁当前游戏对象</span><br><span class="line">            Destroy(gameObject);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            Debug.LogError(&quot;rubyController 游戏组件并未获取到&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br></br><br>此外，当（生命值）满的时候，不吃（草莓）来（增加生命值）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">if (rubyController != null) &#123;</span><br><span class="line">            if (rubyController.currentHealth &lt; rubyController.maxHealth) &#123;</span><br><span class="line">                //吃完（草莓），让（草莓）消失</span><br><span class="line">                //Destory是object里的方法，组类的方法，用来在内存中把当前对象销毁</span><br><span class="line">                //销毁当前游戏对象</span><br><span class="line">                Destroy(gameObject);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">            Debug.Log(&quot;当前玩家生命值是满的，不需要加血！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">                Debug.LogError(&quot;rubyController 游戏组件并未获取&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br></br><br>在上述代码里（世界交互-2），（ruby）与（草莓），（ruby）的（currentHealth）原是私有的，这里为了调用，将它改为public。</p>
-<p>其实这对封装性没有很好的体现，（currentHealth）不应该随便地暴露出来，任意的类在任意的地方，可以任意地更改，这样也容易出现问题。</p>
-<p>应该封装起来，用特定的游戏逻辑来进行更改。<br>但是对于（RubyController中的public int currentHealth）还想获取，该怎么办呢？</p>
+        <p>导入资源包，把玩家角色拖入到Hierarchy，点击这个素材下的一个同名子模型。</p>
+<p>这个模型里面主要是一个大的Skinned Mesh Renderer（带蒙皮的网格渲染器）组件，用来显示3D模型，3D模型的外观配置。</p>
 <blockquote>
-<p>其实public int currentHealth 中的currentHealth在c#中应该叫字段。而属性是字段的取值器</p>
+<p>tips:Skinned Mesh Renderer是一种特殊类型的Mesh Renderer，可让网格根据模型所有骨骼的位置和旋转来改变形状。这些骨骼是模型的子游戏对象一JohnLemon的骨骼Root游戏对象的所有子对象</p>
 </blockquote>
 <blockquote>
-<p>数据成员的变量，我们称之为字段。对字段进行包装的这种接口，我们称之为属性，通过属性来进行访问</p>
+<p>在Hierarchy中，选择Root游戏对象。按住Alt（windows）或Option（mas OS）并单击该游戏对象的名称左侧的箭头以展开所有子对象</p>
 </blockquote>
-<p><br></br></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//c#中支持面向对象程序设计中的封装概念，对数据成员的保护</span><br><span class="line">    //数据成员变量，默认一般都应该设置为私有，只能通过对当前类的方法或属性进行访问</span><br><span class="line">    //属性类似于特殊的函数结构，它get是一个关键字</span><br><span class="line">    //get是获取当前属性所绑定的字段的值</span><br><span class="line">    //属性相当于一个盒子，字段是在盒子里的某件东西</span><br><span class="line">    //属性限制了字段的访问规则，比如只能读或写</span><br><span class="line">    //或者读写的时候满足某种需求，才能往外进行操作</span><br><span class="line">    //相当于把它包装起来，这就称为封装</span><br><span class="line">    //属性是公有的，可以通过取值器get、赋值器set设定对应字段的访问规则，满足规则才能进行访问</span><br><span class="line"></span><br><span class="line">    public int health &#123; </span><br><span class="line">        get &#123; return currentHealth; &#125;</span><br><span class="line">        //set &#123; currentHealth = value; &#125;//可赋值</span><br><span class="line">    &#125;</span><br><span class="line">    int currentHealth;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<p>要把JohnLemon做成预制件，直接把它从Hierarchy窗口中拖到Prefabs文件夹里。</p>
+<ol>
+<li><p>进入预制件。对于JohnLemon这个游戏对象，动画Animator本身已经作为组件添加到游戏对象中了，骨骼Avatar也已经有了，缺少的是Controller。做一个Controller，把它放在那里好呢？点击Animation文件夹，里面有一个Animators文件夹，放在那里吧。点击Animators文件夹，右键，Create&gt;Animator Controller，命名为JohnLemon。把这个控制器添加到刚才JohnLemon预制件下本应该有的那个缺失的地方。</p>
+</li>
+<li><p>点击JohnLemon预制件，双击打开刚才添加的JohnLemon控制器。</p>
+</li>
+<li><p>做3D动画是一个比较复杂的过程，这个游戏已经有资源了，在Animation文件夹中。可以看到Aimation文件夹中有那个动画，要用到哪个，把它拖拽到第一步双击打开的JohnLemon的Animator中。</p>
+</li>
+<li><p>我先拖了一个John_Idle,然后拖了一个John_Walk，先拖的John_dle直接和Entry相连，作为起始的动画。</p>
+</li>
+<li><p>点击Animator面板中的John_Idle，右键，Make Transition，连到John_Walk；点击John_Walk,同样的方法连到John_Idle。这样，John_Idle和John_Walk相连了。</p>
+</li>
+<li><p>需要上面两个动画进行转化，转化的条件需要改一改</p>
+</li>
+<li><p>在Animator面板中的Parameters，点击“+”号，选择bool类型，起名字叫IsWorking吧，把它作为条件</p>
+</li>
+<li><p>点击John_Walk到John_Idle连线上带三角形的箭头，可以看到右边Inspector面板，Conditions可以点“+”号，让John_Idle到John_Walk为true。另一条线用同样的方法让它为false</p>
+</li>
+<li><p>同样在那个Inspector面板，有个Has Exit Time复选框，把它取消了，目的是为了让只有两个变量进行更改的时候，才会让它进行状态转换，不会用时间倒计时自动退出</p>
+</li>
+</ol>
 
     </div>
 

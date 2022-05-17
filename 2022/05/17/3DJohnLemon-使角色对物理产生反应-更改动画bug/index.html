@@ -10,10 +10,12 @@
 
     <!--Description-->
     
-        <meta name="description" content="动画术语动画剪辑术语
-动画剪辑（Animation Clip）：可用于动画角色或简单动画数据。这是一种简单的单位动作，例如“空闲”、“行走”、“奔跑”
-动画曲线（Animation Curves）：曲线可以附加到动画剪辑，并由游戏中的各种参数控制
-Avatar遮罩（Avatar Mask）：为骨架指">
+        <meta name="description" content="在游戏对象后修改，若是要更新显回预制件。Inspector面板，Overrides会提示你是否返回预制件。Overrides中Rever All是把刚才操作还原，Apply All是覆盖预制件
+
+前提：JohnLemon有Rigidbody组件和Animator组件
+
+
+Animator里游戏对象也">
     
 
     <!--Author-->
@@ -23,7 +25,7 @@ Avatar遮罩（Avatar Mask）：为骨架指">
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="2D精灵动画使用总结"/>
+        <meta property="og:title" content="3DJohnLemon 使角色对物理产生反应-更改动画bug"/>
     
 
     <!--Open Graph Description-->
@@ -48,7 +50,7 @@ Avatar遮罩（Avatar Mask）：为骨架指">
 
     <!-- Title -->
     
-    <title>2D精灵动画使用总结 - c-an</title>
+    <title>3DJohnLemon 使角色对物理产生反应-更改动画bug - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -154,13 +156,13 @@ Avatar遮罩（Avatar Mask）：为骨架指">
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/27/2D%E7%B2%BE%E7%81%B5%E5%8A%A8%E7%94%BB%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/">
-                2D精灵动画使用总结
+            <a href="/2022/05/17/3DJohnLemon-%E4%BD%BF%E8%A7%92%E8%89%B2%E5%AF%B9%E7%89%A9%E7%90%86%E4%BA%A7%E7%94%9F%E5%8F%8D%E5%BA%94-%E6%9B%B4%E6%94%B9%E5%8A%A8%E7%94%BBbug/">
+                3DJohnLemon 使角色对物理产生反应-更改动画bug
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-27</span>
+                <span class="date">2022-05-17</span>
             
             
             
@@ -173,21 +175,24 @@ Avatar遮罩（Avatar Mask）：为骨架指">
         
 
         <!-- Post Content -->
-        <h1 id="动画术语"><a href="#动画术语" class="headerlink" title="动画术语"></a>动画术语</h1><h2 id="动画剪辑术语"><a href="#动画剪辑术语" class="headerlink" title="动画剪辑术语"></a>动画剪辑术语</h2><ul>
-<li>动画剪辑（Animation Clip）：可用于动画角色或简单动画数据。这是一种简单的单位动作，例如“空闲”、“行走”、“奔跑”</li>
-<li>动画曲线（Animation Curves）：曲线可以附加到动画剪辑，并由游戏中的各种参数控制</li>
-<li>Avatar遮罩（Avatar Mask）：为骨架指定要包含或排除哪些身体部位，在动画层或导入器中使用。</li>
-</ul>
-<h2 id="Animator和Animator-Controller术语"><a href="#Animator和Animator-Controller术语" class="headerlink" title="Animator和Animator Controller术语"></a>Animator和Animator Controller术语</h2><ul>
-<li>Animator组件（Animator Component）：相关动画的东西都是通过这个组件来进行同一的管理，来挂接到游戏对象上</li>
-<li>Animator Controller：是真正用来管理动画素材的。把Animator Controller放到Animator组件上，整个系统就挂接到一起了。用来控制不同状态下动画的播放，以及状态间的转换。 </li>
-<li>Animator窗口（Animator Window）</li>
-<li>动画状态机（Animation State Machine）</li>
-<li>动画参数（Animation Blend Tree）</li>
-</ul>
+        <p>在游戏对象后修改，若是要更新显回预制件。Inspector面板，Overrides会提示你是否返回预制件。Overrides中Rever All是把刚才操作还原，Apply All是覆盖预制件</p>
 <blockquote>
-<p>Animator&gt;Parameters-&gt;”+”,有些时候Trigger比Bool更好用，Bool进入一个区域后出来要更改Bool值来改变状态，而Tigger不<br>可以根据时间或参数来决定状态转换。如果勾选了Has Exit Time，Exit Time的值也可以更改了，这时就是根据时间来进行状态转换的条件。这时即使没有在Conditions设置转换条件，到达退出时间，会自动退出当前模式</p>
+<p>前提：JohnLemon有Rigidbody组件和Animator组件</p>
 </blockquote>
+<blockquote>
+<p>Animator里游戏对象也可以进行动画的运动，设置动画的运动和刚体的物理运动产生冲突，会影响实体运动的位移。</p>
+</blockquote>
+<p>更改步骤：</p>
+<ol>
+<li>Inspector&gt;Animator&gt;Update Mode由Normal（默认的更新模式）更改为Animate Physics</li>
+</ol>
+<p><strong>Normal是用Update脚本进行动作更新，如果想要与Rigidbody进行统一，需要把刷新模式改成Animate Physics，这对应的刷新模式FixedUpdate，这和Rigidbody相同。学2D的时候也说了，Rigidbody的移动都放到FixedUpdate中，更适合</strong></p>
+<ol start="2">
+<li>在Rigidbody&gt;Constraints中把约束勾上。对于Freeze Position，把Y轴勾上，因为这个游戏角色不会往上升。对于Freeze Rotation（转向），X和Z勾上，因为这个角色只会沿Y轴左转或右转，不会往下磕头什么的</li>
+</ol>
+<h1 id="更新循环"><a href="#更新循环" class="headerlink" title="更新循环"></a>更新循环</h1><p><strong>更新循环</strong>是产生动画和刚体冲突的原因。<br>两个更新循环也就是Update和FixedUpdate</p>
+<h1 id="根运动root-Motion"><a href="#根运动root-Motion" class="headerlink" title="根运动root Motion"></a>根运动root Motion</h1><p>在Inspector&gt;Animator,有个Apply Root Motion，打上对勾就是让动画中的任何移动体现在外部坐标中</p>
+<p>先简单理解为，在Animator组件上启用Apply Root Motion，动画中的任何移动体现在外部场景世界坐标中。不启用，动画中的移动只会保留在动画中</p>
 
     </div>
 

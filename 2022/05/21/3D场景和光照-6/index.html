@@ -10,15 +10,8 @@
 
     <!--Description-->
     
-        <meta name="description" content="这里使用UGUI，所有的GUI都是在画布上进行操作的
-
-下面进行操作：
-
-Hierarchy，右键，UI&amp;gt;Canvas，创建Canvas后，会自动生成一个Event System游戏对象，它里面挂接的是事件系统，做一些用户交互的事件 
-Canvas自带了4个组件。
-
-
-Rect Transfo">
+        <meta name="description" content="为环境设置光照Unity中的光源只是添加了Light组件的游戏对象。光源组件包含一些设置可用于更改光源的颜色和强度，还有光源的“类型”以及各种用于阴影和光照贴图（Lightmapping）的更复杂的控制。
+Unity中的每个新场景都分配的方向光（Directional Light），这是默认创建的两">
     
 
     <!--Author-->
@@ -28,7 +21,7 @@ Rect Transfo">
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="制作头像、血条框UI"/>
+        <meta property="og:title" content="3D场景和光照-6"/>
     
 
     <!--Open Graph Description-->
@@ -53,7 +46,7 @@ Rect Transfo">
 
     <!-- Title -->
     
-    <title>制作头像、血条框UI - c-an</title>
+    <title>3D场景和光照-6 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -159,13 +152,13 @@ Rect Transfo">
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/05/02/%E5%88%B6%E4%BD%9C%E5%A4%B4%E5%83%8F%E3%80%81%E8%A1%80%E6%9D%A1%E6%A1%86UI/">
-                制作头像、血条框UI
+            <a href="/2022/05/21/3D%E5%9C%BA%E6%99%AF%E5%92%8C%E5%85%89%E7%85%A7-6/">
+                3D场景和光照-6
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-05-02</span>
+                <span class="date">2022-05-21</span>
             
             
             
@@ -178,82 +171,48 @@ Rect Transfo">
         
 
         <!-- Post Content -->
-        <blockquote>
-<p>这里使用UGUI，所有的GUI都是在画布上进行操作的</p>
-</blockquote>
-<p>下面进行操作：</p>
-<ol>
-<li>Hierarchy，右键，UI&gt;Canvas，创建Canvas后，会自动生成一个Event System游戏对象，它里面挂接的是事件系统，做一些用户交互的事件 </li>
-<li>Canvas自带了4个组件。</li>
-</ol>
-<ul>
-<li><p>Rect Transform（矩形变换）</p>
-</li>
-<li><p>Canvas：配置整体组件显示模式。</p>
-<p> Screen Space-Overlay：这时默认模式，可以让Unity始终在游戏的上层绘制UI。大多数应用程序使用此模式，因为它们希望UI始终位于最上层以提供所有信息。</p>
-<p> Screen Space-Camera：这种模式在于摄像机对齐的平面上绘制UI。平面的大小确定为始终填充整个屏幕，这样撕扯移动摄像机，平面随摄像机一起移动，从而显示于Overlay图形相同的形状。但是，由于平面是在世界中绘制的，而不是在屏幕上绘制的，因此世界中的对象可以绘制在UI的上层。</p>
-<p> World Space：这种模式可以在世界中的任何位置绘制平面。例如，你可以将此平面作游戏中的计算机屏幕，或者用作墙壁，或者放在角色的上层。这在3D游戏中更有用，因为UI会随着距离变小。</p>
-</li>
-<li><p>Canvas Scaler（缩放方式）<br>Constant Pixel Size 固定的像素大小</p>
-<p>Scale With Screen Size 根据显示的大小进行缩放</p>
-<p>Constant Physical Szie 固定物理大小</p>
-</li>
-<li><p>Canvas玩家是否点中画布对象的（比如按钮）</p>
-</li>
+        <h1 id="为环境设置光照"><a href="#为环境设置光照" class="headerlink" title="为环境设置光照"></a>为环境设置光照</h1><p>Unity中的光源只是添加了Light组件的游戏对象。光源组件包含一些设置可用于更改光源的颜色和强度，还有光源的“类型”以及各种用于阴影和光照贴图（Lightmapping）的更复杂的控制。</p>
+<p>Unity中的每个新场景都分配的<strong>方向光（Directional Light）</strong>，这是默认创建的两个游戏对象之一。</p>
+<h1 id="Unity光照相关光源概念简介"><a href="#Unity光照相关光源概念简介" class="headerlink" title="Unity光照相关光源概念简介"></a>Unity光照相关光源概念简介</h1><ul>
+<li>直接和间接光照</li>
 </ul>
+<ol>
+<li>直射光是发出后照射到表面一次再被直接反射到传感器（例如眼睛的视网膜或摄像机）中的光</li>
+<li>间接光是当直射光从表面反弹时产生的额外光，是最终反射到传感器中的所有其他光线，包括多次照射到表面的光线和天光</li>
+</ol>
+<p>Unity使用什么直接还是间接光照技术，取决于项目的配置方式</p>
+<ul>
+<li>实时光照和烘培光照</li>
+</ul>
+<ol>
+<li>实时光照：指Unity在运行时计算光照</li>
+<li>烘培光照：指Unity提前执行光照计算并将结果保存为光照数据，然后在运行时应用</li>
+<li>混合光照：实时光照、烘培光照两者的混合</li>
+</ol>
+<p>在Unity中，项目可以使用实时光照、烘培光照或两者的混合（称为混合光照），用来设置光源的模式（Mode）</p>
+<h1 id="Unity中的光源类型Type"><a href="#Unity中的光源类型Type" class="headerlink" title="Unity中的光源类型Type"></a>Unity中的光源类型Type</h1><p>光源：为了计算受光照影响的游戏对象的阴影效果，Unity需要知道落在游戏对象上光的强度、方向和颜色。该信息由光源提供。</p>
+<ol>
+<li>Direction light方向光<br>这种光源位于无限远的位置，比如太阳光</li>
+</ol>
+<p>方向光对位于在场景中创建诸如阳光的效果非常有用。方向光在许多方面表现得很像太阳光，可视为无限远处的光源。方向光没有任何可识别方向的（？）因此光源对象可以放置在场景中的任何位置。场景中的所有对象都被照亮，就像光线始终来自同一方向一样。光源与目标对象的距离是未定义的，</p>
+<p>方向光代表来自游戏世界范围之外的大型远处光源。在逼真的场景中，方向光可用于模拟太阳或月亮，要为对象添加无需指定光源的来源，方向光是一种很有用的方法。</p>
+<p>旋转默认方向光（或“太阳”）会导致“天空盒”更新，使光线与侧面成一定角度，与地面平行，便可实现日落效果。此外，将光源指向上方会使天空是夜晚一样。如果光线从上到下成一定角度，天空将像白昼。</p>
+<p>如果选择天空盒作为环境光源，那么环境光源将根据这些颜色进行更改。<br>2. Point light点光源<br>光源位于场景中的一个点，并在所有方向上均发光</p>
+<p>点光源位于空间中的一个点，并在所有方向上均发光。照射到表面的光线的方向是从接触点返回到光源对象中心的线。强度随着远离光源而衰减。光照强度与距光距离的平方成反比。这被称为“平方反比定律”，类似于光在现实世界中的情况。</p>
+<p>点光源可用于模拟场景中的灯和其他局部光源。还可以用来逼真地模拟火花爆炸照亮周围环境。</p>
 <ol start="3">
-<li>在Hierarchy中点中Canvas，右键&gt;UI&gt;Image,把它命名为（HealthFrame）这就是一个图片了</li>
-<li>选中想选的精灵，把它从文件夹中拖拽到HealthFrame的Inspector中的Image的第一栏（Source Image）。一个头像框就做好了。（我指的是图片，还有一个大框，那个是相对于游戏屏幕的位置。对了，一开始拖拽精灵进去的时候，精灵大小被改了，按Set Native Szie可以恢复成原来的尺寸。要在场景中通过拖拽改大小，可以按住shift来改，这样比例不会变）</li>
-<li>但是设备不同，显示器不同，分辨率不同，分辨率一改，头像框就会和原先的位置不一样了。</li>
-<li>下面牵扯到锚点的概念，那个白色的风车就是锚点</li>
-<li>拖动白色的框框，有一个是不变的，那就是白色风车的和头像框的相对位置。</li>
-<li>把锚点和头像框设置成同一位置，就可以满足需要。</li>
-<li>HealthFrame的Inspector&gt;Rect Transform ,点击框框，可以快速改变锚点的位置</li>
+<li>Area light面光源<br>这种光源由场景中的矩形定义，并沿表面区域均匀地向所有方向发光，但仅从矩面所在的面发射</li>
 </ol>
-<hr>
-<blockquote>
-<p>好了，在头像框里，应该有个头像，一层包一层，点击HealthFrame，右键，UI&gt;Image,命名为HeadImage。</p>
-</blockquote>
-<ol>
-<li>依葫芦画瓢，把头像的精灵拖拽到HeadImage中的Inspector中的Image的第一栏（Source Image），调整大小</li>
+<p>面光源是通过空间中的矩形来定义的。光线在表面区域上均匀地向所有方向上发射，但仅从矩形所在的面发射。无法手动控制光源的范围。强度将按照距离的平方呈反比衰减。由于光线计算处理对处理器性能消耗较大，因此面光源不可以实时处理，只能烘培到光照贴图中。</p>
+<p>由于面光源同时从几个不同方向照亮对象，因此阴影趋向于比其他类型的光源更细腻、柔和。可以使用面光源来创建逼真的路灯或靠近玩家的一排..光源可以模拟较小的光源（例如室内光照），但效果比点光源更逼真。</p>
+<ol start="4">
+<li>Spot light聚光灯<br>这种光源位于场景中的一个点，并以锥体形状发光。</li>
 </ol>
-<hr>
-<blockquote>
-<p>但是，发现一个问题，在移动头像框的时候，头像的位置并不会贴合。因为锚点不光控制位置，还会控制图像的大小缩放。</p>
-</blockquote>
-<p>想让头像根据外部容器缩放，需要锚点和头像外框进行匹配。</p>
-<p>下面进行操作：</p>
-<ol>
-<li>把锚点的四个风车花瓣包裹头像（网上说得很详细啦，搜Unity锚点就行）</li>
-</ol>
-<hr>
-<p>下面开始制作血条</p>
-<h2 id="制作血条"><a href="#制作血条" class="headerlink" title="制作血条"></a>制作血条</h2><blockquote>
-<p>首先介绍遮罩的概念</p>
-</blockquote>
-<h4 id="遮罩"><a href="#遮罩" class="headerlink" title="遮罩"></a>遮罩</h4><p>两个图像，一个是原图像，一个是遮罩图像。显示的是原图像，遮罩图像控制原图像的显示范围，只显示遮罩区域的原图像。所以可以通过修改遮罩图像的大小，来不失帧地显示原图像的部分区域。</p>
-<blockquote>
-<p>制作遮罩血条的方式是，先添加遮罩，然后把血条作为遮罩层的子元素。</p>
-</blockquote>
-<ol>
-<li><p>遮罩血条应该是在头像框架里面，点击HealthFrame，右键，UI&gt;Image。</p>
-</li>
-<li><p>出现了一个白色的遮罩层，遮罩无所谓什么颜色，也不需要任何精灵，它只是用来占位的，命名为Mask。调整遮罩层的位置，让它正好把应该在头像框里的位置完全遮住。并且需要把轴心（蓝色的圆圈）移动到最左侧的位置。因为如果把轴心留在中间，若减少百分之二十，那么左右两侧都会减少百分之十，就很怪。</p>
-</li>
-<li><p>但是我在移动轴心点的时候遇到一个问题：轴心点无法移动，是灰色的。</p>
-<p>解决办法：在顶部菜单栏找到ToggleToolHandlePosition（切换工具手柄位置），把现在的Center模式点击修改为Pivot模式就可以了</p>
-</li>
-<li><p>然后在Mask中建一个子对象，它是真正显示血液血条的子对象。Mask，右键，UI&gt;Image,重命名为HealthBar，然后血条上需要挂精灵，遮罩上不需要挂精灵，因为遮罩本身不显示嘛</p>
-</li>
-<li><p>这次显示血条不需要把它恢复成原来大小再缩放，只需要让它填充父对象就可以了。在HealthBar的Inspector的Rect Transform，点击快速调控的面板（那个正方形图标），激活以后，按着alt键不松，点最右下角的方格，这个左右就是填充整个区域。</p>
-</li>
-<li><p>还想把锚点位置放在左上角，不用按alt键了，点左上角的正方形。（这样会不随遮罩层的缩放而缩放血条）</p>
-</li>
-<li><p>下面添加遮罩的功能。回到Mask，选用Mask组件。选中Mask游戏对象（有白色的遮罩的那个），添加“Mask”组件。不想看到遮罩的图形（一般来说，都不想看到），就把“Show Mask Graphic”取消</p>
-</li>
-<li><p>现在，选中Mask，调整它的大小，发现血条也在变化</p>
-</li>
-</ol>
+<p>像点光源一样，聚光灯具有指定的位置和光线衰减范围。不同的是聚光灯有一个角度约束、形成锥形的光照区域。锥体的中心指向光源对象的发光。聚光灯锥体边缘的光线也会衰减。加宽该角度会增加锥体的宽度，并随之增加这种淡化的效果，称为“半影”。</p>
+<p>聚光灯通常用于人造光源，例如手电筒、汽车前照灯和探照灯。通过脚本或动画控制方向，移动聚光灯将照亮场景的一小块区域并产生舞台风格的效果。</p>
+<h1 id="Light组件"><a href="#Light组件" class="headerlink" title="Light组件"></a>Light组件</h1><p>不同的渲染管线，Unity在Inspector中显示不同的属性。</p>
+<h1 id="Lighting窗口"><a href="#Lighting窗口" class="headerlink" title="Lighting窗口"></a>Lighting窗口</h1><p>Lighting窗口（菜单：Window&gt;Rendering&gt;Lighting）是当前项目的总体光照设置。</p>
+<p>使用Lighting窗口调整与场景中的光照有关设置，并根据质量、烘培时间和存储空间来优化预计算的光照数据。</p>
 
     </div>
 

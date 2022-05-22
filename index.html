@@ -262,6 +262,37 @@
 <h1 id="Light组件"><a href="#Light组件" class="headerlink" title="Light组件"></a>Light组件</h1><p>不同的渲染管线，Unity在Inspector中显示不同的属性。</p>
 <h1 id="Lighting窗口"><a href="#Lighting窗口" class="headerlink" title="Lighting窗口"></a>Lighting窗口</h1><p>Lighting窗口（菜单：Window&gt;Rendering&gt;Lighting）是当前项目的总体光照设置。</p>
 <p>使用Lighting窗口调整与场景中的光照有关设置，并根据质量、烘培时间和存储空间来优化预计算的光照数据。</p>
+<h1 id="Light-Explorer窗口"><a href="#Light-Explorer窗口" class="headerlink" title="Light Explorer窗口"></a>Light Explorer窗口</h1><p>在Light Explorer窗口中可选择和编辑光源。要从菜单中打开Light Explorer窗口，请导航至Window&gt;Rendering&gt;Light Explorer</p>
+<h1 id="光照贴图"><a href="#光照贴图" class="headerlink" title="光照贴图"></a>光照贴图</h1><p>光照贴图过程将预先计算场景中表面的亮度，并将结果存储在称为“光照贴图”的纹理中供以后使用。</p>
+<h1 id="光照探针"><a href="#光照探针" class="headerlink" title="光照探针"></a>光照探针</h1><p>通过<strong>光照探针</strong>可以捕获并使用穿过场景空白空间的光线相关信息</p>
+<p>与光照贴图类似，光照探针存储了有关场景中的光照的“烘培”信息。不同之处在于，光照贴图存储的是有关光线照射到场景中的表面的光照贴图信息，而光照探针存储的是有关光线穿过场景中的空白空间的信息。</p>
+<p>光照探针是在烘培期间测量（探测）光照的场景位置。在运行时，系统将使用距离动态游戏对象最近的探针的值来估算照射到这些对象的间接光。</p>
+<ul>
+<li>用途：</li>
+<li>光照探针的主要用途是为场景中移动的对象提供高质量的光照（包括间接反射光）</li>
+<li>光照探针的次要用途是在静态景物使用Unity的LOD（细节级别）系统时提供该景物的光照信息。</li>
+</ul>
+<hr>
+<p>下面开始实操：</p>
+<blockquote>
+<p>更改光照的颜色</p>
+</blockquote>
+<ol>
+<li>在Hierarchy窗口中,选择Directional Light游戏对象</li>
+<li>更改Light组件的某些属性值</li>
+</ol>
+<p>名词介绍:</p>
+<ul>
+<li>Intensity 亮度</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://docs.unity3d.com/cn/2020.3/Manual/class-Light.html">光源手册</a></p>
+<hr>
+<p>配置全局的光照,需要打开Window&gt;Rendering&gt;Lighting</p>
+<ul>
+<li>Sky,用于控制从场景上方发出的环境光</li>
+<li>Equator,用于控制从地平线向场景中间传播的光线</li>
+<li>Ground,用于控制从场景下方发出的光线</li>
+</ul>
 
         </div>
     

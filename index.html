@@ -152,6 +152,53 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/24/3DNavMesh%E5%AF%BC%E8%88%AA%E7%B3%BB%E7%BB%9F-7/">
+                3DNavMesh导航系统-7
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-24</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="NavMesh导航网格实现简单AI"><a href="#NavMesh导航网格实现简单AI" class="headerlink" title="NavMesh导航网格实现简单AI"></a>NavMesh导航网格实现简单AI</h1><p>导航系统允许从场景几何体自动创建的导航网格来创建课再游戏世界中智能移动的角色，动态障碍物可以在运行时更改角色的导航，而网格外链接（Off-Mesh Link）可以构建特定的动作，如打开门或从窗台跳下。</p>
+<h1 id="Unity中的导航系统组成"><a href="#Unity中的导航系统组成" class="headerlink" title="Unity中的导航系统组成"></a>Unity中的导航系统组成</h1><ol>
+<li>导航网格（即Navigation Mesh，缩写为NavMesh），是一种数据结构，用于描述游戏世界的可行走表面，并允许在游戏世界中寻找一个可行走位置到另一个可行走位置的路径。该数据结构是从关卡几何体自动构建或烘培的。</li>
+<li>导航网格代理（NavMesh Agent）组件：可用来创建朝目标角色移动时能彼此避开的角色。代理使用网络导航来推断游戏世界，并知道如何避开彼此以及移动的障碍物。</li>
+<li>网格外链接（Off-Mesh Link）组件：允许合并无法使用可行走表面来表示的导航捷径。例如，跳过沟渠或围栏，或在通过门之间打开门，全都可以描述为导航外链接。</li>
+<li>导航网格障碍物（NavMesh Obstacle）组件：可用于描述代理在世界中导航时应该避开的障碍物，由物理系统控制的木桶或是板条箱便是障碍物的典型例子。障碍物正在移动时，代理将尽力避开它，障碍物一旦变为静止状态，便会在导航网格中雕刻一个孔，从而使代理能够改变自己的路径来绕过它，或者如果静止的障碍物阻挡了路径，则代理可寻找其他不同的路线。</li>
+</ol>
+<h1 id="添加导航网格"><a href="#添加导航网格" class="headerlink" title="添加导航网格"></a>添加导航网格</h1><p>导航网格（NavMesh）是在地面上不可见的形状，定义了一个可以让选定游戏对象在其中移动的区域。</p>
+<p>当某个对象表示为Static时，Unity的导航系统会认为该游戏对象不会移动。游戏环境由许多对象和许多Mesh Render（网格渲染器）组件组成。来自Mesh Renderer组件（其游戏对象被标记为Static）的所有网格将组合构成导航网格的基础</p>
+<p>步骤：</p>
+<ol>
+<li>在level中，配置需要设置导航网格的游戏对象为Static（level是一个例子，选选中游戏对象，在Inspector勾选static即可）</li>
+<li>烘培导航网格：选择Window&gt;AI&gt;Navigation以打开Navigation窗口&gt;选择Bake选项卡</li>
+</ol>
+<hr>
+<p>游戏对象是被Mesh Renderer（网格渲染器）,渲染出来的，渲染出来的网格同时也可用作导航网格（NavMesh），静态的适合做导航网格</p>
+<h1 id="关于Navigation"><a href="#关于Navigation" class="headerlink" title="关于Navigation"></a>关于Navigation</h1><ul>
+<li>Agents是应用到哪些物理上的设置</li>
+<li>Areas 是设置导航区域</li>
+<li>Bake是烘培，把当前设置好的导航网格建立到场景中</li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/21/%E3%80%8ACunning-Angel%E3%80%8B/">
                 《Cunning Angel》
             </a>
@@ -176,7 +223,7 @@
 <p>拼凑的天空中回响着断断续续、割离虚裂的诡异声音，封闭的空间、狭小的世界。</p>
 <p>不要留下来，但要如何离开？</p>
 <h1 id="角色设定"><a href="#角色设定" class="headerlink" title="角色设定"></a>角色设定</h1><blockquote>
-<p>石榴–沙漠星空的看守者，足边缠绕着九头蛇。<br>塞涅–摇光海岸的看守者，听觉异常敏感。</p>
+<p>石榴–沙漠星空的看守者，足边缠绕着九头蛇。无感知系统，变温物。<br>塞涅–摇光海岸的看守者，听觉异常敏感。</p>
 </blockquote>
 <h1 id="物品道具"><a href="#物品道具" class="headerlink" title="物品道具"></a>物品道具</h1><ol>
 <li>迷途碎片–“磁性物质，对稳定电波有一定的作用”</li>
@@ -205,7 +252,9 @@
 <p>割开仙人球，挤压它会流出粘液，这是名为渗透的反应</p>
 <p>石榴呢，你的应激反应是什么？如何证明你和它们不是一类的生物？</p>
 <h3 id="虚无与存在"><a href="#虚无与存在" class="headerlink" title="虚无与存在"></a><strong>虚无与存在</strong></h3><p>流刑地不需要额外的屏障，因为生成的世界就是流刑地本身。<br>与其说石榴和塞涅是来看守你的，不如说是在看守自己的行为。</p>
-<p>其实你才是流刑地中最自由的，唯一一个来回穿梭沙漠星空与摇光海岸的人</p>
+<p>其实你才是流刑地中最自由的，唯一一个来回穿梭沙漠星空与摇光海岸的人。</p>
+<p>石榴与塞涅互不认识对方的存在，活动范围仅仅是各自的领地，并将自己的领地作为世界的中心。</p>
+<p>两个领地，两种定理体系。</p>
 <h1 id="剧本"><a href="#剧本" class="headerlink" title="剧本"></a>剧本</h1><p>-[背景1，自定义]</p>
 <pre><code>你，是？
 
@@ -685,36 +734,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/06/%E6%9E%84%E5%BB%BA%E3%80%81%E8%BF%90%E8%A1%8C%E3%80%81%E5%88%86%E5%8F%91/">
-                构建、运行、分发
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-06</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>从编辑器创建的用于将游戏分发给用户的应用程序成为Player。</p>
-<blockquote>
-<p>配置在Edit-Project Settings-player<br>发布：File&gt;Build Settings</p>
-</blockquote>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -757,6 +776,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/24/3DNavMesh%E5%AF%BC%E8%88%AA%E7%B3%BB%E7%BB%9F-7/">3DNavMesh导航系统-7</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/21/%E3%80%8ACunning-Angel%E3%80%8B/">《Cunning Angel》</a>
             </li>
             
@@ -766,10 +789,6 @@
             
             <li>
                 <a class="footer-post" href="/2022/05/20/3D%E6%8E%A7%E5%88%B6%E6%97%8B%E8%BD%AC-5/">3D控制旋转-5</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/19/3D%E6%8E%A7%E5%88%B6%E7%A7%BB%E5%8A%A8-4/">3D控制移动-4</a>
             </li>
             
         </ul>

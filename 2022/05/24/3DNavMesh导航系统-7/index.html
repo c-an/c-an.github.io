@@ -10,15 +10,9 @@
 
     <!--Description-->
     
-        <meta name="description" content="复刻动画状态的转换，肯定要先看源码。选择已经做好的Ruby的Animator，看关于Idle和Moving之间的转变。点击Idle，Idle-&amp;gt;Moving有个Has Exit Time，取消勾选，会立马转变
-
-
-关于新词汇：
-
-
-Fixed Duration
-
-解释：如果选中Fixed Du">
+        <meta name="description" content="NavMesh导航网格实现简单AI导航系统允许从场景几何体自动创建的导航网格来创建课再游戏世界中智能移动的角色，动态障碍物可以在运行时更改角色的导航，而网格外链接（Off-Mesh Link）可以构建特定的动作，如打开门或从窗台跳下。
+Unity中的导航系统组成
+导航网格（即Navigation M">
     
 
     <!--Author-->
@@ -28,7 +22,7 @@ Fixed Duration
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="制作动画状态转换"/>
+        <meta property="og:title" content="3DNavMesh导航系统-7"/>
     
 
     <!--Open Graph Description-->
@@ -53,7 +47,7 @@ Fixed Duration
 
     <!-- Title -->
     
-    <title>制作动画状态转换 - c-an</title>
+    <title>3DNavMesh导航系统-7 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -159,13 +153,13 @@ Fixed Duration
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/27/%E5%88%B6%E4%BD%9C%E5%8A%A8%E7%94%BB%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/">
-                制作动画状态转换
+            <a href="/2022/05/24/3DNavMesh%E5%AF%BC%E8%88%AA%E7%B3%BB%E7%BB%9F-7/">
+                3DNavMesh导航系统-7
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-27</span>
+                <span class="date">2022-05-24</span>
             
             
             
@@ -178,21 +172,26 @@ Fixed Duration
         
 
         <!-- Post Content -->
-        <blockquote>
-<p>复刻动画状态的转换，肯定要先看源码。选择已经做好的Ruby的Animator，看关于Idle和Moving之间的转变。<br>点击Idle，Idle-&gt;Moving有个Has Exit Time，取消勾选，会立马转变</p>
-</blockquote>
-<blockquote>
-<p>关于新词汇：</p>
-</blockquote>
-<ul>
-<li>Fixed Duration</li>
-</ul>
-<p>解释：如果选中Fixed Duration复选框，则以秒为单位解读过渡时间。如果未选中Fixed Duration复选框，则过渡的时间解读未源状态的标准化时间的一部分。（没懂）</p>
-<ul>
-<li>Transition Duration（s）  对当前状态持续时间的过渡时间，以标准化或秒为单位（具体取决于Fixed Duration模式），慢慢渐变的一个过程，此时间在过渡图中显示为两个蓝色标记之间的部分，0代表没有重叠。</li>
-<li>Transition Offset        过渡到目标状态的起始播放的时间偏移。例如，值为0.5表示目标状态在其时间轴的50%出开始播放。</li>
-<li>Interruption Source      影响它的源</li>
-<li>BlendTree Parameters&gt; Conditions ，那个框满足它什么条件进行转换。</li>
+        <h1 id="NavMesh导航网格实现简单AI"><a href="#NavMesh导航网格实现简单AI" class="headerlink" title="NavMesh导航网格实现简单AI"></a>NavMesh导航网格实现简单AI</h1><p>导航系统允许从场景几何体自动创建的导航网格来创建课再游戏世界中智能移动的角色，动态障碍物可以在运行时更改角色的导航，而网格外链接（Off-Mesh Link）可以构建特定的动作，如打开门或从窗台跳下。</p>
+<h1 id="Unity中的导航系统组成"><a href="#Unity中的导航系统组成" class="headerlink" title="Unity中的导航系统组成"></a>Unity中的导航系统组成</h1><ol>
+<li>导航网格（即Navigation Mesh，缩写为NavMesh），是一种数据结构，用于描述游戏世界的可行走表面，并允许在游戏世界中寻找一个可行走位置到另一个可行走位置的路径。该数据结构是从关卡几何体自动构建或烘培的。</li>
+<li>导航网格代理（NavMesh Agent）组件：可用来创建朝目标角色移动时能彼此避开的角色。代理使用网络导航来推断游戏世界，并知道如何避开彼此以及移动的障碍物。</li>
+<li>网格外链接（Off-Mesh Link）组件：允许合并无法使用可行走表面来表示的导航捷径。例如，跳过沟渠或围栏，或在通过门之间打开门，全都可以描述为导航外链接。</li>
+<li>导航网格障碍物（NavMesh Obstacle）组件：可用于描述代理在世界中导航时应该避开的障碍物，由物理系统控制的木桶或是板条箱便是障碍物的典型例子。障碍物正在移动时，代理将尽力避开它，障碍物一旦变为静止状态，便会在导航网格中雕刻一个孔，从而使代理能够改变自己的路径来绕过它，或者如果静止的障碍物阻挡了路径，则代理可寻找其他不同的路线。</li>
+</ol>
+<h1 id="添加导航网格"><a href="#添加导航网格" class="headerlink" title="添加导航网格"></a>添加导航网格</h1><p>导航网格（NavMesh）是在地面上不可见的形状，定义了一个可以让选定游戏对象在其中移动的区域。</p>
+<p>当某个对象表示为Static时，Unity的导航系统会认为该游戏对象不会移动。游戏环境由许多对象和许多Mesh Render（网格渲染器）组件组成。来自Mesh Renderer组件（其游戏对象被标记为Static）的所有网格将组合构成导航网格的基础</p>
+<p>步骤：</p>
+<ol>
+<li>在level中，配置需要设置导航网格的游戏对象为Static（level是一个例子，选选中游戏对象，在Inspector勾选static即可）</li>
+<li>烘培导航网格：选择Window&gt;AI&gt;Navigation以打开Navigation窗口&gt;选择Bake选项卡</li>
+</ol>
+<hr>
+<p>游戏对象是被Mesh Renderer（网格渲染器）,渲染出来的，渲染出来的网格同时也可用作导航网格（NavMesh），静态的适合做导航网格</p>
+<h1 id="关于Navigation"><a href="#关于Navigation" class="headerlink" title="关于Navigation"></a>关于Navigation</h1><ul>
+<li>Agents是应用到哪些物理上的设置</li>
+<li>Areas 是设置导航区域</li>
+<li>Bake是烘培，把当前设置好的导航网格建立到场景中</li>
 </ul>
 
     </div>

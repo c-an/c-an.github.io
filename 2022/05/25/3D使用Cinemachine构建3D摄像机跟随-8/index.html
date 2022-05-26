@@ -10,13 +10,10 @@
 
     <!--Description-->
     
-        <meta name="description" content="血条随着Ruby的血量增减而增减，实际上控制的是Mask（遮罩层）而不是HealthBar。
-用代码控制遮罩层显示的长短
-下面开始操作：
+        <meta name="description" content="Cinemachine&amp;gt;Create Virtual Camera（以前做2D的时候用的是Create 2D Camera）
+创建好了虚拟摄像机，要跟随玩家，直接把Hierarchy中的玩家角色拖到虚拟射线机CinemachineVirtualCamera的Follow中就好了
 
-在Scripts文件夹里，右键，新建一个脚本：create&amp;gt;c# Script,重命名为UIHealthBar
-点脚本进去
-先添加一个能获取到实体的静态对">
+Aim是调整">
     
 
     <!--Author-->
@@ -26,7 +23,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="控制血条代码"/>
+        <meta property="og:title" content="3D使用Cinemachine构建3D摄像机跟随-8"/>
     
 
     <!--Open Graph Description-->
@@ -51,7 +48,7 @@
 
     <!-- Title -->
     
-    <title>控制血条代码 - c-an</title>
+    <title>3D使用Cinemachine构建3D摄像机跟随-8 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -157,13 +154,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/05/03/%E6%8E%A7%E5%88%B6%E8%A1%80%E6%9D%A1%E4%BB%A3%E7%A0%81/">
-                控制血条代码
+            <a href="/2022/05/25/3D%E4%BD%BF%E7%94%A8Cinemachine%E6%9E%84%E5%BB%BA3D%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F-8/">
+                3D使用Cinemachine构建3D摄像机跟随-8
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-05-03</span>
+                <span class="date">2022-05-25</span>
             
             
             
@@ -176,24 +173,44 @@
         
 
         <!-- Post Content -->
-        <p>血条随着Ruby的血量增减而增减，实际上控制的是Mask（遮罩层）而不是HealthBar。</p>
-<p>用代码控制遮罩层显示的长短</p>
-<p>下面开始操作：</p>
-<ol>
-<li>在Scripts文件夹里，右键，新建一个脚本：create&gt;c# Script,重命名为UIHealthBar</li>
-<li>点脚本进去</li>
-<li>先添加一个能获取到实体的静态对象（我们可以使用static关键字把类成员定义为静态的，当我们声明一个类成员为静态时，意味着无论有多少个类的对象被创建，只会有一个静态成员的副本，被所有的类对象所共享）。因为无论在多少个场景中切换，生命条都只有一个</li>
-</ol>
-<p>下面是HealthBar的代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line"></span><br><span class="line">public class UIHealthBar: MonoBehaviour &#123;</span><br><span class="line">    //设置静态成员，获取当前血条本身，也就是一个静态的血条实例对象</span><br><span class="line">    //get和set是取值器和赋值器，是一个属性</span><br><span class="line">    public static UIHealthBar Instance &#123; get; private set; &#125;</span><br><span class="line"></span><br><span class="line">    //创建一个公有的变量mask。这里报错了“未找到命名空间Image”</span><br><span class="line">    //因为前面引用的命名空间里没有这个类</span><br><span class="line">    //用“alt”和“enter”可以激活，会提示几种改错的处理方案</span><br><span class="line">    //既然没有命名空间，那加上命名空间就好了</span><br><span class="line">    //现在需要加上UI图形的命名空间using UnityEngine.UI</span><br><span class="line">    //创建UI图形对象mask，用它来获取遮罩层对象</span><br><span class="line">    public Image mask;</span><br><span class="line"></span><br><span class="line">    //设置一个变量，记录遮罩层初始长度</span><br><span class="line">    float originalSize;</span><br><span class="line">    private void Awake() &#123;</span><br><span class="line">        //设置静态实例为当前对象</span><br><span class="line">        Instance = this;</span><br><span class="line">    &#125;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //拿到mask的宽度值</span><br><span class="line">        originalSize = mask.rectTransform.rect.width;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //创建一个方法，用来设置（更改）现在的mask遮罩层的宽度</span><br><span class="line">    public void SetValue(float value) &#123;</span><br><span class="line">        //根据当前的锚设置</span><br><span class="line">        //参数是（当前的宽度设置到横轴上面，具体的值是原始的长度乘以血量变化的百分比）</span><br><span class="line">        //设置更改的是mask遮罩层的宽度，并且依据传递过来的参数进行更改</span><br><span class="line">        mask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>设置好上面的代码就要和Ruby连接在一起</p>
-<ol>
-<li>在Ruby减血和增血的脚本位置控制遮罩层的代码</li>
-<li>找到RubyController的changeHealth</li>
-<li>给HealthFrame添加创建的UIHealthBar脚本，把遮罩放到mask栏去</li>
-</ol>
-<p>以下是RubyController的ChangeHealth的脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public void ChangeHealth(int amount) &#123;</span><br><span class="line">        //假设玩家受伤害的时间间隔是2秒</span><br><span class="line">        //不管是什么样的伤害，只要amount小于0，就判断是不是无敌</span><br><span class="line">        if (amount &lt; 0) &#123;</span><br><span class="line">            //判断当前是否处于无敌状态</span><br><span class="line">            if (isInvincible) &#123;</span><br><span class="line">                //无敌不伤血，跳出无敌状态</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当不是无敌状态时，会执行下面的代码</span><br><span class="line">        //重置无敌状态为真</span><br><span class="line">        isInvincible = true;</span><br><span class="line">        //设置无敌时间</span><br><span class="line">        invincibleTimer = timeInvincible;</span><br><span class="line"></span><br><span class="line">        //播放受伤动画</span><br><span class="line">        animator.SetTrigger(&quot;Hit&quot;);</span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        //Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line"></span><br><span class="line">        //这个Instance是静态的，只有一个，用类就可以直接调用，不需要创建对象</span><br><span class="line">        //当前的生命值除以最大的生命值，传过去的应该是一个小数</span><br><span class="line">        UIHealthBar.Instance.SetValue(currentHealth / (float)maxHealth);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+        <p>Cinemachine&gt;Create Virtual Camera（以前做2D的时候用的是Create 2D Camera）</p>
+<p>创建好了虚拟摄像机，要跟随玩家，直接把Hierarchy中的玩家角色拖到虚拟射线机CinemachineVirtualCamera的Follow中就好了</p>
+<blockquote>
+<p>Aim是调整转向的，这里不需要调整转向，把Aim后选中Do nothing（因为是Follow，所以是Do nothing）<br>把虚拟摄像机中的Body改成Framing Transposer（可以为虚拟摄像机提供关于其Follow目标必须在屏幕上所处的位置的规则，从而控制虚拟摄像机的位置）（蓝色是核心的区域，黄色是定位点）</p>
+</blockquote>
+<blockquote>
+<p>为了让摄像机离主角近一点，选中摄像机，Body&gt;Camera Distance更改为8（随意）</p>
+</blockquote>
+<h1 id="Cinemachine在3D游戏中的使用"><a href="#Cinemachine在3D游戏中的使用" class="headerlink" title="Cinemachine在3D游戏中的使用"></a>Cinemachine在3D游戏中的使用</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>Cinemachine是一套用于操作Unity摄像机的模块。Cinemachine解决了跟踪目标、合成、混合镜头之间剪切的复杂数学和逻辑。它旨在显着减少开发过程中发生的耗时的手动操作和脚本修订的数量。</p>
+<p>这些模块的纯虚性质使Cinemachine具有抗错误性。调整（例如，更改场景中的动画、车辆速度、地形或其他游戏对象）时，Cinemachine会动态调整其行为以制作最佳镜头。例如，没有必要仅仅因为角色向左转而不是向右转而重新编写相机脚本。</p>
+<p>Cinemachine可在所有类型（包括FPS、第三人称、2D、横向卷轴、自上而下和RTS）中实时运行。可以在场景中支持任意数量的镜头。模块化系统可以来组合复杂的行为。</p>
+<p>Cinemachine与其他Unity工具配合良好，可作为时间轴、动画和后期处理资产的强大补充。创建自己的扩展将与自定义相机脚本集成。</p>
+<h2 id="Cinemachine的虚拟摄像机"><a href="#Cinemachine的虚拟摄像机" class="headerlink" title="Cinemachine的虚拟摄像机"></a>Cinemachine的虚拟摄像机</h2><p>Chinemachine不会创建新的摄像机。相反，它会引导单个Unity进行拍摄。可以使用虚拟相机构图成这些镜头。虚拟摄像机移动和旋转Unity相机并控制其设置。</p>
+<p>虚拟摄像机是独立与Unity摄像机的独立游戏对象，并独立运行，它们不相互嵌套</p>
+<p>虚拟摄像机的主要任务：</p>
+<ul>
+<li>在场景中定位Unity摄像机</li>
+<li>将Unity相机对准某物</li>
+<li>向Unity相机中添加程序噪声。噪声模拟诸如手持效果或车辆抖动之类的东西。</li>
+</ul>
+<p>Cinemachine鼓励创建多个虚拟摄像机。虚拟摄像机旨在消耗很少的处理能力。如果对场景的性能很敏感，请在任何给定时刻停用除基本虚拟摄像机以外的所有摄像机以获得最佳性能。</p>
+<p>建议使用单个虚拟摄像机进行单次拍摄。利用这一点来创建戏剧性或微妙的切割或混合</p>
+<h2 id="Cinemachine-Brain"><a href="#Cinemachine-Brain" class="headerlink" title="Cinemachine Brain"></a>Cinemachine Brain</h2><p>如其名称，是操纵所有虚拟的Cinmachine摄像机的大脑</p>
+<p>使用Cinmachine Brain实时响应动态游戏事件。它允许游戏逻辑通过操纵优先级来控制摄像机（自动）</p>
+<p>也可以手动使用事件轴在可预测的情况下编排摄像机，例如过场动画。</p>
+<h2 id="移动和瞄准"><a href="#移动和瞄准" class="headerlink" title="移动和瞄准"></a>移动和瞄准</h2><p>使用Virtual Camera中的Body属性指定如何在场景中移动它。使用Aim属性指定如何旋转它</p>
+<p>虚拟摄像机有两个目标：</p>
+<ul>
+<li>在跟踪目标指定虚拟相机与移动游戏物体</li>
+<li>在查找目标指定游戏对象瞄准</li>
+</ul>
+<p>Cinemachine 包括各种程序算法来控制移动和瞄准。每个算法都解决一个待定的问题，并根据您特定需求自定义算法的属性。Cinmaechine将这些算法实现，为CinemachineComponent对象。使用CinemachineComponent该类来实现自定义移动或瞄准行为。</p>
+<h2 id="Cinemachine使用简介"><a href="#Cinemachine使用简介" class="headerlink" title="Cinemachine使用简介"></a>Cinemachine使用简介</h2><ul>
+<li>在场景中创建一个或多个虚拟摄像机</li>
+<li>使用Follow属性指定要跟随的GameObject；使用Look At属性指定虚拟摄像机应该瞄准的游戏对象</li>
+<li>Cinemachine Brain与Camera组件连接到相同的游戏对象，默认情况下，这个游戏对象将是Main Camera游戏对象</li>
+<li>Cinemachine Brain管理所有虚拟摄像机，并确定实际摄像机应该跟随哪个虚拟摄像机（或摄像机的组合）</li>
+</ul>
 
     </div>
 

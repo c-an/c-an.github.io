@@ -152,6 +152,97 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/14/%E3%80%8AVirtual-Train%E3%80%8B%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6%EF%BC%88x-100%EF%BC%89/">
+                《Virtual Train》开发进度（x/100）
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-14</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="游戏剧情"><a href="#游戏剧情" class="headerlink" title="游戏剧情"></a>游戏剧情</h1><ol>
+<li>第一章《绝望之谷》[完成]</li>
+</ol>
+<h1 id="游戏场景"><a href="#游戏场景" class="headerlink" title="游戏场景"></a>游戏场景</h1><ul>
+<li>（1）沙漠星空 Desert Starry Sky </li>
+<li>（2）第一节车厢 Train-1</li>
+<li>（3）第二节车厢 Train-2</li>
+<li>（4）第三节车厢 Train-3</li>
+<li>（5）车厢后 Hinder Train</li>
+<li>（6）镜像空间 Contrary Space</li>
+<li>（7）意识地狱 Consciousness Hell </li>
+<li>（8）虚空长廊 Nothingness Corridor</li>
+</ul>
+<h1 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h1><ol>
+<li>菜单制作（基本界面完成，后期修改，挂接场景）</li>
+<li>背包系统（未完成）</li>
+<li></li>
+</ol>
+<h1 id="模块制作"><a href="#模块制作" class="headerlink" title="模块制作"></a>模块制作</h1><ol>
+<li>陨石（带特效）预制件制作完成</li>
+<li>MeteorRain（帧动画）预制件制作完成</li>
+</ol>
+<h1 id="名词积累"><a href="#名词积累" class="headerlink" title="名词积累"></a>名词积累</h1><ul>
+<li>Shader 着色器</li>
+<li>Material 材质</li>
+<li>Mesh 网格</li>
+<li>Texture 纹理&#x2F;普通贴图</li>
+<li>Offset 偏移</li>
+<li>Tiling 平铺</li>
+<li>Repeat 重复</li>
+<li>Normal map：法线贴图</li>
+<li>Editor GUI and Legacy GUI：UI贴图</li>
+<li>Sprite（2D and UI） 精灵</li>
+<li>Cursor 鼠标指针</li>
+<li>Reflection：发射贴图</li>
+<li>Cookie：遮罩贴图</li>
+<li>Lightmap：烘培贴图</li>
+<li>Advanced：高级（可自定义一些贴图属性）</li>
+<li></li>
+</ul>
+<h1 id="所遇问题"><a href="#所遇问题" class="headerlink" title="所遇问题"></a>所遇问题</h1><ol>
+<li><p>画了个Button Box的背景图片，但是传到Unity上，图片很糊。</p>
+<p> <strong>问题：“Unity像素图像保留硬边缘”</strong></p>
+<p> 解决方式：<strong>在精灵图像的Inspector里把Fliter Mode改成Point（no fliter）</strong></p>
+</li>
+<li><p>像素画导入Unity模糊、失真<br> 解决方式：<strong>在sprite的Inspector界面将Default里的Compression选项改成None</strong></p>
+<h1 id="参考教程链接"><a href="#参考教程链接" class="headerlink" title="参考教程链接"></a>参考教程链接</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wuhaishengxxx/article/details/53033095">2D背景滚动</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sun124608666/article/details/114630402">粒子系统</a><br>[像素画失真]（<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv11942426?spm_id_from=333.999.0.0%EF%BC%89">https://www.bilibili.com/read/cv11942426?spm_id_from=333.999.0.0）</a><br>[拖尾]</p>
+</li>
+</ol>
+<iframe src="//player.bilibili.com/player.html?aid=208655773&bvid=BV1Vh411n7gm&cid=427051630&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+<hr>
+<p>修改完成：<br>游戏场景-（1）沙漠星空 Desert Starry Sky-动态陨石(拖尾+粒子)</p>
+<pre><code>    游戏场景-（1）沙漠星空 Desert Starry Sky-MeteorRain(帧动画)[加2个tap可隐藏诶]
+</code></pre>
+<p>修改中：空闲ing</p>
+<h1 id="参数记录"><a href="#参数记录" class="headerlink" title="参数记录"></a>参数记录</h1><p>粒子系统：<br>Duration：1.00</p>
+<p>Start Lifetime:1</p>
+<p>Start Speed:0</p>
+<p>Start Size：0.2</p>
+<p>Simulation Space:World</p>
+<p>Emission&gt;Rate over Time:50</p>
+<p>Velocity over Lifetime勾选，Linear X、Y、Z全改成3，Z右边的小三角形，点击，把Constant改成Curve</p>
+<p>X、Y、Z曲线自调</p>
+<p>勾选Trails，取消此项内所有勾，Width over Trall右边三角形，改成曲线，自调</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/06/%E6%9E%84%E5%BB%BA%E3%80%81%E8%BF%90%E8%A1%8C%E3%80%81%E5%88%86%E5%8F%91/">
                 构建、运行、分发
             </a>
@@ -740,80 +831,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/02/%E6%88%91%E7%9A%84%E6%B8%B8%E6%88%8F%E5%91%93%E8%AF%AD/">
-                我的游戏呓语（长期更新）
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-02</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>我要做的游戏不应该是杂乱无章的，它可能是我灵感的迸发，但是否能对的上他人的电波，也是评判游戏好坏的标准之一。我要做的，不是只有我一个人玩的游戏。</p>
-<p>因此，游戏的创作需要有一定的约束，那么即使我创作的游戏无法称为精品，这个约束也会强制它不会成为太差的垃圾。那么，如何获取这个约束呢？它来源于我对信息的总和，各种游戏的总结。</p>
-<p><strong>汲取，是应该要做的事。</strong></p>
-<p><br></br></p>
-<h2 id="1-“与剧情紧密切合的症状”"><a href="#1-“与剧情紧密切合的症状”" class="headerlink" title="1. “与剧情紧密切合的症状”"></a>1. “与剧情紧密切合的症状”</h2><p><strong>恐惧症与躁狂症</strong></p>
-<blockquote>
-<p>eg.背景：埃及的沙漠石窟，与钻地魔虫相遇</p>
-</blockquote>
-<p>角色相对应的：</p>
-<ul>
-<li>攻击欲望、昆虫恐惧症(放大化、极端化)</li>
-</ul>
-<blockquote>
-<p>这些症状应该是剧情发展的动力而不是阻力，不能为了戏剧性的游戏效果而终止游戏。不能因这些症状，而让游戏的发展失控。<br>可以在角色获得这些症状后，让角色做出与理智时“相似”而又差异鲜明的行为。比如破坏一些本该保护的事物。<br><br></br></p>
-</blockquote>
-<h2 id="2-”塑造更加生动的NPC”"><a href="#2-”塑造更加生动的NPC”" class="headerlink" title="2.”塑造更加生动的NPC”"></a>2.”塑造更加生动的NPC”</h2><ol>
-<li>NPC在游戏中存在的意义<blockquote>
-<p>eg.背景：调查员收到老人的委托，希望调查员能将盘踞在他宅邸中可怕的怪物驱逐</p>
-</blockquote>
-</li>
-</ol>
-<p>老人相对应的作用：</p>
-<ul>
-<li>委托的发起者</li>
-</ul>
-<p>但也可以是</p>
-<ul>
-<li>线索的提供者、幕后真相的隐藏者</li>
-</ul>
-<blockquote>
-<p>但是这仅仅像是一个为了发起任务而发起任务的角色，因此需要对他塑造特点，塑造特点的同时需要考虑游戏的场景是否可以表现角色的特点。</p>
-</blockquote>
-<p><strong>一个角色能为我们带来深刻影响的原因究竟是什么？</strong></p>
-<ul>
-<li>性格？</li>
-<li>故事？</li>
-<li>行为？</li>
-</ul>
-<p>能够停留在我们印象中的，往往是一两个支离破碎的场景。塑造一个令人印象深刻的NPC非常关键的地方在于为角色添加一个难以忘记的特点，添加一个难以忘记的方法有很多，可以是一个冷幽默、冷笑话，或者是一个看上去就很离谱的设定或者台词，也可以是虽然普通但是被角色不停使用后逐渐成了代表这个角色的<strong>符号</strong>。</p>
-<blockquote>
-<p>重复可以带来洗脑的效果，不过最好少用这种方法，容易让人心烦。</p>
-</blockquote>
-<blockquote>
-<p>巧妙地设计一个外号、动作、场景，在博得玩家会心一笑的同时逐渐建立起这个特征与角色的关系，最终让这样一个特征甚至能代替角色本身。即要为角色创造一个足够被玩家记住的梗。</p>
-</blockquote>
-<blockquote>
-<p>优秀的剧情<strong>反转</strong>和设计精巧的<strong>悲剧</strong>结尾（注意需要是在意料之外，也得在情理之中）。<strong>悲剧是表达的手段，悲剧背后的矛盾才是让人难以忘怀的内容</strong></p>
-</blockquote>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -856,6 +873,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/25/3D%E4%BD%BF%E7%94%A8Cinemachine%E6%9E%84%E5%BB%BA3D%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F-8/">3D使用Cinemachine构建3D摄像机跟随-</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/24/3DNavMesh%E5%AF%BC%E8%88%AA%E7%B3%BB%E7%BB%9F-7/">3DNavMesh导航系统-7</a>
             </li>
             
@@ -865,10 +886,6 @@
             
             <li>
                 <a class="footer-post" href="/2022/05/21/3D%E5%9C%BA%E6%99%AF%E5%92%8C%E5%85%89%E7%85%A7-6/">3D场景和光照-6</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/20/3D%E6%8E%A7%E5%88%B6%E6%97%8B%E8%BD%AC-5/">3D控制旋转-5</a>
             </li>
             
         </ul>

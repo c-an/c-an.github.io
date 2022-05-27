@@ -10,14 +10,9 @@
 
     <!--Description-->
     
-        <meta name="description" content="假设我们已做好了关于掉血区域的预制件，要做一片连续的掉血区域。把预制件一个一个进行拼接，就显得有点呆。
-
-Unity自带平铺的功能下面我们来看看如何进行使用
-
-Damageable是我已做好的掉血区域的预制件。
-让我们对它的属性进行一个更改
-
-1.首先，先把游戏对象的缩放进行取消。把Transfor">
+        <meta name="description" content="后期处理简介Unity提供了许多后期处理效果和全屏效果，可以用很少的设置时间来大大改观应用程序的外观。可以使用这些效果模拟物理摄像机和胶片属性，或创建风格化的视觉效果。
+可用的后期处理效果和这些效果的应用方式取决于所使用的渲染管线。一个渲染管线的后期处理解决方案与其他渲染管线不兼容
+后期处理效果组是">
     
 
     <!--Author-->
@@ -27,7 +22,7 @@ Damageable是我已做好的掉血区域的预制件。
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="平铺掉血区域"/>
+        <meta property="og:title" content="3D后期特效简介&amp;添加抗锯齿-9"/>
     
 
     <!--Open Graph Description-->
@@ -52,7 +47,7 @@ Damageable是我已做好的掉血区域的预制件。
 
     <!-- Title -->
     
-    <title>平铺掉血区域 - c-an</title>
+    <title>3D后期特效简介&amp;添加抗锯齿-9 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -158,13 +153,13 @@ Damageable是我已做好的掉血区域的预制件。
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/04/23/%E5%B9%B3%E9%93%BA%E6%8E%89%E8%A1%80%E5%8C%BA%E5%9F%9F/">
-                平铺掉血区域
+            <a href="/2022/05/26/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E7%AE%80%E4%BB%8B-%E6%B7%BB%E5%8A%A0%E6%8A%97%E9%94%AF%E9%BD%BF-9/">
+                3D后期特效简介&添加抗锯齿-9
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-04-23</span>
+                <span class="date">2022-05-26</span>
             
             
             
@@ -177,21 +172,37 @@ Damageable是我已做好的掉血区域的预制件。
         
 
         <!-- Post Content -->
-        <p>假设我们已做好了关于掉血区域的预制件，要做一片连续的掉血区域。把预制件一个一个进行拼接，就显得有点呆。</p>
-<blockquote>
-<p>Unity自带平铺的功能<br>下面我们来看看如何进行使用</p>
-</blockquote>
-<p>Damageable是我已做好的掉血区域的预制件。</p>
-<p>让我们对它的属性进行一个更改</p>
+        <h2 id="后期处理简介"><a href="#后期处理简介" class="headerlink" title="后期处理简介"></a>后期处理简介</h2><p>Unity提供了许多后期处理效果和全屏效果，可以用很少的设置时间来大大改观应用程序的外观。可以使用这些效果模拟物理摄像机和胶片属性，或创建风格化的视觉效果。</p>
+<p>可用的后期处理效果和这些效果的应用方式取决于所使用的渲染管线。一个渲染管线的后期处理解决方案与其他渲染管线不兼容</p>
+<p>后期处理效果组是称为后期处理配置文件（Post-processing Profiles）的资源。分配了配置文件的游戏世界区域是称为后期处理体积（Post Process Volums）的组件</p>
+<p>有时，不同的摄像机具有不同的后期处理。为了将一个处理效果组链接到待定摄像机，需要将Post Layer组件添加到与Camera组件相同的游戏对象。层（Layer）是一种按行为组织游戏对象的方法。</p>
+<h2 id="渲染管线简介"><a href="#渲染管线简介" class="headerlink" title="渲染管线简介"></a>渲染管线简介</h2><h3 id="render-pipeline概念"><a href="#render-pipeline概念" class="headerlink" title="render pipeline概念"></a>render pipeline概念</h3><p>渲染管线执行一系列操作来获取场景中的内容，并将这些内容显示在屏幕上。</p>
+<p>说白了，就是：通过不同的配置方法和算法，最终将图像图形显示在屏幕上的功能模块</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>有不同分类存在的理由是：为了适配不同性能档次的硬件</p>
+<p>分类：</p>
 <ul>
-<li>1.首先，先把游戏对象的缩放进行取消。把Transform中的Scale中的x，y，z都设置为1</li>
-<li>2.Sprite Renderer&gt;Draw Mode(可选Simple，Slice,Tiled)，把原来的Simple改成Tiled（平铺）</li>
-<li>3.在操作2后，我们能看到出现了一个警告“Sprite Tilling might not appear correctly because the Sprite used is not generated with Full Rect or Sprite Mode is set to Polygon mode.To fix this,change the Mesh Type in the Sprite’s import setting to Full Rect and Sprite Mode is either Single or Multiple。”</li>
-<li>4.打开对应的素材，单击它。在Sprite Mode中的Mesh Type，把Tight改成Full Rect</li>
-<li>5.设置往之后，apply（应用&#x2F;保存）</li>
-<li>6.这时回到Scence，再拉去选框（矩形工具），就是平铺的效果了。当然，在Scale也能进行缩放</li>
-<li>7.但是要注意，在设置完平铺的效果后，碰撞区域依然的原来的大小，这是不对的。在Box Collider 2D（碰撞体）里面，勾选Auto Tiling（自动平铺）</li>
+<li>内置渲染管线是Unity的默认渲染管线。这是通用的渲染管线，其自定义选项有限</li>
+<li>通用渲染管线（URP-Universal Render Pipeline）是一种可快速轻松自定义的可编程渲染管线，允许您在各种平台上创建优化的图形</li>
+<li>高清渲染管线（HDR-为High Definition Render Pipeline）是一种可编程渲染管线，可在高端平台上创建出色的高保真图形</li>
+<li>可用使用Unity的可编程渲染管线（SRP-Scriptable Render Pipeline）API来创建自定义渲染管线</li>
 </ul>
+<h2 id="着色器（shader）"><a href="#着色器（shader）" class="headerlink" title="着色器（shader）"></a>着色器（shader）</h2><p>是在图形处理单元（GPU）上运行的程序或者程序集合的通用名称。例如，在剔除阶段完成后，顶点着色器用于将可见对象的顶点坐标从“对象空间”转到“裁剪空间”的不同空间；然后GPU使用这些新的坐标对场景进行光栅化，也就是将场景的矢量表示转化为实际像素。在稍后阶段，这些像素将由<br>像素着色器着色；像素颜色通常取决于各自表面的材质属性以及周围的光照。现代硬件上另一种常见的着色器是计算着色器；计算着色器允许GPU的大量并行处理能力，用于任何类型的数学运算，如光照剔除、粒子物理或体积模拟。</p>
+<h2 id="直接光照"><a href="#直接光照" class="headerlink" title="直接光照"></a>直接光照</h2><h2 id="间接光照"><a href="#间接光照" class="headerlink" title="间接光照"></a>间接光照</h2><p>是由于光从表面反射并通过介质（如大气或半透明物质）传播和散射形成的结果。在这种状况下，遮挡物通常投射出柔和或难以看清的阴影</p>
+<h2 id="全局光照（GI）"><a href="#全局光照（GI）" class="headerlink" title="全局光照（GI）"></a>全局光照（GI）</h2><p>是对直接光照和间接光照进行建模以提供逼真光照的一组技术。GI有几种方法，如烘培&#x2F;动态光照贴图、辐照度体积、光传播体积、烘培&#x2F;动态光照。体素的GI和基于距离场的GI。Unity之处开箱即用的烘培&#x2F;动态光照贴图和光照探灯。</p>
+<h2 id="光照贴图程序"><a href="#光照贴图程序" class="headerlink" title="光照贴图程序"></a>光照贴图程序</h2><p>是一个基础系统，它通过发射光线、计算光线反弹并将产生的光线应用到纹理来生成光照贴图和光照探灯的数据。因此，不同的光照贴图程序通过不同的光照外观，因为它们可能依赖于不同的技术来生成光照数据。</p>
+<h1 id="添加抗锯齿"><a href="#添加抗锯齿" class="headerlink" title="添加抗锯齿"></a>添加抗锯齿</h1><ol>
+<li>添加新的后期处理层</li>
+<li>选择要处理的摄像机，为摄像机游戏对象添加Post Process Layer组件，并配置刚才新添加的层到组件的Layer上</li>
+<li>在后期处理层Post Process Layer组件上，通过配置属性，可选择添加抗锯齿等后期处理效果</li>
+</ol>
+<hr>
+<p>eg.为Main Camera添加一个新的层，命名为“PostProcessingVolumes”，再为它添加组件“Post Process Layer”，把这个组件中的Layer改成刚才为摄像机添加的层。然后打开抗锯齿的功能，抗锯齿就是“Anti-aliasing”，选择比较简单的FXAA，把Fast Mode打开</p>
+<blockquote>
+<p>这是针对摄像头的，只选择玩家看到的区域进行抗锯齿，节省资源、提高性能</p>
+</blockquote>
+<blockquote>
+<p>Post-process Layer设置物、抗锯齿使用的<br>Post-process Volume添加视觉光影和摄像机特效</p>
+</blockquote>
 
     </div>
 

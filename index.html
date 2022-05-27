@@ -152,6 +152,112 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/27/3D%E5%90%8E%E6%9C%9F%E5%A4%84%E7%90%86%E4%BD%93%E7%A7%AF-%E6%B7%BB%E5%8A%A0%E9%A2%9C%E8%89%B2%E5%88%86%E7%BA%A7-%E6%B3%9B%E5%85%89-10/">
+                3D后期处理体积&添加颜色分级&泛光-10
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-27</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <ol>
+<li>先在Hierarchy中，右键创建一个新的空的游戏对象，给它命名为“GlobalPost”（全局后期），将这个游戏对象的层设置成上一次设置好的8-后期处理层。</li>
+<li>再在这个游戏对象中，添加“Post-process Volume”（体积组件）</li>
+<li>把Potation定位到原点</li>
+<li>把它作为全局，把它的体积组件（Post-process Volume）中的Is Global勾选框勾上</li>
+<li>体积组件中的Profile是配置文件，现在还没有，New一个，它会自动创建在Scenes文件夹里，和当前Scene文件夹名字相同的一个文件夹里。然后在体积组件里，”Add effect”添加不同的特效，存储到配置中，最终生效到场景里</li>
+</ol>
+<h1 id="颜色分级（Color-Grding）效果"><a href="#颜色分级（Color-Grding）效果" class="headerlink" title="颜色分级（Color Grding）效果"></a>颜色分级（Color Grding）效果</h1><p>颜色分级用于更改被渲染视图的亮度、对比和颜色。改功能类似于在照片编辑软件或Instagram中应用滤镜。</p>
+<p>通过颜色分级，可以让图像显示出不同的情境范围，比如：BBC的阴间滤镜效果</p>
+<p><strong>颜色分级效果</strong>这个也是特效，用”Add effect”添加</p>
+<ol>
+<li>“Add effect”&gt;Unity&gt;Color Grading,然后自己配置</li>
+<li>首先，勾选“Tonemapping”（色调用色），选择模式为ACES</li>
+<li>勾选“Post-exposure（EV）”，改为1，曝光，让它变得更亮一些</li>
+<li>Trackballs（轨迹球）改变场景的颜色，左边的lift是影响阴影的颜色，Gain会更改最亮的高光，Gamma涵盖图像中间的所有内容</li>
+</ol>
+<h1 id="泛光特效（Bloom-Effect）"><a href="#泛光特效（Bloom-Effect）" class="headerlink" title="泛光特效（Bloom Effect）"></a>泛光特效（Bloom Effect）</h1><p>添加泛光（Bloom）效果可以使光源具有良好的发光效果，它会创建从图像中明亮区域延伸的光条纹。这模拟了真实世界的相机在光线淹没镜头时所产生的效果</p>
+<ol>
+<li>“Add effect”&gt;Unity&gt;Bloom</li>
+<li>首先把所有的属性打开，第一行选择“on”</li>
+<li>Intensity是泛光的强度，把0改成2</li>
+<li>Threshold是门槛，就是超过这个设置数值的光源，可以使用Bloom，改成0.75</li>
+</ol>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2022/05/26/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E7%AE%80%E4%BB%8B-%E6%B7%BB%E5%8A%A0%E6%8A%97%E9%94%AF%E9%BD%BF-9/">
+                3D后期特效简介&添加抗锯齿-9
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-26</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="后期处理简介"><a href="#后期处理简介" class="headerlink" title="后期处理简介"></a>后期处理简介</h2><p>Unity提供了许多后期处理效果和全屏效果，可以用很少的设置时间来大大改观应用程序的外观。可以使用这些效果模拟物理摄像机和胶片属性，或创建风格化的视觉效果。</p>
+<p>可用的后期处理效果和这些效果的应用方式取决于所使用的渲染管线。一个渲染管线的后期处理解决方案与其他渲染管线不兼容</p>
+<p>后期处理效果组是称为后期处理配置文件（Post-processing Profiles）的资源。分配了配置文件的游戏世界区域是称为后期处理体积（Post Process Volums）的组件</p>
+<p>有时，不同的摄像机具有不同的后期处理。为了将一个处理效果组链接到待定摄像机，需要将Post Layer组件添加到与Camera组件相同的游戏对象。层（Layer）是一种按行为组织游戏对象的方法。</p>
+<h2 id="渲染管线简介"><a href="#渲染管线简介" class="headerlink" title="渲染管线简介"></a>渲染管线简介</h2><h3 id="render-pipeline概念"><a href="#render-pipeline概念" class="headerlink" title="render pipeline概念"></a>render pipeline概念</h3><p>渲染管线执行一系列操作来获取场景中的内容，并将这些内容显示在屏幕上。</p>
+<p>说白了，就是：通过不同的配置方法和算法，最终将图像图形显示在屏幕上的功能模块</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>有不同分类存在的理由是：为了适配不同性能档次的硬件</p>
+<p>分类：</p>
+<ul>
+<li>内置渲染管线是Unity的默认渲染管线。这是通用的渲染管线，其自定义选项有限</li>
+<li>通用渲染管线（URP-Universal Render Pipeline）是一种可快速轻松自定义的可编程渲染管线，允许您在各种平台上创建优化的图形</li>
+<li>高清渲染管线（HDR-为High Definition Render Pipeline）是一种可编程渲染管线，可在高端平台上创建出色的高保真图形</li>
+<li>可用使用Unity的可编程渲染管线（SRP-Scriptable Render Pipeline）API来创建自定义渲染管线</li>
+</ul>
+<h2 id="着色器（shader）"><a href="#着色器（shader）" class="headerlink" title="着色器（shader）"></a>着色器（shader）</h2><p>是在图形处理单元（GPU）上运行的程序或者程序集合的通用名称。例如，在剔除阶段完成后，顶点着色器用于将可见对象的顶点坐标从“对象空间”转到“裁剪空间”的不同空间；然后GPU使用这些新的坐标对场景进行光栅化，也就是将场景的矢量表示转化为实际像素。在稍后阶段，这些像素将由<br>像素着色器着色；像素颜色通常取决于各自表面的材质属性以及周围的光照。现代硬件上另一种常见的着色器是计算着色器；计算着色器允许GPU的大量并行处理能力，用于任何类型的数学运算，如光照剔除、粒子物理或体积模拟。</p>
+<h2 id="直接光照"><a href="#直接光照" class="headerlink" title="直接光照"></a>直接光照</h2><h2 id="间接光照"><a href="#间接光照" class="headerlink" title="间接光照"></a>间接光照</h2><p>是由于光从表面反射并通过介质（如大气或半透明物质）传播和散射形成的结果。在这种状况下，遮挡物通常投射出柔和或难以看清的阴影</p>
+<h2 id="全局光照（GI）"><a href="#全局光照（GI）" class="headerlink" title="全局光照（GI）"></a>全局光照（GI）</h2><p>是对直接光照和间接光照进行建模以提供逼真光照的一组技术。GI有几种方法，如烘培&#x2F;动态光照贴图、辐照度体积、光传播体积、烘培&#x2F;动态光照。体素的GI和基于距离场的GI。Unity之处开箱即用的烘培&#x2F;动态光照贴图和光照探灯。</p>
+<h2 id="光照贴图程序"><a href="#光照贴图程序" class="headerlink" title="光照贴图程序"></a>光照贴图程序</h2><p>是一个基础系统，它通过发射光线、计算光线反弹并将产生的光线应用到纹理来生成光照贴图和光照探灯的数据。因此，不同的光照贴图程序通过不同的光照外观，因为它们可能依赖于不同的技术来生成光照数据。</p>
+<h1 id="添加抗锯齿"><a href="#添加抗锯齿" class="headerlink" title="添加抗锯齿"></a>添加抗锯齿</h1><ol>
+<li>添加新的后期处理层</li>
+<li>选择要处理的摄像机，为摄像机游戏对象添加Post Process Layer组件，并配置刚才新添加的层到组件的Layer上</li>
+<li>在后期处理层Post Process Layer组件上，通过配置属性，可选择添加抗锯齿等后期处理效果</li>
+</ol>
+<hr>
+<p>eg.为Main Camera添加一个新的层，命名为“PostProcessingVolumes”，再为它添加组件“Post Process Layer”，把这个组件中的Layer改成刚才为摄像机添加的层。然后打开抗锯齿的功能，抗锯齿就是“Anti-aliasing”，选择比较简单的FXAA，把Fast Mode打开</p>
+<blockquote>
+<p>这是针对摄像头的，只选择玩家看到的区域进行抗锯齿，节省资源、提高性能</p>
+</blockquote>
+<blockquote>
+<p>Post-process Layer设置物、抗锯齿使用的<br>Post-process Volume添加视觉光影和摄像机特效</p>
+</blockquote>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/25/3D%E4%BD%BF%E7%94%A8Cinemachine%E6%9E%84%E5%BB%BA3D%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F-8/">
                 3D使用Cinemachine构建3D摄像机跟随-8
             </a>
@@ -608,105 +714,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/17/3DJohnLemon-%E4%BD%BF%E8%A7%92%E8%89%B2%E5%AF%B9%E7%89%A9%E7%90%86%E4%BA%A7%E7%94%9F%E5%8F%8D%E5%BA%94-%E6%9B%B4%E6%94%B9%E5%8A%A8%E7%94%BBbug/">
-                3DJohnLemon 动画与刚体之间的bug
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-17</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>在游戏对象后修改，若是要更新显回预制件。Inspector面板，Overrides会提示你是否返回预制件。Overrides中Rever All是把刚才操作还原，Apply All是覆盖预制件</p>
-<blockquote>
-<p>前提：JohnLemon有Rigidbody组件和Animator组件</p>
-</blockquote>
-<blockquote>
-<p>Animator里游戏对象也可以进行动画的运动，设置动画的运动和刚体的物理运动产生冲突，会影响实体运动的位移。</p>
-</blockquote>
-<p>更改步骤：</p>
-<ol>
-<li>Inspector&gt;Animator&gt;Update Mode由Normal（默认的更新模式）更改为Animate Physics</li>
-</ol>
-<p><strong>Normal是用Update脚本进行动作更新，如果想要与Rigidbody进行统一，需要把刷新模式改成Animate Physics，这对应的刷新模式FixedUpdate，这和Rigidbody相同。学2D的时候也说了，Rigidbody的移动都放到FixedUpdate中，更适合</strong></p>
-<ol start="2">
-<li>在Rigidbody&gt;Constraints中把约束勾上。对于Freeze Position，把Y轴勾上，因为这个游戏角色不会往上升。对于Freeze Rotation（转向），X和Z勾上，因为这个角色只会沿Y轴左转或右转，不会往下磕头什么的</li>
-</ol>
-<h1 id="更新循环"><a href="#更新循环" class="headerlink" title="更新循环"></a>更新循环</h1><p><strong>更新循环</strong>是产生动画和刚体冲突的原因。<br>两个更新循环也就是Update和FixedUpdate</p>
-<h1 id="根运动root-Motion"><a href="#根运动root-Motion" class="headerlink" title="根运动root Motion"></a>根运动root Motion</h1><p>在Inspector&gt;Animator,有个Apply Root Motion，打上对勾就是让动画中的任何移动体现在外部坐标中</p>
-<p>先简单理解为，在Animator组件上启用Apply Root Motion，动画中的任何移动体现在外部场景世界坐标中。不启用，动画中的移动只会保留在动画中</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/15/3DJonhLemon%E6%B7%BB%E5%8A%A0%E7%8E%A9%E5%AE%B6%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/">
-                3DJonhLemon添加玩家角色动画
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-15</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>导入资源包，把玩家角色拖入到Hierarchy，点击这个素材下的一个同名子模型。</p>
-<p>这个模型里面主要是一个大的Skinned Mesh Renderer（带蒙皮的网格渲染器）组件，用来显示3D模型，3D模型的外观配置。</p>
-<blockquote>
-<p>tips:Skinned Mesh Renderer是一种特殊类型的Mesh Renderer，可让网格根据模型所有骨骼的位置和旋转来改变形状。这些骨骼是模型的子游戏对象一JohnLemon的骨骼Root游戏对象的所有子对象</p>
-</blockquote>
-<blockquote>
-<p>在Hierarchy中，选择Root游戏对象。按住Alt（windows）或Option（mas OS）并单击该游戏对象的名称左侧的箭头以展开所有子对象</p>
-</blockquote>
-<p>要把JohnLemon做成预制件，直接把它从Hierarchy窗口中拖到Prefabs文件夹里。</p>
-<ol>
-<li><p>进入预制件。对于JohnLemon这个游戏对象，动画Animator本身已经作为组件添加到游戏对象中了，骨骼Avatar也已经有了，缺少的是Controller。做一个Controller，把它放在那里好呢？点击Animation文件夹，里面有一个Animators文件夹，放在那里吧。点击Animators文件夹，右键，Create&gt;Animator Controller，命名为JohnLemon。把这个控制器添加到刚才JohnLemon预制件下本应该有的那个缺失的地方。</p>
-</li>
-<li><p>点击JohnLemon预制件，双击打开刚才添加的JohnLemon控制器。</p>
-</li>
-<li><p>做3D动画是一个比较复杂的过程，这个游戏已经有资源了，在Animation文件夹中。可以看到Aimation文件夹中有那个动画，要用到哪个，把它拖拽到第一步双击打开的JohnLemon的Animator中。</p>
-</li>
-<li><p>我先拖了一个John_Idle,然后拖了一个John_Walk，先拖的John_dle直接和Entry相连，作为起始的动画。</p>
-</li>
-<li><p>点击Animator面板中的John_Idle，右键，Make Transition，连到John_Walk；点击John_Walk,同样的方法连到John_Idle。这样，John_Idle和John_Walk相连了。</p>
-</li>
-<li><p>需要上面两个动画进行转化，转化的条件需要改一改</p>
-</li>
-<li><p>在Animator面板中的Parameters，点击“+”号，选择bool类型，起名字叫IsWorking吧，把它作为条件</p>
-</li>
-<li><p>点击John_Walk到John_Idle连线上带三角形的箭头，可以看到右边Inspector面板，Conditions可以点“+”号，让John_Idle到John_Walk为true。另一条线用同样的方法让它为false</p>
-</li>
-<li><p>同样在那个Inspector面板，有个Has Exit Time复选框，把它取消了，目的是为了让只有两个变量进行更改的时候，才会让它进行状态转换，不会用时间倒计时自动退出</p>
-</li>
-</ol>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -749,19 +756,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/27/3D%E5%90%8E%E6%9C%9F%E5%A4%84%E7%90%86%E4%BD%93%E7%A7%AF-%E6%B7%BB%E5%8A%A0%E9%A2%9C%E8%89%B2%E5%88%86%E7%BA%A7-%E6%B3%9B%E5%85%89-10/">3D后期处理体积&amp;添加颜色分级&amp;泛光-10</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2022/05/26/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E7%AE%80%E4%BB%8B-%E6%B7%BB%E5%8A%A0%E6%8A%97%E9%94%AF%E9%BD%BF-9/">3D后期特效简介&amp;添加抗锯齿-9</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/25/3D%E4%BD%BF%E7%94%A8Cinemachine%E6%9E%84%E5%BB%BA3D%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F-8/">3D使用Cinemachine构建3D摄像机跟随-</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2022/05/24/3DNavMesh%E5%AF%BC%E8%88%AA%E7%B3%BB%E7%BB%9F-7/">3DNavMesh导航系统-7</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/21/%E3%80%8ACunning-Angel%E3%80%8B/">《Cunning Angel》</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/21/3D%E5%9C%BA%E6%99%AF%E5%92%8C%E5%85%89%E7%85%A7-6/">3D场景和光照-6</a>
             </li>
             
         </ul>

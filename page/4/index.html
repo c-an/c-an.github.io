@@ -152,6 +152,145 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/04/25/%E7%B2%BE%E7%81%B5%E5%8A%A8%E7%94%BB/">
+                精灵动画
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-25</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="添加动画剪辑"><a href="#添加动画剪辑" class="headerlink" title="添加动画剪辑"></a>添加动画剪辑</h1><ul>
+<li>Avatar:</li>
+</ul>
+<p>Unity动画系统Mecanim中的简化骨骼结构和3d素材中实际骨骼间建立的映射，称为Avatar（替身）</p>
+<ul>
+<li>动画剪辑（Animation clip）</li>
+</ul>
+<p>动画剪辑（Animation clip）是动画的基本组成部分，包含某些对象应如何随时改变其位置、旋转或其他相关信息。</p>
+<p>动画剪辑一般和不同的状态相挂接。比如“静止状态”挂接站立不动的动画、“奔跑状态”挂接奔跑的动画…</p>
+<ul>
+<li>Animator Controller<br> Animator Controller用来控制不同状态下动画的播放，以及状态间的转换</li>
+</ul>
+<blockquote>
+<p>以上三个部分（Avatar、动画剪辑和Animator Controller）都通过Animator组件一起附加到某个游戏对象上</p>
+</blockquote>
+<p>下面开始添加动画剪辑</p>
+<blockquote>
+<p>建立控制器（creat&gt;Animator Controller 记得创建一个Animations的文件夹方便管理），命名为Robot</p>
+</blockquote>
+<p>以Robot为例</p>
+<ul>
+<li>添加Animator组件，在Controller中把刚刚创建的Robot挂上去</li>
+<li>打开预制件（Prefabs&gt;选中 双击）</li>
+<li>Window&gt;Animation&gt;Animation(ctrl+6),要选中预制件，creat，取个名字，存到Animations文件夹下</li>
+<li>把素材拖进去<blockquote>
+<p>动画样本的默认大小为60，是在Animation窗口内的动画属性上方的Samples设置中设定的<br>时间轴在0：00 - 1：00 之间有60条垂线。因此，动画会以每秒60帧的速度运行，这意味着Unity每秒将精灵渲染60次<br>若是找不到Samples：在Animation窗口的右上角的X号下面的三个圆点，点击，选择Show Samples Rate。为了动画的流畅，请随意修改Samples<br>Unity动画提供反转的功能（Add Property&gt;Sprite Render&gt;Filp X可以对动画素材左右横转，其他类似）<br><br></br></p>
+</blockquote>
+</li>
+</ul>
+<h1 id="用混合树管理动画剪辑"><a href="#用混合树管理动画剪辑" class="headerlink" title="用混合树管理动画剪辑"></a>用混合树管理动画剪辑</h1><p>使上面不同的动画剪辑与Robot不同的状态一一对应，这个工作由Animation Controller执行。</p>
+<blockquote>
+<p>怎样使用Animation Controller？</p>
+</blockquote>
+<ul>
+<li>首先，有两种方法打开。第一种，因为我们已经创建了控制器Robot，只不过还没开始用，点击（Animations&gt;Ruby），open；第二种，Window&gt;Animation&gt;Animator(需选中预制件，才能看到)</li>
+<li>对于Animator窗口，在左侧空间，有两个分页，一个是Layers（层次，一般用来管理3D动画，可以用于角色的不同部分），另一个是Parameters（参数与动画脚本进行挂接，用程序来控制参数，参数再通过控制器Animation Controller决定具体播放哪一段动画；一会我们就使用不同的参数来控制动画剪辑的状态的转化）</li>
+</ul>
+<h2 id="动画状态机"><a href="#动画状态机" class="headerlink" title="动画状态机"></a>动画状态机</h2><ul>
+<li>右键点击动画剪辑，Make Transiton，多出来一条线，指向谁，与谁进行连接</li>
+</ul>
+<h2 id="混合树（这时比动画状态机更简单的方式，用参数来混合多段动画）"><a href="#混合树（这时比动画状态机更简单的方式，用参数来混合多段动画）" class="headerlink" title="混合树（这时比动画状态机更简单的方式，用参数来混合多段动画）"></a>混合树（这时比动画状态机更简单的方式，用参数来混合多段动画）</h2><ul>
+<li>回到Animator窗口，把窗口右侧的动画剪辑State上删掉</li>
+<li>调出混合树来专门管理动画剪辑的播放。新建一个混合树：右键，Create State（创建状态）&gt;From New Blend Tree</li>
+<li>双击进入Blend Tree，接下来的操作都在Blend Tree里进行。然后要用到参数面板，左侧是搜索框，用来搜索不同的参数，右侧+号是下拉列表，用于新建不同数据类型的参数</li>
+<li>（右侧是用鼠标中键来移动的：点击鼠标中键，拖拽）</li>
+<li>把原来的参数的delete，新建立2个（和教程上保持一致，命名为Move X,Move Y）</li>
+<li>选中Blend Tree，右侧Inspector里的Blend Type是选择类型。因为是实例，选择简单的2D Simple Directional，参数Parameters选中Move X和Move Y</li>
+<li>这时Blend Tree 已经有Move X 和Move Y了，它的默认值是0到1</li>
+<li>Inspector&gt;Motion(添加参数与动画剪辑之间关联的)，点击+号，Add Motion Field，有几个不同的动画剪辑，添加几个</li>
+<li>Motion 挂接动画剪辑就行了</li>
+<li>对Pos X，Pos Y两个参数的值进行配置，根据它们进行挂接（tip:后面的钟是播放速度，第四个是镜像）<blockquote>
+<p>这时，Blend Tree设置好了<br><br></br></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="将参数发送到Animator-Controller"><a href="#将参数发送到Animator-Controller" class="headerlink" title="将参数发送到Animator Controller"></a>将参数发送到Animator Controller</h2><blockquote>
+<p>脚本里面设置好移动方向，计时器里设置方向的转化，同时也会进行动画剪辑的设定，根据方向控制播放哪一个的动画剪辑</p>
+</blockquote>
+<ul>
+<li>首先获取Animator组件</li>
+<li>组件里的Controller就可以对代码进行控制了</li>
+<li>实际还是通过Animator这个组件的对象来进行参数的传递的</li>
+</ul>
+<p>以下是EnemyController2完整的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">public class EnemyController2 : MonoBehaviour &#123;</span><br><span class="line">    //代表移动速度（实际上是每次刷新时移动的距离）</span><br><span class="line">    public float speed;</span><br><span class="line">    //是否垂直移动，true按y轴移动，false按x轴移动</span><br><span class="line">    public bool vertical;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    //rigidbody2D先前我们已经用过了，如果不希望rigidbody2D被覆盖</span><br><span class="line">    //这里可以取比如rigidbody2d这种不一样的名字</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line"></span><br><span class="line">    //朝一个方向移动的总时间</span><br><span class="line">    public float changeTime = 3.0f;</span><br><span class="line"></span><br><span class="line">    //计时器</span><br><span class="line">    float timer;</span><br><span class="line">    //方向</span><br><span class="line">    int direction = 1;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line"></span><br><span class="line">    //在字段里面声明一个Animator,动画管理者组件</span><br><span class="line">    Animator animator;</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //通过当前这个代码组件，获取到这个代码组件所在的游戏对象</span><br><span class="line">        //再通过游戏对象，获取到刚体组件</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line"></span><br><span class="line">        //游戏对象一般都是通过Start获取</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //计时器也要给它设置好</span><br><span class="line">        timer = changeTime;</span><br><span class="line">        //把Animator实例化，拿到脚本组件所挂接的游戏对象的Animator组件</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //Update本来是每帧来调用，但是和FixedUpdate结合使用，它又是固定的</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //每次减少</span><br><span class="line">        //但是每秒减少还是一样的</span><br><span class="line">        timer -= Time.deltaTime;</span><br><span class="line">        //如果timer到0，重置</span><br><span class="line">        if (timer &lt; 0) &#123;</span><br><span class="line">            //方向取反</span><br><span class="line">            direction = -direction;</span><br><span class="line">            //时间重置</span><br><span class="line">            timer = changeTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //若是希望移动非常稳定的话，用FixedUpdate</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前游戏对象所在的位置</span><br><span class="line">        Vector2 position = rigidbody2d.position;</span><br><span class="line"></span><br><span class="line">        //纵向移动，沿y轴移动</span><br><span class="line">        //加不加Time.deltaTime都可以</span><br><span class="line">        if (vertical) &#123;</span><br><span class="line">            position.y = position.y + Time.deltaTime * speed*direction;</span><br><span class="line">            animator.SetFloat(&quot;Move X&quot;, 0);</span><br><span class="line">            animator.SetFloat(&quot;Move Y&quot;, direction);</span><br><span class="line">        &#125;</span><br><span class="line">        //否则，沿x轴移动</span><br><span class="line">        else &#123;</span><br><span class="line">            position.x = position.x + Time.deltaTime * speed*direction;</span><br><span class="line">            animator.SetFloat(&quot;Move X&quot;, direction);</span><br><span class="line">            animator.SetFloat(&quot;Move Y&quot;, 0);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //和直接赋值的效果是一样的，但是这个更严谨些</span><br><span class="line">        rigidbody2d.MovePosition(position);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //刚体碰撞的方法</span><br><span class="line">    //在这个方法中，添加对玩家伤害的逻辑</span><br><span class="line">    private void OnCollisionEnter2D(Collision2D other) &#123;</span><br><span class="line">        //获取和敌人碰撞的玩家角色</span><br><span class="line">        //先获取玩家控制器脚本</span><br><span class="line">        //这个类的设置不能直接GetComponent</span><br><span class="line">        //要先获得gameObject</span><br><span class="line">        //这个是类设定的规则，记住这个方式来使用</span><br><span class="line">        RubyController rubyController = other.gameObject.GetComponent&lt;RubyController&gt;();</span><br><span class="line"></span><br><span class="line">        //如果不为空，直接让它减血</span><br><span class="line">        if (rubyController != null) &#123;</span><br><span class="line">            //玩家角色掉血</span><br><span class="line">            rubyController.ChangeHealth(-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Enemy Controller2&gt;Change Time 修改速度<br>Hierarchy&gt;Robot&gt;Enemy Controller2 勾选Vertical，纵向</p>
+</blockquote>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2022/04/25/%E6%B7%BB%E5%8A%A0%E6%95%8C%E4%BA%BA%E4%BC%A4%E5%AE%B3/">
+                添加敌人伤害
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-25</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <blockquote>
+<p>若是要实现敌人对角色的伤害，而并非通过触发器的碰撞（Box Collider 2D&gt;Is Trigger，若是触发器会导致玩家像鬼魂一样穿过敌人)</p>
+</blockquote>
+<blockquote>
+<p>若是要敌人<strong>碰撞体</strong>为实心，并且与角色实际碰撞，使用OnCollisionEnter2D(刚体与某个对象碰撞时调用的函数)，类似于伤害区的OnTriggerEnter2D</p>
+</blockquote>
+<blockquote>
+<p>下面是EnemyController2完整的代码</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">public class EnemyController2 : MonoBehaviour &#123;</span><br><span class="line">    //代表移动速度（实际上是每次刷新时移动的距离）</span><br><span class="line">    public float speed;</span><br><span class="line">    //是否垂直移动，true按y轴移动，false按x轴移动</span><br><span class="line">    public bool vertical;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    //rigidbody2D先前我们已经用过了，如果不希望rigidbody2D被覆盖</span><br><span class="line">    //这里可以取比如rigidbody2d这种不一样的名字</span><br><span class="line">    Rigidbody2D rigidbody2d;</span><br><span class="line"></span><br><span class="line">    //朝一个方向移动的总时间</span><br><span class="line">    public float changeTime = 3.0f;</span><br><span class="line"></span><br><span class="line">    //计时器</span><br><span class="line">    float timer;</span><br><span class="line">    //方向</span><br><span class="line">    int direction = 1;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //通过当前这个代码组件，获取到这个代码组件所在的游戏对象</span><br><span class="line">        //再通过游戏对象，获取到刚体组件</span><br><span class="line">        rigidbody2d = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //Update本来是每帧来调用，但是和FixedUpdate结合使用，它又是固定的</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //每次减少</span><br><span class="line">        //但是每秒减少还是一样的</span><br><span class="line">        timer -= Time.deltaTime;</span><br><span class="line">        //如果timer到0，重置</span><br><span class="line">        if (timer &lt; 0) &#123;</span><br><span class="line">            //方向取反</span><br><span class="line">            direction = -direction;</span><br><span class="line">            //时间重置</span><br><span class="line">            timer = changeTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //若是希望移动非常稳定的话，用FixedUpdate</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前游戏对象所在的位置</span><br><span class="line">        Vector2 position = rigidbody2d.position;</span><br><span class="line"></span><br><span class="line">        //纵向移动，沿y轴移动</span><br><span class="line">        //加不加Time.deltaTime都可以</span><br><span class="line">        if (vertical) &#123;</span><br><span class="line">            position.y = position.y + Time.deltaTime * speed*direction;</span><br><span class="line">        &#125;</span><br><span class="line">        //否则，沿x轴移动</span><br><span class="line">        else &#123;</span><br><span class="line">            position.x = position.x + Time.deltaTime * speed*direction;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //和直接赋值的效果是一样的，但是这个更严谨些</span><br><span class="line">        rigidbody2d.MovePosition(position);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //刚体碰撞的方法</span><br><span class="line">    //在这个方法中，添加对玩家伤害的逻辑</span><br><span class="line">    private void OnCollisionEnter2D(Collision2D other) &#123;</span><br><span class="line">        //获取和敌人碰撞的玩家角色</span><br><span class="line">        //先获取玩家控制器脚本</span><br><span class="line">        //这个类的设置不能直接GetComponent</span><br><span class="line">        //要先获得gameObject</span><br><span class="line">        //这个是类设定的规则，记住这个方式来使用</span><br><span class="line">        RubyController rubyController = other.gameObject.GetComponent&lt;RubyController&gt;();</span><br><span class="line"></span><br><span class="line">        //如果不为空，直接让它减血</span><br><span class="line">        if (rubyController != null) &#123;</span><br><span class="line">            //玩家角色掉血</span><br><span class="line">            rubyController.ChangeHealth(-1);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="关于Collision2D"><a href="#关于Collision2D" class="headerlink" title="关于Collision2D"></a>关于Collision2D</h1><p>该类对象是回调函数返回的碰撞细节。用来描述碰撞本身。<br>是包含碰撞信息的一个类</p>
+<p>可以通过碰撞细节事件函数（回调函数）来编写两个刚体碰撞后的游戏逻辑</p>
+<h2 id="碰撞回调函数有三个"><a href="#碰撞回调函数有三个" class="headerlink" title="碰撞回调函数有三个"></a>碰撞回调函数有三个</h2><ul>
+<li>OnCollisionEnter2D(MonoBehaviour.OnCollisionEnter2D)</li>
+<li>OnCollisionStay2D(OnCollisionEnter2D.OnCollisionStay2D)</li>
+<li>OnCollisionExit2D(OnCollisionEnter2D.OnCollisionExity2D)</li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/04/24/%E6%95%8C%E4%BA%BA%E7%A7%BB%E5%8A%A8%E6%96%B9%E5%BC%8F/">
                 敌人移动方式
             </a>
@@ -508,119 +647,6 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/19/%E5%85%B3%E4%BA%8E2D-Extra-Package%E7%9A%84%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95/">
-                关于2D  Extra Package的安装方法
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-19</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <blockquote>
-<p>2D extra是一个很好用的package，用Tilemap来绘制地图时，可以用它来自动填充、预制体笔刷、随机笔刷等</p>
-</blockquote>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/Unity-Technologies/2d-extras">这是下载地址</a></p>
-</blockquote>
-<hr>
-<ul>
-<li>1.在master中选择对应的版本，再在Code处选择下载压缩包，把它解压。</li>
-<li>2.在你的project中把2d-extras.xxx拖拽到你想放置的位置（比如Assets…）</li>
-<li>3.在Window中选择Package Manager，点击左上角的“+”，选择“Add package from disk”，打开package.json。<blockquote>
-<p>在以上步骤完成后，虽然我这并没有显示Importing Assets，但是打开Windows&gt;2D&gt;Tile Palette,左下角Brush下拉菜单不再只有Default Brush这一个选项，出现了例如Coordinate Brush的选项，说明已经安装成功了 ^_^</p>
-</blockquote>
-</li>
-</ul>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/19/Unity-Tilemap/">
-                Unity Tilemap
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-19</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h2 id="Tilemap概念"><a href="#Tilemap概念" class="headerlink" title="Tilemap概念"></a>Tilemap概念</h2><p>Tilemap是2D游戏中，用来构建世界的工具<br>瓦片地图组件，是一个存储和操作Tile资源的系统，用来创建2D关卡</p>
-<h2 id="瓦片-Tile"><a href="#瓦片-Tile" class="headerlink" title="瓦片 Tile"></a>瓦片 Tile</h2><p>瓦片是排列在瓦片地图上的资源，用于构建2D环境。每个瓦片引用一个选定的精灵，然后在瓦片地图网格上的瓦片位置处渲染该精灵。</p>
-<ul>
-<li>Tile：新版本中已经看不到，但是可以使用</li>
-<li>Scriptable Tile：自编程瓦片</li>
-<li>Rule Tile：规则瓦片 </li>
-<li>Animated Tile：动画瓦片</li>
-</ul>
-<hr>
-<h2 id="素材相关"><a href="#素材相关" class="headerlink" title="素材相关"></a>素材相关</h2><blockquote>
-<p>Sprite（精灵）：纹理的容器，大型纹理图集可以转为精灵图集（Sprite Sheet）</p>
-</blockquote>
-<blockquote>
-<p>Tile（瓦片）：包含一个精灵，以及两个属性，颜色和碰撞体类型。使用瓦片就像在画布上画画一样，画画时可以设置一些颜色和属性   [紫色的瓦图标]</p>
-</blockquote>
-<h2 id="工具相关"><a href="#工具相关" class="headerlink" title="工具相关"></a>工具相关</h2><blockquote>
-<p>Tile Palette（瓦片调色板）：当你在画布上（Canvas）上画画时，会需要一个位置来保存绘画的结果。 类似地，调色板（Palette）的功能就是保存瓦片，将它们绘制到网格上</p>
-</blockquote>
-<blockquote>
-<p>Brush（笔刷）：用于将画好的东西绘制到画布上。使用Tilemap时，可以在多个笔刷中任意选择，绘制出线条、方块等各种形状</p>
-</blockquote>
-<h2 id="组件相关"><a href="#组件相关" class="headerlink" title="组件相关"></a>组件相关</h2><blockquote>
-<p>Tilemap（瓦片地图）：类似于Photoshop中的图层，我们可以在Tilemap上画上Tile</p>
-</blockquote>
-<blockquote>
-<p>Grid（网格）：用于控制网格属性的组件。Tilemap是Grid的子对象。Grid类似于UI Cancas（UI）画布</p>
-</blockquote>
-<blockquote>
-<p>Tilemap Renderer（瓦片地图渲染器）：是Tilemap游戏中对象的一部分，用于控制Tilemap上的渲染，控制如排序、材质、遮罩等<br><br></br></p>
-</blockquote>
-<hr>
-<h2 id="切割大的瓦片地图"><a href="#切割大的瓦片地图" class="headerlink" title="切割大的瓦片地图"></a>切割大的瓦片地图</h2><p>选择Sprite Editor进入编辑，并且还得把Sprite Mode的多模式改成单模式（Single-&gt;Multiple）<br>Sprite中slice的类型中的Automatic一般适合不连续的区域，按照区域的边界进行自动的分割</p>
-<hr>
-<p>但是使用普通的瓦片来构建世界，一个一个格子用笔刷填充，非常费时，以下方法可减少绘制地图所需的时间  <b></p>
-<ul>
-<li>瓦片编程 Scriptable Tile<br>Unity也支持创建自己的Tile类，自己书写瓦片的绘制规则。<br>还可以为瓦片自定义编辑器。这与脚本化对象的自定义编辑器的工作方式相同。<br>创建一个继承自TileBase（或TileBase的任何有用的子类，如Tile）的新类。重写新的Tile类所需的所有方法</li>
-<li>编程画笔 Scriptable Brush<br>Unity也支持创建自己的Brush类，设计适合自己的网格画笔。<br>创建一个继承自GridBrushBase（或GridBrushBase的任何有用子类，如GridBrush）的新类。重写的Brush类所需的所有方法。<br>创建可编程画笔后，画笔将列在Palette窗口的Brushes下拉选单中。默认情况下，可编程画笔脚本的实例将经过实例化并存储在项目的Library文件夹中。这些画笔资源将在Brush下拉选档中单独列出。<h3 id="2D-Tilemap-Extras（2D瓦片地图扩展）"><a href="#2D-Tilemap-Extras（2D瓦片地图扩展）" class="headerlink" title="2D Tilemap Extras（2D瓦片地图扩展）"></a>2D Tilemap Extras（2D瓦片地图扩展）</h3></li>
-<li>1.Animated Tile 动画瓦片<br>动画瓦片在游戏运行时，按顺序显示Sprite列表以创建逐帧动画</li>
-<li>2.Rule Tile 规则瓦片<br>可以为每个瓦片创建规则，在绘制时，unity会自动响应这些规则，绘制地图更加智能</li>
-</ul>
-<hr>
-<h3 id="一般Tilemap创建三个，分别为："><a href="#一般Tilemap创建三个，分别为：" class="headerlink" title="一般Tilemap创建三个，分别为："></a>一般Tilemap创建三个，分别为：</h3><ul>
-<li>background(地图背景)</li>
-<li>bound(边界)</li>
-<li>foreground(前景，主要是地形)<br><br></br></li>
-</ul>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -663,19 +689,19 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/27/3D%E5%90%8E%E6%9C%9F%E5%A4%84%E7%90%86%E4%BD%93%E7%A7%AF-%E6%B7%BB%E5%8A%A0%E9%A2%9C%E8%89%B2%E5%88%86%E7%BA%A7-%E6%B3%9B%E5%85%89-10/">3D后期处理体积&amp;添加颜色分级&amp;泛光-10</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2022/05/26/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E7%AE%80%E4%BB%8B-%E6%B7%BB%E5%8A%A0%E6%8A%97%E9%94%AF%E9%BD%BF-9/">3D后期特效简介&amp;添加抗锯齿-9</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/25/3D%E4%BD%BF%E7%94%A8Cinemachine%E6%9E%84%E5%BB%BA3D%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F-8/">3D使用Cinemachine构建3D摄像机跟随-</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2022/05/24/3DNavMesh%E5%AF%BC%E8%88%AA%E7%B3%BB%E7%BB%9F-7/">3DNavMesh导航系统-7</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/21/%E3%80%8ACunning-Angel%E3%80%8B/">《Cunning Angel》</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/21/3D%E5%9C%BA%E6%99%AF%E5%92%8C%E5%85%89%E7%85%A7-6/">3D场景和光照-6</a>
             </li>
             
         </ul>

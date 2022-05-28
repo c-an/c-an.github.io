@@ -152,6 +152,99 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/04/27/%E5%88%B6%E4%BD%9C%E5%8A%A8%E7%94%BB%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2/">
+                制作动画状态转换
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-27</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <blockquote>
+<p>复刻动画状态的转换，肯定要先看源码。选择已经做好的Ruby的Animator，看关于Idle和Moving之间的转变。<br>点击Idle，Idle-&gt;Moving有个Has Exit Time，取消勾选，会立马转变</p>
+</blockquote>
+<blockquote>
+<p>关于新词汇：</p>
+</blockquote>
+<ul>
+<li>Fixed Duration</li>
+</ul>
+<p>解释：如果选中Fixed Duration复选框，则以秒为单位解读过渡时间。如果未选中Fixed Duration复选框，则过渡的时间解读未源状态的标准化时间的一部分。（没懂）</p>
+<ul>
+<li>Transition Duration（s）  对当前状态持续时间的过渡时间，以标准化或秒为单位（具体取决于Fixed Duration模式），慢慢渐变的一个过程，此时间在过渡图中显示为两个蓝色标记之间的部分，0代表没有重叠。</li>
+<li>Transition Offset        过渡到目标状态的起始播放的时间偏移。例如，值为0.5表示目标状态在其时间轴的50%出开始播放。</li>
+<li>Interruption Source      影响它的源</li>
+<li>BlendTree Parameters&gt; Conditions ，那个框满足它什么条件进行转换。</li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2022/04/26/%E5%85%B3%E4%BA%8E%E7%8E%A9%E5%AE%B6%E8%A7%92%E8%89%B2%E7%9A%84%E5%8A%A8%E7%94%BB%E5%88%B6%E4%BD%9C/">
+                关于玩家角色的动画制作
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-04-26</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="Use-the-Task-List"><a href="#Use-the-Task-List" class="headerlink" title="Use the Task List"></a>Use the Task List</h1><p>在vs里，写代码不知道做什么，可以先写TODO<br>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//TODO: 1.创建Animator和相关的数据对象</span><br><span class="line">//TODO: 2.传值，把Animator controller中Blend tree要用的参数传过去</span><br><span class="line">//3个不同的状态：idle move hit</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>任务列表的快捷键：ctrl + \ + t</p>
+</blockquote>
+<p><br></br></p>
+<h1 id="添加Ruby动画控制脚本"><a href="#添加Ruby动画控制脚本" class="headerlink" title="添加Ruby动画控制脚本"></a>添加Ruby动画控制脚本</h1><h4 id="新词汇："><a href="#新词汇：" class="headerlink" title="新词汇："></a>新词汇：</h4><ul>
+<li>Mathf 是Unity里用来做数学计算的库</li>
+<li>approximately 英语里是大约的意思</li>
+<li>Mathf.Approximately<br>  public static bool Approximately(float a,float b);<br>  使用Mathf.Approximately而不是&#x3D;&#x3D;，是因为计算机储存浮点数的方式意味着精度会有很小的损失<br>  描述：比较两个浮点值，如果它们相似（之间的差值处于较小值Epsilon范围内），返回true</li>
+</ul>
+<blockquote>
+<p>Normalize()归一化 （opencv）<br><br></br></p>
+</blockquote>
+<ul>
+<li>magnitude 表示数值的意思<blockquote>
+<p>下面是添加Ruby动画控制脚本的完整代码</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line">public class RubyController : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    //设置玩家间隔无敌时间</span><br><span class="line">    public float timeInvincible = 2.0f;</span><br><span class="line">    //设置是否无敌的变量</span><br><span class="line">    bool isInvincible;</span><br><span class="line">    //定义变量，进行无敌时间的计时，无敌时间计时器</span><br><span class="line">    float invincibleTimer;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //设置最大生命值（生命上限）</span><br><span class="line">    public int maxHealth = 5;</span><br><span class="line">    //设置当前生命值的属性health</span><br><span class="line"></span><br><span class="line">    //c#中支持面向对象程序设计中的封装概念，对数据成员的保护</span><br><span class="line">    //数据成员变量，默认一般都应该设置为私有，只能通过对当前类的方法或属性进行访问</span><br><span class="line">    //属性类似于特殊的函数结构，它get是一个关键字</span><br><span class="line">    //get是获取当前属性所绑定的字段的值</span><br><span class="line">    //属性相当于一个盒子，字段是在盒子里的某件东西</span><br><span class="line">    //属性限制了字段的访问规则，比如只能读或写</span><br><span class="line">    //或者读写的时候满足某种需求，才能往外进行操作</span><br><span class="line">    //相当于把它包装起来，这就称为封装</span><br><span class="line">    //属性是公有的，可以通过取值器get、赋值器set设定对应字段的访问规则，满足规则才能进行访问</span><br><span class="line"></span><br><span class="line">    public int health &#123; </span><br><span class="line">        get &#123; return currentHealth; &#125;</span><br><span class="line">        //set &#123; currentHealth = value; &#125;//可赋值</span><br><span class="line">    &#125;</span><br><span class="line">    int currentHealth;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2D;</span><br><span class="line">    //获取用户输入</span><br><span class="line">    float horizontal;</span><br><span class="line">    float vertical;</span><br><span class="line"></span><br><span class="line">    //将速度暴露出来，使其可调</span><br><span class="line">    public float speed = 0.1f;</span><br><span class="line"></span><br><span class="line">    //声明一个动画管理者组件对象</span><br><span class="line">    Animator animator;</span><br><span class="line">    //创建一个二维矢量，用来存储Ruby静止不动时看的方向（即面向的方向）</span><br><span class="line">    //与机器人相比，Ruby可以站立不动。她站立不动时，Move X和Y均为0，这时状态机就没法获取Ruby静止时的朝向</span><br><span class="line">    //所以需要手动设置一个</span><br><span class="line">    Vector2 lookDirection = new Vector2(1, 0);</span><br><span class="line">    //移动二维矢量</span><br><span class="line">    Vector2 move;</span><br><span class="line"></span><br><span class="line">    private void Start() &#123;</span><br><span class="line">        //获取当前游戏对象的刚体组件</span><br><span class="line">        rigidbody2D = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //游戏刚开始，玩家满血</span><br><span class="line">        currentHealth = maxHealth;</span><br><span class="line"></span><br><span class="line">        //获取组件对象</span><br><span class="line">        animator = GetComponent&lt;Animator&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    //每帧调用一次Update</span><br><span class="line">    //让游戏对象每帧右移0.1</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //获取水平输入，按向左，会获得-1.0f；按向右，会获得1.0f</span><br><span class="line">        horizontal = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">        //获取垂直输入，按向下，会获得-1.0f；按向上，会获得1.0f</span><br><span class="line">        vertical = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //判断是否处于无敌状态，来进行计时器的倒计时</span><br><span class="line">        if (isInvincible) &#123;</span><br><span class="line">            //每次Update减去一帧消耗的时间</span><br><span class="line">            invincibleTimer = invincibleTimer - Time.deltaTime;</span><br><span class="line">            if (invincibleTimer &lt; 0) &#123;</span><br><span class="line">                isInvincible = false;//无敌时间小于0了，让它不无敌了</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //创建一个二维矢量对象来表示Ruby移动的数据信息</span><br><span class="line">        move = new Vector2(horizontal, vertical);</span><br><span class="line">        //如果move中的x/y不为零，表示正在移动</span><br><span class="line">        //将ruby面向方向设置为移动方向</span><br><span class="line">        //停止移动，保持以前方向，所以这个if结构用于转向时重新赋值面向方向</span><br><span class="line">        //if条件表示正在移动</span><br><span class="line">        if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f)&#123;</span><br><span class="line">            ////将ruby面向方向设置为移动方向（ruby朝向移动方向）</span><br><span class="line">            lookDirection.Set(move.x, move.y);//lookDirection.x=move.x  lookDirection.y=move.y</span><br><span class="line"></span><br><span class="line">            //使向量长度为1，可以将此方法称为向量的“归一化”方法</span><br><span class="line">            //通常在表示方向，而非位置的方向上</span><br><span class="line">            //因为blend tree中表示方向的参数值的取值方位是-1.0到1.0，</span><br><span class="line">            //所以一般用向量作为Animator.SetFloat方法的参数时，一般要对向量先进行“归一化”处理</span><br><span class="line">            lookDirection.Normalize();//lookDirection在这里只表示方向</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //传递Ruby面朝方向给blend tree</span><br><span class="line">        animator.SetFloat(&quot;Look X&quot;, lookDirection.x);</span><br><span class="line">        animator.SetFloat(&quot;Look Y&quot;, lookDirection.y);</span><br><span class="line">        //传递Ruby速度给blend tree</span><br><span class="line">        //矢量的magnitue属性，用来返回矢量的长度,是一个绝对值</span><br><span class="line">        animator.SetFloat(&quot;Speed&quot;, move.magnitude);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //固定时间间隔执行的更新方法</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前对象位置</span><br><span class="line">        Vector2 position = transform.position;</span><br><span class="line">        //更改位置</span><br><span class="line">        position.x = position.x + 0.1f * horizontal;</span><br><span class="line">        position.y = position.y + 0.1f * vertical;</span><br><span class="line">        //新位置给游戏参数</span><br><span class="line">        rigidbody2D.position = position;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //不是系统函数，自定义来更改生命值的</span><br><span class="line">    public void ChangeHealth(int amount) &#123;</span><br><span class="line">        //假设玩家受伤害的时间间隔是2秒</span><br><span class="line">        //不管是什么样的伤害，只要amount小于0，就判断是不是无敌</span><br><span class="line">        if (amount &lt; 0) &#123;</span><br><span class="line">            //判断当前是否处于无敌状态</span><br><span class="line">            if (isInvincible) &#123;</span><br><span class="line">                //无敌不伤血，跳出无敌状态</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当不是无敌状态时，会执行下面的代码</span><br><span class="line">        //重置无敌状态为真</span><br><span class="line">        isInvincible = true;</span><br><span class="line">        //设置无敌时间</span><br><span class="line">        invincibleTimer = timeInvincible;</span><br><span class="line"></span><br><span class="line">        //播放受伤动画</span><br><span class="line">        animator.SetTrigger(&quot;Hit&quot;);</span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br></br></p>
+</li>
+</ul>
+<h1 id="制作Ruby移动状态下用到的动画剪辑"><a href="#制作Ruby移动状态下用到的动画剪辑" class="headerlink" title="制作Ruby移动状态下用到的动画剪辑"></a>制作Ruby移动状态下用到的动画剪辑</h1><blockquote>
+<p>tip：在新建玩家动画剪辑的时候，会自动生成一个管理动画剪辑的动画控制器。即在为游戏对象创建动画剪辑的时候，会自动生成一个和游戏对象同名的Controller。并且会把Animator挂到当前这个游戏对象上，相当于自动了，非常方便。（其实这样不好，但是这里是为了自己方便）</p>
+</blockquote>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/04/25/%E7%B2%BE%E7%81%B5%E5%8A%A8%E7%94%BB/">
                 精灵动画
             </a>
@@ -543,110 +636,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/20/%E4%B8%96%E7%95%8C%E4%BA%A4%E4%BA%92/">
-                世界交互(1)
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-20</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="什么是物理系统"><a href="#什么是物理系统" class="headerlink" title="什么是物理系统"></a>什么是物理系统</h1><p>若是模拟移动和碰撞，需要使用所有的数学公式来计算对象上的接触和力。但需要编写很多复杂的代码。由于物理定律是相同的，因此可以抽象处代码在所有游戏中共享：这就是物理系统的功能。Unity有一个内置的物理系统，可以计算对象的移动和碰撞。<br><br></br><br>为避免我们对游戏对象中的每个对象进行成本高昂的数学运算，Unity仅对附有Rigidbody 2D组件中的游戏对象执行这些计算</p>
-<hr>
-<h3 id="最基础的两个组件"><a href="#最基础的两个组件" class="headerlink" title="最基础的两个组件"></a>最基础的两个组件</h3><ul>
-<li>Rigidbody 2D</li>
-<li>Box Collider 2D (如果碰撞的时候很奇怪，明明没碰到之类就产生效果了，可以点击Edit Collider，调整游戏对象产生效果的框框)</li>
-</ul>
-<h3 id="关于解决旋转"><a href="#关于解决旋转" class="headerlink" title="关于解决旋转"></a>关于解决旋转</h3><ul>
-<li>Rigidbody 2D&gt;Constrains(约束)&gt;Freeze Roation Z<br>旋转时其实是沿着屏幕的z轴旋转的，把这个旋转给关闭了</li>
-</ul>
-<h3 id="关于解决抖动"><a href="#关于解决抖动" class="headerlink" title="关于解决抖动"></a>关于解决抖动</h3><ul>
-<li>移动使用了Transform这样一个变换组件，变化组件并不会考虑碰撞的影响，它只会考虑让它移动的位置。给一个position，就会移动到position。</li>
-</ul>
-<p>先检测移动，再生效物理引擎<br>每一次移动到碰撞体内，刚体和碰撞体会把它挤出来。进来和出去这种方式，使它不停颤动。结论：Transform这种移动方式，不适合碰撞体。</p>
-<p><strong>刚体本身也有一个移动位置的方法</strong></p>
-<ul>
-<li>前提：</li>
-<li>1.因为默认情况下，所有游戏对象都具有一个Transform组件，所以Unity使Transform变量再所有脚本中都可用。但是，必须将Rigidbody组件手动添加到游戏对象，因为Unity并没有将这个变量作为内置变量。</li>
-<li>2.物理系统的更新速度与游戏不同。每次游戏计算图像时都会调用Update，问题是调用速度不稳定。</li>
-<li>3.为使物理计算保持稳定，需要定期更新（例如，每隔16ms）。Unity有一个名为FixedUpdate的函数，只要你想要直接影响物理组件或对象（例如刚体），就需要使用该函数。<br><br></br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class RubyController : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    //声明刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2D;</span><br><span class="line">    //获取用户输入</span><br><span class="line">    float horizontal;</span><br><span class="line">    float vertical;</span><br><span class="line"></span><br><span class="line">    //将速度暴露出来，使其可调</span><br><span class="line">    public float speed = 0.1f;</span><br><span class="line"></span><br><span class="line">    private void Start() &#123;</span><br><span class="line">        //获取当前游戏对象的刚体组件</span><br><span class="line">        rigidbody2D = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    //每帧调用一次Update</span><br><span class="line">    //让游戏对象每帧右移0.1</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //获取水平输入，按向左，会获得-1.0f；按向右，会获得1.0f</span><br><span class="line">        horizontal = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">        //获取垂直输入，按向下，会获得-1.0f；按向上，会获得1.0f</span><br><span class="line">        vertical = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //固定时间间隔执行的更新方法</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前对象位置</span><br><span class="line">        Vector2 position = transform.position;</span><br><span class="line">        //更改位置</span><br><span class="line">        position.x = position.x + 0.1f * horizontal;</span><br><span class="line">        position.y = position.y + 0.1f * vertical;</span><br><span class="line">        //新位置给游戏参数</span><br><span class="line">        rigidbody2D.position = position;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），Update不同硬件运行的频率不一样。如果电脑还可以，建议把获取用户输入放到Update里。</li>
-</ul>
-<hr>
-<ul>
-<li>在Tilemap设置碰撞体的简单方式是修改Collider Type</li>
-<li>如果是Rule Tile需要在Tiling Rules里对每个小的进行修改Collider<br><br></br><h2 id="优化瓦片地图碰撞体"><a href="#优化瓦片地图碰撞体" class="headerlink" title="优化瓦片地图碰撞体"></a>优化瓦片地图碰撞体</h2>正如在Scene视图中看到的，每个瓦片都是一个单独的碰撞体。<br>这会产生两个问题：</li>
-<li>物理系统计算量大：如果世界很大，会减慢游戏速度</li>
-<li>在瓦片之间的边界上会产生小问题：由于瓦片是两个并排的碰撞体,并且两者之间存在微小间隙，因此有时计算上的微小误差也可能会导致发生碰撞的罕见现象。</li>
-</ul>
-<p>为了解决以上的问题，Unity提供一个名为Composite Collider 2D的组件。此组件可以获取对象（或者对象的子对象）上的所有碰撞体，并由此创建一个大碰撞体。（虽然有碰撞体的绿框，但是是整体一个大的）</p>
-<p>让我们来添加并配置此组件：</p>
-<ul>
-<li>1.在Hierarchy中，选择Tilemap游戏对象</li>
-<li>2.在Inspector中，单击Add Component按钮</li>
-<li>3.搜索“Composite Collider 2D”，然后选择此组件</li>
-</ul>
-<p><em><strong>你会看到自动添加Rigidbody 2D组件，因为符合碰撞体需要Rigidbody 2D才能正常运行。</strong></em></p>
-<ul>
-<li>4.在Tilemap Collider 2D组件中，启用Used By Composite复选框</li>
-<li>5.为了提升游戏性能，在Rigidbody 2D组件中，将Rigidbody Body Type属性设置为Static<br>将此属性设置为Static将阻止你的世界移动，此外还有助于物理系统的优化计算，因为它知道刚体不能移动。</li>
-</ul>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/04/20/%E5%9C%BA%E6%99%AF%E4%B8%AD%E7%9A%84%E5%9B%BE%E5%BD%A2%E6%8E%92%E5%BA%8F/">
-                场景中的图形排序
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-04-20</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="伪透视图"><a href="#伪透视图" class="headerlink" title="伪透视图"></a>伪透视图</h1><p>透视图指的是有深度、距离感的图，一般要在三维中的深度轴来表现场景的深度，而二维游戏中需要通过前后来仿造深度效果。<br><br></br><br>先通过调整瓦片的Order in Layer属性来解决了瓦片地图的排序问题，但并非总希望一个游戏对象在另一个游戏对象之上，比如，在同一个瓦片地图中，玩家角色在一个物体之前（比如一棵树）时，应是玩家遮挡树，而玩家移到树之后，应是树遮挡玩家，这就需要“伪造”透视图。<br><br></br><br>在2D游戏中，场景里的”<strong>前后</strong>“是由y轴决定的，需要让Unity根据游戏对象的y坐标来绘制游戏对象。<br>Y轴y坐标越小，越靠前，应该遮挡y坐标值较大的游戏对象，也就是y坐标较小的游戏对象后绘制，就会位于上层。<br>在游戏中，如果要设置2D伪透视图，需要在项目中更改：</p>
-<blockquote>
-<p>Edit&gt;Project Setting&gt;Graphics&gt;Camera Settings&gt;Transparency </p>
-</blockquote>
-<p>Sort Mode&#x3D;Custom Axis&gt;Transparency Sort Axis x&#x3D;0&#x2F;y&#x3D;0&#x2F;z&#x3D;0<br>此设置告诉Unity在y轴上基于精灵的位置来绘制精灵。</p>
-<h1 id="关于中心点（pivot）"><a href="#关于中心点（pivot）" class="headerlink" title="关于中心点（pivot）"></a>关于中心点（pivot）</h1><p>更改透视图后，如果感觉很奇怪，可能是未更改中心点，中心点可以在游戏对象里改，也可以在游戏素材里改（游戏对象改话每次都得改，最好在游戏素材里改）<br>修改中心点后，把Sprite Renderer中的Sprite Sort Point由Center改成Pivot</p>
-<blockquote>
-<p>Sprite Mode&gt;Pivot</p>
-</blockquote>
-<blockquote>
-<p>Sprite Mode&gt;Sprite Editor(移动小蓝点，或输入x y值)</p>
-</blockquote>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -689,19 +678,19 @@ FixedUpdate 0.02s执行一次（也可以在Edit&gt;Project Setting里改），U
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/28/%E5%83%8F%E7%B4%A0%E7%94%BB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">像素画学习笔记</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2022/05/28/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%85%89%E9%81%AE%E6%8C%A1%EF%BC%8C%E9%95%9C%E5%A4%B4%E5%A4%B1%E7%9C%9F%EF%BC%8C%E6%B8%90%E6%99%95-11/">3D后期特效添加环光遮挡，镜头失真，渐晕-11</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/27/3D%E5%90%8E%E6%9C%9F%E5%A4%84%E7%90%86%E4%BD%93%E7%A7%AF-%E6%B7%BB%E5%8A%A0%E9%A2%9C%E8%89%B2%E5%88%86%E7%BA%A7-%E6%B3%9B%E5%85%89-10/">3D后期处理体积&amp;添加颜色分级&amp;泛光-10</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2022/05/26/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E7%AE%80%E4%BB%8B-%E6%B7%BB%E5%8A%A0%E6%8A%97%E9%94%AF%E9%BD%BF-9/">3D后期特效简介&amp;添加抗锯齿-9</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/25/3D%E4%BD%BF%E7%94%A8Cinemachine%E6%9E%84%E5%BB%BA3D%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F-8/">3D使用Cinemachine构建3D摄像机跟随-</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/24/3DNavMesh%E5%AF%BC%E8%88%AA%E7%B3%BB%E7%BB%9F-7/">3DNavMesh导航系统-7</a>
             </li>
             
         </ul>

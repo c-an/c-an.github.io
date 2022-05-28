@@ -152,6 +152,97 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/28/%E5%83%8F%E7%B4%A0%E7%94%BB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                像素画学习笔记
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-28</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="明暗五调子"><a href="#明暗五调子" class="headerlink" title="明暗五调子"></a>明暗五调子</h1><ul>
+<li>高光</li>
+<li>亮面</li>
+<li>明暗交界线</li>
+<li>反光（不受单一光源）</li>
+<li>投影</li>
+</ul>
+<hr>
+<ol>
+<li>绘制造型外轮廓</li>
+<li>确定明暗交界线与投影</li>
+<li>表达反光和高光</li>
+<li>亮面增加层次增加细节</li>
+</ol>
+<h1 id="质感"><a href="#质感" class="headerlink" title="质感"></a>质感</h1><p>一个半透明的球，其受光面会变暗，背光面会变亮，反光会变得更亮更通透。画面的重点是高光和反光。</p>
+<p>我们可以想像光线透过物体照射到了底部，底部的光又反射回来再物体内部形成渐变。</p>
+<blockquote>
+<p>对于不透明的物体来说，高光始终为最亮。受光面的亮度大于反光大于背光面。<br>对于半透明物体来说，反光的亮度大于背光面大于受光面。</p>
+</blockquote>
+<blockquote>
+<p>为了体现复杂的光影，可以在表面绘制更多因折射而形成的光影</p>
+</blockquote>
+<p><br></br><br>透明质感几乎无法参考一般明暗五调子的分布情况，夸张地说透明质感更多是在画周围的环境。白色环境下，透明的球体大部分为白色，但是由于不受严格意义上的透明，光影还是参考部分半透明的质感</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2022/05/28/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%85%89%E9%81%AE%E6%8C%A1%EF%BC%8C%E9%95%9C%E5%A4%B4%E5%A4%B1%E7%9C%9F%EF%BC%8C%E6%B8%90%E6%99%95-11/">
+                3D后期特效添加环光遮挡，镜头失真，渐晕-11
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-28</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="环境光遮挡（Post-process-Volume特效）"><a href="#环境光遮挡（Post-process-Volume特效）" class="headerlink" title="环境光遮挡（Post-process Volume特效）"></a>环境光遮挡（Post-process Volume特效）</h1><p>Ambient Occlusion（环境光遮挡）：使角落和裂缝这些光线未达到的地方变暗</p>
+<ol>
+<li>在“Add effect”添加Ambient Occlusion后，首先也是吧第一行的on开始，让所有的效果都打开（离谱，这个快捷键对我没用吗，我还是得一个个勾上才生效…抱歉，说错了，不是on啊，是All）</li>
+<li>更改Intensity（强度）的数值</li>
+<li>Tickness Modifier（更改暗影的面积，使它周围出现像暗影一样的光晕，向四周散射吧）</li>
+</ol>
+<h1 id="渐晕（摄像头特效）"><a href="#渐晕（摄像头特效）" class="headerlink" title="渐晕（摄像头特效）"></a>渐晕（摄像头特效）</h1><p>渐晕效果使摄像机镜头本身的边缘变暗。</p>
+<p>模拟真实世界相机镜头中由厚的或堆叠的滤镜、辅助镜头或不合适镜头遮光罩引起的效果，把注意力吸引到图像中间。</p>
+<ol>
+<li>“Add effect”&gt;Unity&gt;Vignette</li>
+<li>Intensity：确定效果在屏幕上散布的距离</li>
+<li>Smoothing：朝向屏幕中心淡入淡出的距离</li>
+</ol>
+<h1 id="镜头失真（LensDistortion）"><a href="#镜头失真（LensDistortion）" class="headerlink" title="镜头失真（LensDistortion）"></a>镜头失真（LensDistortion）</h1><ol>
+<li>“Add effect”&gt;Unity&gt;Lens Distortion</li>
+</ol>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/27/3D%E5%90%8E%E6%9C%9F%E5%A4%84%E7%90%86%E4%BD%93%E7%A7%AF-%E6%B7%BB%E5%8A%A0%E9%A2%9C%E8%89%B2%E5%88%86%E7%BA%A7-%E6%B3%9B%E5%85%89-10/">
                 3D后期处理体积&添加颜色分级&泛光-10
             </a>
@@ -602,118 +693,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/18/3DJohnLemon%E6%B7%BB%E5%8A%A0%E7%A2%B0%E6%92%9E%E4%BD%93/">
-                3DJohnLemon添加碰撞体和控制移动
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-18</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>3D里为人物添加的碰撞体一般为Capsule（胶囊） Collider，其中的中心默认位置Center是脚底</p>
-<p>如2D一样，这里把胶囊包裹人物全部（要用数值来更改胶囊包裹的话，修改Height和Radius）</p>
-<p>添加控制它的脚本组件，按教程上名字就叫做PlayerMovement</p>
-<p>类介绍：</p>
-<blockquote>
-<p> Normalize类：将magnitude设置为1.0。不考虑距离，只考虑方向了<br> Set：设置现有向量的X,Y,Z的值</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class PlayerMovement : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    //TODO:</span><br><span class="line">    //1. 获取玩家输入，在场景中移动玩家角色游戏对象</span><br><span class="line">    //2. 移动时，除了位置position外，还需要考虑转动rotation</span><br><span class="line">    //3. 需要将动画也考虑进去</span><br><span class="line"></span><br><span class="line">    //创建一个3D矢量，来表示玩家角色的移动</span><br><span class="line">    Vector3 m_Movement;</span><br><span class="line">    //创建变量，获取用户输入的方向</span><br><span class="line">    float horizontal;</span><br><span class="line">    float vertical;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //获取用户输入</span><br><span class="line">        horizontal = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">        vertical = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //将用户输入组成3D运动需要的三维矢量</span><br><span class="line">        m_Movement.Set(horizontal, 0.0f,vertical);</span><br><span class="line">        //在移动时，会有动画，动画移动距离和实际距离很有可能不匹配</span><br><span class="line">        //比如动画里迈一大步，实际只移动一点点</span><br><span class="line">        //所以把实际移动距离用以下函数设置为1，不考虑。</span><br><span class="line">        //只考虑动画移动距离</span><br><span class="line">        m_Movement.Normalize();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/17/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/">
-                游戏开发底层原理
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-17</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <blockquote>
-<p>学习路线：</p>
-</blockquote>
-<ul>
-<li>数学基础</li>
-<li>计算机图形学</li>
-<li>图形库API（例如openGL（跨平台、简单），但openGL并不是图像学，不是图像本身，只是一个一个的接口）</li>
-<li>游戏引擎架构</li>
-</ul>
-<h1 id="数学部分"><a href="#数学部分" class="headerlink" title="数学部分"></a>数学部分</h1><p>计算机图形学基础–《Fundamentals of Computer Graphics》，目前是第五版，没有中文版。</p>
-<blockquote>
-<p>许多图像只是将数学转化成代码，数学越清晰，得到的代码就越简洁。</p>
-</blockquote>
-<ul>
-<li>线性代数基础</li>
-</ul>
-<ol>
-<li>向量</li>
-<li>笛卡尔坐标系</li>
-<li>基向量</li>
-<li>线性变换（改变基向量的大小来改变坐标）</li>
-</ol>
-<p>几种比较典型的线性变换：Scale比例、Rotate角度、Position位置。以上三者统成Transform变换</p>
-<ol start="5">
-<li>复合变换（矩阵的计算，四个数，第一个数就是横着的第一行乘以竖着的第一行；第二个数就是横着的第一行乘以竖着的第二行）</li>
-</ol>
-<blockquote>
-<p>想改变矩阵的位置，该如何进行变换？用线性变换和复合变换的时候会有一些问题。</p>
-</blockquote>
-<ol start="6">
-<li><p>齐次坐标：通过增加一个纬度，来区别是坐标还是向量</p>
-</li>
-<li><p>三维坐标（X、Y、Z、W）</p>
-</li>
-</ol>
-<hr>
-<ol start="8">
-<li>四元数与旋转<blockquote>
-<p>现在3D引擎里，最多用来描述旋转的方式是欧拉旋转。如果使用欧拉这种体系进行旋转时，当把两个纬度90°旋转，这个体系的问题就是会从3个自由度变成2个自由度，即万向节死锁。这种旋转遇到的问题不能精确描述的话，这时加入一个纬度，用四元数。用四个纬度进行旋转，这是更为精确的</p>
-</blockquote>
-</li>
-</ol>
-<h1 id="渲染管线Render-PipeLine"><a href="#渲染管线Render-PipeLine" class="headerlink" title="渲染管线Render PipeLine"></a>渲染管线Render PipeLine</h1><p>阶段一：传入数据（传入GPU，GPU用上千个管道，适合做这种重复的工作）</p>
-<ul>
-<li>顶点坐标</li>
-<li>顶点法向量</li>
-<li>纹理坐标</li>
-<li>灯光信息</li>
-<li>UV</li>
-<li>等等</li>
-</ul>
-<p>阶段二：顶点着色器</p>
-<p>将顶点从模型空间坐标系统转化到屏幕空间坐标系统</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -756,19 +735,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/28/%E5%83%8F%E7%B4%A0%E7%94%BB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">像素画学习笔记</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2022/05/28/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%85%89%E9%81%AE%E6%8C%A1%EF%BC%8C%E9%95%9C%E5%A4%B4%E5%A4%B1%E7%9C%9F%EF%BC%8C%E6%B8%90%E6%99%95-11/">3D后期特效添加环光遮挡，镜头失真，渐晕-11</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/27/3D%E5%90%8E%E6%9C%9F%E5%A4%84%E7%90%86%E4%BD%93%E7%A7%AF-%E6%B7%BB%E5%8A%A0%E9%A2%9C%E8%89%B2%E5%88%86%E7%BA%A7-%E6%B3%9B%E5%85%89-10/">3D后期处理体积&amp;添加颜色分级&amp;泛光-10</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2022/05/26/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E7%AE%80%E4%BB%8B-%E6%B7%BB%E5%8A%A0%E6%8A%97%E9%94%AF%E9%BD%BF-9/">3D后期特效简介&amp;添加抗锯齿-9</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/25/3D%E4%BD%BF%E7%94%A8Cinemachine%E6%9E%84%E5%BB%BA3D%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F-8/">3D使用Cinemachine构建3D摄像机跟随-</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/24/3DNavMesh%E5%AF%BC%E8%88%AA%E7%B3%BB%E7%BB%9F-7/">3DNavMesh导航系统-7</a>
             </li>
             
         </ul>

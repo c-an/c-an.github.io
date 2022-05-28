@@ -152,6 +152,118 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2022/05/18/3DJohnLemon%E6%B7%BB%E5%8A%A0%E7%A2%B0%E6%92%9E%E4%BD%93/">
+                3DJohnLemon添加碰撞体和控制移动
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-18</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>3D里为人物添加的碰撞体一般为Capsule（胶囊） Collider，其中的中心默认位置Center是脚底</p>
+<p>如2D一样，这里把胶囊包裹人物全部（要用数值来更改胶囊包裹的话，修改Height和Radius）</p>
+<p>添加控制它的脚本组件，按教程上名字就叫做PlayerMovement</p>
+<p>类介绍：</p>
+<blockquote>
+<p> Normalize类：将magnitude设置为1.0。不考虑距离，只考虑方向了<br> Set：设置现有向量的X,Y,Z的值</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class PlayerMovement : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    //TODO:</span><br><span class="line">    //1. 获取玩家输入，在场景中移动玩家角色游戏对象</span><br><span class="line">    //2. 移动时，除了位置position外，还需要考虑转动rotation</span><br><span class="line">    //3. 需要将动画也考虑进去</span><br><span class="line"></span><br><span class="line">    //创建一个3D矢量，来表示玩家角色的移动</span><br><span class="line">    Vector3 m_Movement;</span><br><span class="line">    //创建变量，获取用户输入的方向</span><br><span class="line">    float horizontal;</span><br><span class="line">    float vertical;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //获取用户输入</span><br><span class="line">        horizontal = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">        vertical = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //将用户输入组成3D运动需要的三维矢量</span><br><span class="line">        m_Movement.Set(horizontal, 0.0f,vertical);</span><br><span class="line">        //在移动时，会有动画，动画移动距离和实际距离很有可能不匹配</span><br><span class="line">        //比如动画里迈一大步，实际只移动一点点</span><br><span class="line">        //所以把实际移动距离用以下函数设置为1，不考虑。</span><br><span class="line">        //只考虑动画移动距离</span><br><span class="line">        m_Movement.Normalize();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2022/05/17/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/">
+                游戏开发底层原理
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2022-05-17</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <blockquote>
+<p>学习路线：</p>
+</blockquote>
+<ul>
+<li>数学基础</li>
+<li>计算机图形学</li>
+<li>图形库API（例如openGL（跨平台、简单），但openGL并不是图像学，不是图像本身，只是一个一个的接口）</li>
+<li>游戏引擎架构</li>
+</ul>
+<h1 id="数学部分"><a href="#数学部分" class="headerlink" title="数学部分"></a>数学部分</h1><p>计算机图形学基础–《Fundamentals of Computer Graphics》，目前是第五版，没有中文版。</p>
+<blockquote>
+<p>许多图像只是将数学转化成代码，数学越清晰，得到的代码就越简洁。</p>
+</blockquote>
+<ul>
+<li>线性代数基础</li>
+</ul>
+<ol>
+<li>向量</li>
+<li>笛卡尔坐标系</li>
+<li>基向量</li>
+<li>线性变换（改变基向量的大小来改变坐标）</li>
+</ol>
+<p>几种比较典型的线性变换：Scale比例、Rotate角度、Position位置。以上三者统成Transform变换</p>
+<ol start="5">
+<li>复合变换（矩阵的计算，四个数，第一个数就是横着的第一行乘以竖着的第一行；第二个数就是横着的第一行乘以竖着的第二行）</li>
+</ol>
+<blockquote>
+<p>想改变矩阵的位置，该如何进行变换？用线性变换和复合变换的时候会有一些问题。</p>
+</blockquote>
+<ol start="6">
+<li><p>齐次坐标：通过增加一个纬度，来区别是坐标还是向量</p>
+</li>
+<li><p>三维坐标（X、Y、Z、W）</p>
+</li>
+</ol>
+<hr>
+<ol start="8">
+<li>四元数与旋转<blockquote>
+<p>现在3D引擎里，最多用来描述旋转的方式是欧拉旋转。如果使用欧拉这种体系进行旋转时，当把两个纬度90°旋转，这个体系的问题就是会从3个自由度变成2个自由度，即万向节死锁。这种旋转遇到的问题不能精确描述的话，这时加入一个纬度，用四元数。用四个纬度进行旋转，这是更为精确的</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="渲染管线Render-PipeLine"><a href="#渲染管线Render-PipeLine" class="headerlink" title="渲染管线Render PipeLine"></a>渲染管线Render PipeLine</h1><p>阶段一：传入数据（传入GPU，GPU用上千个管道，适合做这种重复的工作）</p>
+<ul>
+<li>顶点坐标</li>
+<li>顶点法向量</li>
+<li>纹理坐标</li>
+<li>灯光信息</li>
+<li>UV</li>
+<li>等等</li>
+</ul>
+<p>阶段二：顶点着色器</p>
+<p>将顶点从模型空间坐标系统转化到屏幕空间坐标系统</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2022/05/17/3DJohnLemon-%E4%BD%BF%E8%A7%92%E8%89%B2%E5%AF%B9%E7%89%A9%E7%90%86%E4%BA%A7%E7%94%9F%E5%8F%8D%E5%BA%94-%E6%9B%B4%E6%94%B9%E5%8A%A8%E7%94%BBbug/">
                 3DJohnLemon 动画与刚体之间的bug
             </a>
@@ -623,125 +735,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/03/%E5%AF%B9%E8%AF%9D%E5%B0%84%E7%BA%BF%E6%8A%95%E5%B0%84/">
-                对话射线投射
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-03</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="制作NPC角色"><a href="#制作NPC角色" class="headerlink" title="制作NPC角色"></a>制作NPC角色</h1><ol>
-<li><p>Unity的一个快捷方式：把制作PNC所要用到的关键字的素材一次拖拽到Hierarchy中，会自动生成以这些素材为关键帧的帧帧动画，给文件夹取个名字就好了，要调整速度的话，ctrl+6自己调噢。比之前那个方便。</p>
-</li>
-<li><p>我创建的NPC取名为Jambi，它不能让玩家随意地穿过，给它加一个盒状的碰撞体Box Collider 2D.请自行调整调整碰撞体的大小噢~</p>
-</li>
-<li><p>把Jambi拖到Prefabs里，因为我打算用它做预制件~其他的话，再创建图层吧，这个也很重要，建一个NPC图层，以后所有的NPC都放在这个图层中</p>
-</li>
-</ol>
-<p><br></br></p>
-<h1 id="物理射线投射"><a href="#物理射线投射" class="headerlink" title="物理射线投射"></a>物理射线投射</h1><p>为了让玩家和NPC说话，其实用Trigger（触发器）也能实现，可是用Trigger的话，玩家角色不是正对着NPC也能说话，这就有点奇怪了。</p>
-<p>因此，要引入一个新的概念：<strong>射线投射</strong></p>
-<p>之前把Jambi添加碰撞体不仅是为了不让玩家碰撞，也是为了检测射线投射</p>
-<p>那么什么是射线投射呢？</p>
-<blockquote>
-<p><strong>射线投射</strong>是将射线投射到<strong>场景</strong>中并检查射线是否与<strong>碰撞体</strong>相交的行为。射线具有起点、方向和长度。之所以使用射线“投射”这种说法，是因为要从射线的起点一直到终点进行测试。</p>
-</blockquote>
-<blockquote>
-<p>把对话按钮与射线投射功能相挂接，让它向Jambi发射投射，如果接收到这个投射，就激活对话系统，弹出对话框，显示对话。</p>
-</blockquote>
-<p>下面进行修改：</p>
-<ol>
-<li>在RubyController中的Update进行修改，为什么是Update呢？因为要检测</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//使用X建激活射线投射</span><br><span class="line">        if (Input.GetKeyDown(KeyCode.X)) &#123;</span><br><span class="line">            //创建射线投射的对象，来接收射线碰撞信息</span><br><span class="line">            //射线投射使用的是Physics2D.Raycast方法</span><br><span class="line">            //参数1：是当前玩家的位置，Vector2.up*0.2f是为了看得更齐，不加其实没事</span><br><span class="line">            //参数2：玩家角色面朝的方向</span><br><span class="line">            //参数3：是投射距离，这里1.5f正好</span><br><span class="line">            //参数4：是投射到那个层，NPC的那个层，这就是之前要创建层的原因</span><br><span class="line">            RaycastHit2D hit = Physics2D.Raycast(rigidbody2D.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask(&quot;NPC&quot;));</span><br><span class="line">            if (hit.collider != null) &#123;</span><br><span class="line">                Debug.Log($&quot;射线投射碰撞到的对象是：&#123;hit.collider.gameObject&#125;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>下面是RubyController完整的代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class RubyController : MonoBehaviour &#123;</span><br><span class="line">    //声明一个公开的游戏对象projectilePrefab，用来获取子弹预制件对象</span><br><span class="line">    //把它设置为公开是为了在Unity里把Ruby和子弹关联起来了</span><br><span class="line">    public GameObject projectilePrefab;</span><br><span class="line">    //设置玩家间隔无敌时间</span><br><span class="line">    public float timeInvincible = 2.0f;</span><br><span class="line">    //设置是否无敌的变量</span><br><span class="line">    bool isInvincible;</span><br><span class="line">    //定义变量，进行无敌时间的计时，无敌时间计时器</span><br><span class="line">    float invincibleTimer;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //设置最大生命值（生命上限）</span><br><span class="line">    public int maxHealth = 5;</span><br><span class="line">    //设置当前生命值的属性health</span><br><span class="line"></span><br><span class="line">    //c#中支持面向对象程序设计中的封装概念，对数据成员的保护</span><br><span class="line">    //数据成员变量，默认一般都应该设置为私有，只能通过对当前类的方法或属性进行访问</span><br><span class="line">    //属性类似于特殊的函数结构，它get是一个关键字</span><br><span class="line">    //get是获取当前属性所绑定的字段的值</span><br><span class="line">    //属性相当于一个盒子，字段是在盒子里的某件东西</span><br><span class="line">    //属性限制了字段的访问规则，比如只能读或写</span><br><span class="line">    //或者读写的时候满足某种需求，才能往外进行操作</span><br><span class="line">    //相当于把它包装起来，这就称为封装</span><br><span class="line">    //属性是公有的，可以通过取值器get、赋值器set设定对应字段的访问规则，满足规则才能进行访问</span><br><span class="line"></span><br><span class="line">    public int health &#123; </span><br><span class="line">        get &#123; return currentHealth; &#125;</span><br><span class="line">        //set &#123; currentHealth = value; &#125;//可赋值</span><br><span class="line">    &#125;</span><br><span class="line">    int currentHealth;</span><br><span class="line"></span><br><span class="line">    //声明刚体对象</span><br><span class="line">    Rigidbody2D rigidbody2D;</span><br><span class="line">    //获取用户输入</span><br><span class="line">    float horizontal;</span><br><span class="line">    float vertical;</span><br><span class="line"></span><br><span class="line">    //将速度暴露出来，使其可调</span><br><span class="line">    public float speed = 0.1f;</span><br><span class="line"></span><br><span class="line">    //声明一个动画管理者组件对象</span><br><span class="line">    Animator animator;</span><br><span class="line">    //创建一个二维矢量，用来存储Ruby静止不动时看的方向（即面向的方向）</span><br><span class="line">    //与机器人相比，Ruby可以站立不动。她站立不动时，Move X和Y均为0，这时状态机就没法获取Ruby静止时的朝向</span><br><span class="line">    //所以需要手动设置一个</span><br><span class="line">    Vector2 lookDirection = new Vector2(1, 0);</span><br><span class="line">    //移动二维矢量</span><br><span class="line">    Vector2 move;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private void Start() &#123;</span><br><span class="line">        //获取当前游戏对象的刚体组件</span><br><span class="line">        rigidbody2D = GetComponent&lt;Rigidbody2D&gt;();</span><br><span class="line">        //游戏刚开始，玩家满血</span><br><span class="line">        currentHealth = maxHealth;</span><br><span class="line"></span><br><span class="line">        //获取组件对象</span><br><span class="line">        animator = GetComponent&lt;Animator&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    //每帧调用一次Update</span><br><span class="line">    //让游戏对象每帧右移0.1</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //获取水平输入，按向左，会获得-1.0f；按向右，会获得1.0f</span><br><span class="line">        horizontal = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">        //获取垂直输入，按向下，会获得-1.0f；按向上，会获得1.0f</span><br><span class="line">        vertical = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //判断是否处于无敌状态，来进行计时器的倒计时</span><br><span class="line">        if (isInvincible) &#123;</span><br><span class="line">            //每次Update减去一帧消耗的时间</span><br><span class="line">            invincibleTimer = invincibleTimer - Time.deltaTime;</span><br><span class="line">            if (invincibleTimer &lt; 0) &#123;</span><br><span class="line">                isInvincible = false;//无敌时间小于0了，让它不无敌了</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //创建一个二维矢量对象来表示Ruby移动的数据信息</span><br><span class="line">        move = new Vector2(horizontal, vertical);</span><br><span class="line">        //如果move中的x/y不为零，表示正在移动</span><br><span class="line">        //将ruby面向方向设置为移动方向</span><br><span class="line">        //停止移动，保持以前方向，所以这个if结构用于转向时重新赋值面向方向</span><br><span class="line">        //if条件表示正在移动</span><br><span class="line">        if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f)) &#123;</span><br><span class="line">            ////将ruby面向方向设置为移动方向（ruby朝向移动方向）</span><br><span class="line">            lookDirection.Set(move.x, move.y);//lookDirection.x=move.x  lookDirection.y=move.y</span><br><span class="line"></span><br><span class="line">            //使向量长度为1，可以将此方法称为向量的“归一化”方法</span><br><span class="line">            //通常在表示方向，而非位置的方向上</span><br><span class="line">            //因为blend tree中表示方向的参数值的取值方位是-1.0到1.0，</span><br><span class="line">            //所以一般用向量作为Animator.SetFloat方法的参数时，一般要对向量先进行“归一化”处理</span><br><span class="line">            lookDirection.Normalize();//lookDirection在这里只表示方向</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //传递Ruby面朝方向给blend tree</span><br><span class="line">        animator.SetFloat(&quot;Look X&quot;, lookDirection.x);</span><br><span class="line">        animator.SetFloat(&quot;Look Y&quot;, lookDirection.y);</span><br><span class="line">        //传递Ruby速度给blend tree</span><br><span class="line">        //矢量的magnitue属性，用来返回矢量的长度,是一个绝对值</span><br><span class="line">        animator.SetFloat(&quot;Speed&quot;, move.magnitude);</span><br><span class="line"></span><br><span class="line">        //添加发射子弹的逻辑</span><br><span class="line">        //KeyCode.C 指和键盘C上的键对应</span><br><span class="line">        //或按下发射键（左ctrl或鼠标左键）</span><br><span class="line">        if (Input.GetKeyDown(KeyCode.C)||Input.GetAxis(&quot;Fire1&quot;)!=0) &#123;</span><br><span class="line">            //调用发射</span><br><span class="line">            Launch();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //使用X建激活射线投射</span><br><span class="line">        if (Input.GetKeyDown(KeyCode.X)) &#123;</span><br><span class="line">            //创建射线投射的对象，来接收射线碰撞信息</span><br><span class="line">            //射线投射使用的是Physics2D.Raycast方法</span><br><span class="line">            //参数1：是当前玩家的位置，Vector2.up*0.2f是为了看得更齐，不加其实没事</span><br><span class="line">            //参数2：玩家角色面朝的方向</span><br><span class="line">            //参数3：是投射距离，这里1.5f正好</span><br><span class="line">            //参数4：是投射到那个层，NPC的那个层，这就是之前要创建层的原因</span><br><span class="line">            RaycastHit2D hit = Physics2D.Raycast(rigidbody2D.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask(&quot;NPC&quot;));</span><br><span class="line">            if (hit.collider != null) &#123;</span><br><span class="line">                Debug.Log($&quot;射线投射碰撞到的对象是：&#123;hit.collider.gameObject&#125;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //固定时间间隔执行的更新方法</span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //获取当前对象位置</span><br><span class="line">        Vector2 position = transform.position;</span><br><span class="line">        //更改位置</span><br><span class="line">        position.x = position.x + 0.1f * horizontal;</span><br><span class="line">        position.y = position.y + 0.1f * vertical;</span><br><span class="line">        //新位置给游戏参数</span><br><span class="line">        rigidbody2D.position = position;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //不是系统函数，自定义来更改生命值的</span><br><span class="line">    public void ChangeHealth(int amount) &#123;</span><br><span class="line">        //假设玩家受伤害的时间间隔是2秒</span><br><span class="line">        //不管是什么样的伤害，只要amount小于0，就判断是不是无敌</span><br><span class="line">        if (amount &lt; 0) &#123;</span><br><span class="line">            //判断当前是否处于无敌状态</span><br><span class="line">            if (isInvincible) &#123;</span><br><span class="line">                //无敌不伤血，跳出无敌状态</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当不是无敌状态时，会执行下面的代码</span><br><span class="line">        //重置无敌状态为真</span><br><span class="line">        isInvincible = true;</span><br><span class="line">        //设置无敌时间</span><br><span class="line">        invincibleTimer = timeInvincible;</span><br><span class="line"></span><br><span class="line">        //播放受伤动画</span><br><span class="line">        animator.SetTrigger(&quot;Hit&quot;);</span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        //Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line"></span><br><span class="line">        //这个Instance是静态的，只有一个，用类就可以直接调用，不需要创建对象</span><br><span class="line">        //当前的生命值除以最大的生命值，传过去的应该是一个小数</span><br><span class="line">        UIHealthBar.Instance.SetValue(currentHealth / (float)maxHealth);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //游戏对象发子弹的方法，不需要任何的参数</span><br><span class="line">    void Launch() &#123;</span><br><span class="line">        //创建子弹游戏对象</span><br><span class="line">        //如果要调用这个Launch，子弹就出来了</span><br><span class="line">        //Instantiate()是Unity自带的一个方法,用来实例化一个对象</span><br><span class="line">        //第一个参数是实例化对象用到的预制件</span><br><span class="line">        //这里实例化对象要用到的预制件应该是传递过来的projectilePrefab</span><br><span class="line">        //第二个参数是起始位置，经过计算应该是Ruby手的位置(身高的一半)</span><br><span class="line">        //Quaternion.identity不要旋转</span><br><span class="line">        GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2D.position + Vector2.up * 0.5f, Quaternion.identity);</span><br><span class="line">        //调整子弹的飞行，不能让它每次出来以后都是静止的</span><br><span class="line">        //要调用Projectile控制器组件，Projectile脚本组件本身也是一个类</span><br><span class="line">        //调用子弹里的Launch，这个Launch能让子弹向指定的方向移动</span><br><span class="line">        //先通过游戏对象get当前这个脚本组件</span><br><span class="line">        //get到以后就能用子弹里的Launch方法</span><br><span class="line">        Projectile1 projectile = projectileObject.GetComponent&lt;Projectile1&gt;();</span><br><span class="line">        //通过脚本组件调用子弹移动方向</span><br><span class="line">        //第一个参数是移动的方向，取的是玩家面朝的方向</span><br><span class="line">        //第二个参数是力，如果先要速度快些，可以加大</span><br><span class="line">        projectile.Launch(lookDirection, 300);</span><br><span class="line"></span><br><span class="line">        //把SetTrigger参数输进去就行了，它会自动挂接</span><br><span class="line">        //在Launch这个状态下能接收到这个参数，激活Launch状态</span><br><span class="line">        animator.SetTrigger(&quot;Launch&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="对话UI"><a href="#对话UI" class="headerlink" title="对话UI"></a>对话UI</h1><p>正如在UI中设置头像框原因，对话UI也使用<strong>画布</strong>，但是这次画布将出现在世界空间中，着意味着画布将存在于世界中，位于Jambi的头顶上方，而不是始终叠加在屏幕上。</p>
-<p>下面进行操作：</p>
-<ol>
-<li>第一步先添加画布。选中Hierarchy中的Jambi，右键，UI&gt;Canvas,重命名为DialogCanvas吧</li>
-<li>调整DialogCanvas的Canvas，把Canvas打开，把Render Mode改成World Space（在世界坐标中，指定显示的位置，只显示一部分）</li>
-<li>调整DialogCanvas的Rect Transform，Width和Height是不是按像素显示的，是按一个Unity显示的，按教程中把它们改成300和200，把Scale的x、y、z都改成0.01</li>
-<li>诶，找不到对话框的位置了。我要把它放在Jambi的头顶上啊，那就把DialogCanvas的Pos x，Pos Y ，Pos Z改成0，0，0，那它就回来了</li>
-<li>为了避免其他乱七八糟的挡到DialogCanvas，把它的Order in Layer设置高一点，比如可以设置为10</li>
-<li>对话框的画布设置好之后，里面就要设置显示内容</li>
-<li>对话框一般有个外框，外框用Image制作。在Hierarchy，选中DialogCanvas，右键&gt;UI&gt;Image.(我的UI文件夹里有个对话框的素材UIDialogueBox，这次用这个)。把文件夹里的素材拖到刚建立的Iamge的Source Image组件中。</li>
-<li>最好让Image填充整个外层的画图，这一步的话，选中Iamge，打开它的快速配置窗口，让它填充整个对话框（这里之前做血条的时候教过了吧，不多写了）</li>
-<li>对了，让Image改个名字，前面加Dialog好了，叫DialogIamge</li>
-<li>现在是不是DialogCanvas里包含一层DialogImage？往DialogImage里添加对话框，选中DialogImage，右键，UI&gt;Text-TextMeshPro（这个比Txet控件高级，功能更强一些），重命名为DiglogTMP</li>
-<li>按Import TMP Essentials</li>
-<li>如果是第一次使用TMP的话，会出现一个窗口（TMP的导入器），然后在项目中会生成一个TMP专用的文件夹（有一些元素组件、字体等等）</li>
-<li>还有一个是按钮是import TMP &amp;Extras，不过我还没用</li>
-<li>在Hierarchy中选中DialogTMP，让它填充父区域，诸如步骤8</li>
-<li>DialogTMP有两个框，进行调整，如果不想把文字显示到对话框的边框上，就适当地修改黄色的框</li>
-<li>点击DialogTMP，在它的Text Input里直接输入文字。紧接着下面就有修改字体的，Font Asset</li>
-</ol>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2022/05/03/%E6%8E%A7%E5%88%B6%E8%A1%80%E6%9D%A1%E4%BB%A3%E7%A0%81/">
-                控制血条代码
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2022-05-03</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>血条随着Ruby的血量增减而增减，实际上控制的是Mask（遮罩层）而不是HealthBar。</p>
-<p>用代码控制遮罩层显示的长短</p>
-<p>下面开始操作：</p>
-<ol>
-<li>在Scripts文件夹里，右键，新建一个脚本：create&gt;c# Script,重命名为UIHealthBar</li>
-<li>点脚本进去</li>
-<li>先添加一个能获取到实体的静态对象（我们可以使用static关键字把类成员定义为静态的，当我们声明一个类成员为静态时，意味着无论有多少个类的对象被创建，只会有一个静态成员的副本，被所有的类对象所共享）。因为无论在多少个场景中切换，生命条都只有一个</li>
-</ol>
-<p>下面是HealthBar的代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line"></span><br><span class="line">public class UIHealthBar: MonoBehaviour &#123;</span><br><span class="line">    //设置静态成员，获取当前血条本身，也就是一个静态的血条实例对象</span><br><span class="line">    //get和set是取值器和赋值器，是一个属性</span><br><span class="line">    public static UIHealthBar Instance &#123; get; private set; &#125;</span><br><span class="line"></span><br><span class="line">    //创建一个公有的变量mask。这里报错了“未找到命名空间Image”</span><br><span class="line">    //因为前面引用的命名空间里没有这个类</span><br><span class="line">    //用“alt”和“enter”可以激活，会提示几种改错的处理方案</span><br><span class="line">    //既然没有命名空间，那加上命名空间就好了</span><br><span class="line">    //现在需要加上UI图形的命名空间using UnityEngine.UI</span><br><span class="line">    //创建UI图形对象mask，用它来获取遮罩层对象</span><br><span class="line">    public Image mask;</span><br><span class="line"></span><br><span class="line">    //设置一个变量，记录遮罩层初始长度</span><br><span class="line">    float originalSize;</span><br><span class="line">    private void Awake() &#123;</span><br><span class="line">        //设置静态实例为当前对象</span><br><span class="line">        Instance = this;</span><br><span class="line">    &#125;</span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        //拿到mask的宽度值</span><br><span class="line">        originalSize = mask.rectTransform.rect.width;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //创建一个方法，用来设置（更改）现在的mask遮罩层的宽度</span><br><span class="line">    public void SetValue(float value) &#123;</span><br><span class="line">        //根据当前的锚设置</span><br><span class="line">        //参数是（当前的宽度设置到横轴上面，具体的值是原始的长度乘以血量变化的百分比）</span><br><span class="line">        //设置更改的是mask遮罩层的宽度，并且依据传递过来的参数进行更改</span><br><span class="line">        mask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>设置好上面的代码就要和Ruby连接在一起</p>
-<ol>
-<li>在Ruby减血和增血的脚本位置控制遮罩层的代码</li>
-<li>找到RubyController的changeHealth</li>
-<li>给HealthFrame添加创建的UIHealthBar脚本，把遮罩放到mask栏去</li>
-</ol>
-<p>以下是RubyController的ChangeHealth的脚本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public void ChangeHealth(int amount) &#123;</span><br><span class="line">        //假设玩家受伤害的时间间隔是2秒</span><br><span class="line">        //不管是什么样的伤害，只要amount小于0，就判断是不是无敌</span><br><span class="line">        if (amount &lt; 0) &#123;</span><br><span class="line">            //判断当前是否处于无敌状态</span><br><span class="line">            if (isInvincible) &#123;</span><br><span class="line">                //无敌不伤血，跳出无敌状态</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //当不是无敌状态时，会执行下面的代码</span><br><span class="line">        //重置无敌状态为真</span><br><span class="line">        isInvincible = true;</span><br><span class="line">        //设置无敌时间</span><br><span class="line">        invincibleTimer = timeInvincible;</span><br><span class="line"></span><br><span class="line">        //播放受伤动画</span><br><span class="line">        animator.SetTrigger(&quot;Hit&quot;);</span><br><span class="line">        //系统函数Clamp，用于限制取值范围的函数</span><br><span class="line">        //0~最大生命值</span><br><span class="line">        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);</span><br><span class="line">        //在控制台输出生命信息</span><br><span class="line">        //Debug.Log(&quot;当前生命值：&quot; + currentHealth + &quot;/&quot; + maxHealth);</span><br><span class="line"></span><br><span class="line">        //这个Instance是静态的，只有一个，用类就可以直接调用，不需要创建对象</span><br><span class="line">        //当前的生命值除以最大的生命值，传过去的应该是一个小数</span><br><span class="line">        UIHealthBar.Instance.SetValue(currentHealth / (float)maxHealth);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -784,19 +777,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2022/05/28/%E5%83%8F%E7%B4%A0%E7%94%BB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">像素画学习笔记</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2022/05/28/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%85%89%E9%81%AE%E6%8C%A1%EF%BC%8C%E9%95%9C%E5%A4%B4%E5%A4%B1%E7%9C%9F%EF%BC%8C%E6%B8%90%E6%99%95-11/">3D后期特效添加环光遮挡，镜头失真，渐晕-11</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2022/05/27/3D%E5%90%8E%E6%9C%9F%E5%A4%84%E7%90%86%E4%BD%93%E7%A7%AF-%E6%B7%BB%E5%8A%A0%E9%A2%9C%E8%89%B2%E5%88%86%E7%BA%A7-%E6%B3%9B%E5%85%89-10/">3D后期处理体积&amp;添加颜色分级&amp;泛光-10</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2022/05/26/3D%E5%90%8E%E6%9C%9F%E7%89%B9%E6%95%88%E7%AE%80%E4%BB%8B-%E6%B7%BB%E5%8A%A0%E6%8A%97%E9%94%AF%E9%BD%BF-9/">3D后期特效简介&amp;添加抗锯齿-9</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/25/3D%E4%BD%BF%E7%94%A8Cinemachine%E6%9E%84%E5%BB%BA3D%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F-8/">3D使用Cinemachine构建3D摄像机跟随-</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2022/05/24/3DNavMesh%E5%AF%BC%E8%88%AA%E7%B3%BB%E7%BB%9F-7/">3DNavMesh导航系统-7</a>
             </li>
             
         </ul>

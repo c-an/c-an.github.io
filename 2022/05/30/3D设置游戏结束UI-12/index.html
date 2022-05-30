@@ -10,10 +10,15 @@
 
     <!--Description-->
     
-        <meta name="description" content="导入资源包，把玩家角色拖入到Hierarchy，点击这个素材下的一个同名子模型。
-这个模型里面主要是一个大的Skinned Mesh Renderer（带蒙皮的网格渲染器）组件，用来显示3D模型，3D模型的外观配置。
+        <meta name="description" content="以下是顺序：
 
-tips:Skinned Mesh Renderer是一种特殊类型的Mesh R">
+使用UI（用户界面）功能创建游戏结束屏幕
+创建GameEnding触发器
+编写自定义游戏结束脚本
+
+
+
+点击Hierarchy右键create&amp;gt;UI&amp;gt;Image,所有的UI都默认在Canvas（画布）里面的，还出现了一改EventSystem事件系统，事件系统是用于和UI">
     
 
     <!--Author-->
@@ -23,7 +28,7 @@ tips:Skinned Mesh Renderer是一种特殊类型的Mesh R">
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="3DJonhLemon添加玩家角色动画"/>
+        <meta property="og:title" content="3D设置游戏结束UI-12"/>
     
 
     <!--Open Graph Description-->
@@ -48,7 +53,7 @@ tips:Skinned Mesh Renderer是一种特殊类型的Mesh R">
 
     <!-- Title -->
     
-    <title>3DJonhLemon添加玩家角色动画 - c-an</title>
+    <title>3D设置游戏结束UI-12 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -154,13 +159,13 @@ tips:Skinned Mesh Renderer是一种特殊类型的Mesh R">
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/05/15/3DJonhLemon%E6%B7%BB%E5%8A%A0%E7%8E%A9%E5%AE%B6%E8%A7%92%E8%89%B2%E5%8A%A8%E7%94%BB/">
-                3DJonhLemon添加玩家角色动画
+            <a href="/2022/05/30/3D%E8%AE%BE%E7%BD%AE%E6%B8%B8%E6%88%8F%E7%BB%93%E6%9D%9FUI-12/">
+                3D设置游戏结束UI-12
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-05-15</span>
+                <span class="date">2022-05-30</span>
             
             
             
@@ -173,35 +178,22 @@ tips:Skinned Mesh Renderer是一种特殊类型的Mesh R">
         
 
         <!-- Post Content -->
-        <p>导入资源包，把玩家角色拖入到Hierarchy，点击这个素材下的一个同名子模型。</p>
-<p>这个模型里面主要是一个大的Skinned Mesh Renderer（带蒙皮的网格渲染器）组件，用来显示3D模型，3D模型的外观配置。</p>
-<blockquote>
-<p>tips:Skinned Mesh Renderer是一种特殊类型的Mesh Renderer，可让网格根据模型所有骨骼的位置和旋转来改变形状。这些骨骼是模型的子游戏对象一JohnLemon的骨骼Root游戏对象的所有子对象</p>
-</blockquote>
-<blockquote>
-<p>在Hierarchy中，选择Root游戏对象。按住Alt（windows）或Option（mas OS）并单击该游戏对象的名称左侧的箭头以展开所有子对象</p>
-</blockquote>
-<p>要把JohnLemon做成预制件，直接把它从Hierarchy窗口中拖到Prefabs文件夹里。</p>
+        <p>以下是顺序：</p>
 <ol>
-<li><p>进入预制件。对于JohnLemon这个游戏对象，动画Animator本身已经作为组件添加到游戏对象中了，骨骼Avatar也已经有了，缺少的是Controller。做一个Controller，把它放在那里好呢？点击Animation文件夹，里面有一个Animators文件夹，放在那里吧。点击Animators文件夹，右键，Create&gt;Animator Controller，命名为JohnLemon。把这个控制器添加到刚才JohnLemon预制件下本应该有的那个缺失的地方。</p>
-</li>
-<li><p>点击JohnLemon预制件，双击打开刚才添加的JohnLemon控制器。</p>
-</li>
-<li><p>做3D动画是一个比较复杂的过程，这个游戏已经有资源了，在Animation文件夹中。可以看到Aimation文件夹中有那个动画，要用到哪个，把它拖拽到第一步双击打开的JohnLemon的Animator中。</p>
-</li>
-<li><p>我先拖了一个John_Idle,然后拖了一个John_Walk，先拖的John_dle直接和Entry相连，作为起始的动画。</p>
-</li>
-<li><p>点击Animator面板中的John_Idle，右键，Make Transition，连到John_Walk；点击John_Walk,同样的方法连到John_Idle。这样，John_Idle和John_Walk相连了。</p>
-</li>
-<li><p>需要上面两个动画进行转化，转化的条件需要改一改</p>
-</li>
-<li><p>在Animator面板中的Parameters，点击“+”号，选择bool类型，起名字叫IsWorking吧，把它作为条件</p>
-</li>
-<li><p>点击John_Walk到John_Idle连线上带三角形的箭头，可以看到右边Inspector面板，Conditions可以点“+”号，让John_Idle到John_Walk为true。另一条线用同样的方法让它为false</p>
-</li>
-<li><p>同样在那个Inspector面板，有个Has Exit Time复选框，把它取消了，目的是为了让只有两个变量进行更改的时候，才会让它进行状态转换，不会用时间倒计时自动退出</p>
-</li>
+<li>使用UI（用户界面）功能创建游戏结束屏幕</li>
+<li>创建GameEnding触发器</li>
+<li>编写自定义游戏结束脚本</li>
 </ol>
+<hr>
+<ol>
+<li>点击Hierarchy右键create&gt;UI&gt;Image,所有的UI都默认在Canvas（画布）里面的，还出现了一改EventSystem事件系统，事件系统是用于和UI交互的</li>
+</ol>
+<p>关于Canvas中的Canvas的Render Mode，Screen Space-Overlay是平铺整个场景，Screen Space -Camera虽然也是在场景中平铺，当时会有一个摄像机的效果，Camera会分给一个指定的摄像机，让它有一个远近的效果。World Space是放在整个场景的世界坐标中，就不是平铺了，有一个具体的位置的概念。</p>
+<p>使用Screen Space -Camera和Screen Space-Overlay都需要在场景里把2D打开。</p>
+<ol start="2">
+<li>点2D，再双击Hierarchy中的Canvas，就会看到Canvas画布的全景。</li>
+</ol>
+<p>Canvas一般按像素来设置，并且和场景没有关系了，它只是平铺到屏幕中</p>
 
     </div>
 

@@ -10,12 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="3D里为人物添加的碰撞体一般为Capsule（胶囊） Collider，其中的中心默认位置Center是脚底
-如2D一样，这里把胶囊包裹人物全部（要用数值来更改胶囊包裹的话，修改Height和Radius）
-添加控制它的脚本组件，按教程上名字就叫做PlayerMovement
-类介绍：
-
- Norm">
+        <meta name="description" content="左上角图标&amp;gt;Splash Screen,这是欢迎界面。欢迎界面左下角，有个时间的图标Recover Last Session可以在比如断电的时候，没来得及保存的时候，点击这个选项来找回。右上角的Recent Files是用的最多的，打开最近一次操作的文件。欢迎界面，右下角的Release No">
     
 
     <!--Author-->
@@ -25,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="3DJohnLemon添加碰撞体和控制移动"/>
+        <meta property="og:title" content="Blender笔记"/>
     
 
     <!--Open Graph Description-->
@@ -50,7 +45,7 @@
 
     <!-- Title -->
     
-    <title>3DJohnLemon添加碰撞体和控制移动 - c-an</title>
+    <title>Blender笔记 - c-an</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -156,13 +151,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2022/05/18/3DJohnLemon%E6%B7%BB%E5%8A%A0%E7%A2%B0%E6%92%9E%E4%BD%93/">
-                3DJohnLemon添加碰撞体和控制移动
+            <a href="/2022/06/26/Blender%E7%AC%94%E8%AE%B0/">
+                Blender笔记
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2022-05-18</span>
+                <span class="date">2022-06-26</span>
             
             
             
@@ -175,14 +170,57 @@
         
 
         <!-- Post Content -->
-        <p>3D里为人物添加的碰撞体一般为Capsule（胶囊） Collider，其中的中心默认位置Center是脚底</p>
-<p>如2D一样，这里把胶囊包裹人物全部（要用数值来更改胶囊包裹的话，修改Height和Radius）</p>
-<p>添加控制它的脚本组件，按教程上名字就叫做PlayerMovement</p>
-<p>类介绍：</p>
-<blockquote>
-<p> Normalize类：将magnitude设置为1.0。不考虑距离，只考虑方向了<br> Set：设置现有向量的X,Y,Z的值</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class PlayerMovement : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    //TODO:</span><br><span class="line">    //1. 获取玩家输入，在场景中移动玩家角色游戏对象</span><br><span class="line">    //2. 移动时，除了位置position外，还需要考虑转动rotation</span><br><span class="line">    //3. 需要将动画也考虑进去</span><br><span class="line"></span><br><span class="line">    //创建一个3D矢量，来表示玩家角色的移动</span><br><span class="line">    Vector3 m_Movement;</span><br><span class="line">    //创建变量，获取用户输入的方向</span><br><span class="line">    float horizontal;</span><br><span class="line">    float vertical;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    // Start is called before the first frame update</span><br><span class="line">    void Start() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    void Update() &#123;</span><br><span class="line">        //获取用户输入</span><br><span class="line">        horizontal = Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">        vertical = Input.GetAxis(&quot;Vertical&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void FixedUpdate() &#123;</span><br><span class="line">        //将用户输入组成3D运动需要的三维矢量</span><br><span class="line">        m_Movement.Set(horizontal, 0.0f,vertical);</span><br><span class="line">        //在移动时，会有动画，动画移动距离和实际距离很有可能不匹配</span><br><span class="line">        //比如动画里迈一大步，实际只移动一点点</span><br><span class="line">        //所以把实际移动距离用以下函数设置为1，不考虑。</span><br><span class="line">        //只考虑动画移动距离</span><br><span class="line">        m_Movement.Normalize();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <ol>
+<li>左上角图标&gt;Splash Screen,这是欢迎界面。欢迎界面左下角，有个时间的图标Recover Last Session可以在比如断电的时候，没来得及保存的时候，点击这个选项来找回。右上角的Recent Files是用的最多的，打开最近一次操作的文件。欢迎界面，右下角的Release Notes是发售的信息</li>
+<li>ctrl+space最大化</li>
+</ol>
+<ul>
+<li>Layout 布局</li>
+<li>Modeling 模型</li>
+<li>Sculpting 雕刻</li>
+<li>UV Editing 贴图</li>
+<li>Teture Paint 材质</li>
+<li>Shading 着色器</li>
+<li>Animation 动画</li>
+<li>Rendering 渲染</li>
+</ul>
+<p>最左边的快捷工具栏，用快捷键t打开或关闭</p>
+<p>n键，右侧快捷属性配置窗口</p>
+<ol start="3">
+<li><p>n&gt; view 里面的，3D Cursor（3D光标），是新的3D对象的中心点位，shift+A就可以新建一个东西。shift+右键，点到哪，3D光标就在哪了。还有<strong>shift+s</strong>。当然也可以在Location里进行设置</p>
+</li>
+<li><p><strong>w</strong>键切换左边工具栏的第一个选择操作</p>
+</li>
+<li><p>复制一个对象shift+d</p>
+</li>
+<li><p>选择区域的话，按shift可以增加选择</p>
+</li>
+<li><p>选择的话，亮橙色是被激活的对象，其他是被选择的对象</p>
+</li>
+<li><p>选择一个对象，按shift可以让激活状态在不同的对象之间切换。反选的话，在刚才的基础上，按b，然后按鼠标中键选择</p>
+</li>
+<li><p>在选择的模式下，按G就可以进入移动模式</p>
+</li>
+<li><p>alt+g，返回创建这个对象的原始位置</p>
+</li>
+<li><p>选择对象，R，进入旋转。清除旋转，alt+R</p>
+</li>
+<li><p>快捷键s，自由缩放，alt+S，取消缩放</p>
+</li>
+<li><p>每个物体中间都有一个橙色的点，所有的变换都是以这个点为轴心点的，若是想要自由变换，可以利用3D光标，以3D光标为准。那么，在上方，把变换的轴心点，设置为3D Cursor就可以了。</p>
+</li>
+<li><p>若是，希望把选择的物体移动到3D光标的位置，就需要利用3D光标的饼图，有个Selection to Cursor(Keep offset)</p>
+</li>
+<li><p>任何操作，若是希望这个操作的速度变慢，变精确的话，可以按shift进行操作</p>
+</li>
+<li><p>按G进入移动模式，先按x，是在世界坐标轴的x移动，再按一次x，就是进入local坐标轴的x了</p>
+</li>
+<li><p>blender也有飞行模式，shift+&#96; 就可以进入飞行模式，用awds进行移动了。Q、E是上和下。并非在飞行模式的过程中，按shift是加速移动，按alt是减速移动。鼠标滚轮向前推也是加速，后推减速</p>
+</li>
+<li><p>在大纲窗口中点c键可以直接创建一个新的collection。在一个collection下的对象，可以直接拖拽到另一个collection中，若是拖拽的过程中按ctrl，可以复制过去。选中这个对象，按m键，也可以实现。集合本身也可以进行嵌套。集合的颜色标签，在选中一个集合后，右键就可以设置了</p>
+</li>
+</ol>
+
     </div>
 
     

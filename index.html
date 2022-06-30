@@ -216,6 +216,203 @@
 </li>
 <li><p>在大纲窗口中点c键可以直接创建一个新的collection。在一个collection下的对象，可以直接拖拽到另一个collection中，若是拖拽的过程中按ctrl，可以复制过去。选中这个对象，按m键，也可以实现。集合本身也可以进行嵌套。集合的颜色标签，在选中一个集合后，右键就可以设置了</p>
 </li>
+<li><p>在同一区域（如Modeling&#x2F;Layout）进行切换模式（Edit Mode&#x2F;Object Mode）只需要tab键</p>
+</li>
+</ol>
+<h3 id="挤出Extrude"><a href="#挤出Extrude" class="headerlink" title="挤出Extrude"></a>挤出Extrude</h3><ul>
+<li>模式：编辑模式</li>
+<li>菜单：网格+挤出Extrude</li>
+<li>快捷键：Alt+E</li>
+</ul>
+<ol>
+<li>拖拽一个面，可以按右键取消。然后按<strong>s</strong>进行缩放，就可以对新的面进行操作了</li>
+<li>选择一个点（线&#x2F;面），按快捷键e也可以进行挤出</li>
+<li>环切操作 shift+space ctrl+r。ctrl+r不送的话，就可以改变中心点位置。若不是处于环切的状态，只是选择，这个时候不点，移动鼠标滚轮可以增加或减少环切的个数。</li>
+</ol>
+<h3 id="内插面"><a href="#内插面" class="headerlink" title="内插面"></a>内插面</h3><ol>
+<li>在Edit Mode下，选择一个面，按<strong>I</strong>可以进行内插面。在此之上，按ctrl可以向上或向下（shift+space，i也可以快速激活在除了点图标之外）</li>
+</ol>
+<h3 id="倒角"><a href="#倒角" class="headerlink" title="倒角"></a>倒角</h3><ol>
+<li>倒角除了直接点击，也可以使用修改器，就是右侧扳手图案的那个。修改器是自动操作，以非破坏性的方式影响对象的几何形状。工作原理是改变对象的显示和渲染方式，而不是改变可以直接编辑的几何图形。一个对象可以有多个修改器。<br><br></br><br>那个修改器，四个分页。Modify修改，Generate生成，Deform形变，Physics模拟<br><br></br><br>任意状态下，ctrl+b可以进入倒角。</li>
+</ol>
+<p>类型可以计算倒角的量，那个倒角后的面板。第一个可能是叫“偏移量”。deep是以深度进行计算。剩下的是宽度。percent按百分比算，Absolute是按绝对数量来算</p>
+<h3 id="切割"><a href="#切割" class="headerlink" title="切割"></a>切割</h3><ol>
+<li>当想要完成切割时点按回车键或空格键。</li>
+<li>当切割时按到外面的区域时，要再次进行切割会发现线是从外面来的。如果不想要这根外面来的线，鼠标双击。</li>
+<li>在还没有点space或回车来确认之前所有切割的操作的话，都可以用<strong>esc</strong>键来取消之前切的所有线</li>
+<li>除了Knife（切割），还有Bisect（切分）。使用Bisect，一般是选中整个整体，画一条线，然后会看见一个饼。可以按箭头移动，按圆进行旋转。左下角的菜单栏，可以直接切割或填充。</li>
+</ol>
+<h3 id="多边形建造工具（Poly-Build）"><a href="#多边形建造工具（Poly-Build）" class="headerlink" title="多边形建造工具（Poly Build）"></a>多边形建造工具（Poly Build）</h3><p>使用许多内置操作来添加、删除集几何结构。对重拓扑有用。</p>
+<ol>
+<li>在选择多边形建造工具的情况下，可以直接选择一个点进行拖拽，也可以按ctrl，新建许多点。在新建许多点后，想封闭这个点，按<strong>f</strong>，在封闭的这个面，进行拖拽，若按ctrl可以拖拽出三角形。按shift点击相应的线或面就可以进行删除</li>
+</ol>
+<h3 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h3><ul>
+<li>必须在Eidt Mode中才能进行</li>
+<li>必须选中线、点、面才行。不然会出现也没有效果</li>
+</ul>
+<ol>
+<li>在左下菜单中Steps是一共复制了多少次，Angle是多少度。合在一起看，就是每旋转多少度就复制一次。</li>
+</ol>
+<ul>
+<li>Auto Merge 让它们自动地融合在一起</li>
+<li>Filp Normals 反转面的法线</li>
+</ul>
+<ol start="2">
+<li>默认的蓝色圆环是z轴所垂直的面（在左上角可以配置）</li>
+<li>这个旋转是按轴心点位旋转的，轴心点位的位置可以在左下方菜单的Center进行配置</li>
+<li>改变轴心点位效果变得还是挺大的。在左下角的配置菜单中，最上面有一个Use Duplicates，如果打上勾就可以让这个旋转出来的各自独立</li>
+</ol>
+<blockquote>
+<p><strong>e</strong>可以绘制新的点位<br>可以旋转很多点，<strong>m</strong>&gt; <strong>at Center</strong>让它们汇聚一点</p>
+</blockquote>
+<h3 id="Blender中的渲染"><a href="#Blender中的渲染" class="headerlink" title="Blender中的渲染"></a>Blender中的渲染</h3><ol>
+<li>着色shading。在Blender中，Shading代表的是一个工作区域，在其中可以进行材质的高级配置，通过Shading Node来实现</li>
+<li>材质Material。材质控制着网格、曲线，体积和其他物体的外观。它们定义了物体的组成物质，颜色、纹理以及与光线的交互。是管理模型外观显示的数据集。</li>
+<li>Shader着色器，是运行在GPU上程序</li>
+<li>Shader Node，类似于Unity中的Shader Graph，用图形化方式来编辑出Shader程序逻辑，由Blender处理后生成可执行的Shader程序用于最终渲染。其中可视化编辑节点，就称为Shader Node。编辑区域为Shader Editor，默认包含在Shading中</li>
+<li>纹理Txeture。贴在3D模型上的外皮，一般是2D位图，可以是单独的素材，也可以是用算法生成。[蒙皮]通过Maping贴图制作，映射到模型3D网格上。</li>
+<li>渲染render。渲染是将三维场景转为二维图像的过程。通过渲染得到最终要显示的结果。Blender内置三个具有优势的渲染引擎：Eevee是基于物理的实时渲染器，Cycles是基于物理的光线追踪渲染器，工作台专为布局、建模和预览而设计的。</li>
+</ol>
+<h4 id="Shdaer-Editor-简介"><a href="#Shdaer-Editor-简介" class="headerlink" title="Shdaer Editor 简介"></a>Shdaer Editor 简介</h4><ol>
+<li>Shader Editor</li>
+</ol>
+<p>Shader 着色过程，是整个渲染管线中的一个阶段</p>
+<p>Shader着色器可视化编辑器，用来编辑各个Node，组成着色器流程逻辑，由blender最终转化成可执行的Shader程序</p>
+<ol start="2">
+<li>Object&amp;Material关系</li>
+</ol>
+<p>slot中，存储的是Material到对象上的Link关系</p>
+<p>一个对象，可以通过不同的Slot把多个不同的Material挂接到对象表面的不同区域</p>
+<p>一个Maerial可以挂接到不同对象上</p>
+<p>一个对象，可以有多个不同的Slot，Slot属于具体的对象；而Material是独立的数据集，可以挂接到多个不同的对象上，可以重复使用。</p>
+<p>删除对象后，它所拥有的Slot就不再存在；而在一个对象上删除Material，只是删除关联，Mateial本身还存在，可以继续使用，除非直接删除Mateial文件。</p>
+<h4 id="Shader-Node"><a href="#Shader-Node" class="headerlink" title="Shader Node"></a>Shader Node</h4><p>Shader Node泛指Shader Editor中的任意节点Node，一个Node就是一个矩形面板，在其中可以根据其各自功能进行配置，相当于Shader编程中的一个逻辑单元</p>
+<ol>
+<li>关键概念</li>
+</ol>
+<ul>
+<li>着色器流程：指的是整个Shader Editor中编辑好的一整个着色逻辑，即选中物体的着色方案</li>
+<li>输入、输出接口：也可以称为节点接口，即节点上的圆点，左侧为输入、右侧为输出，不同的颜色代表不同的类型，即接口传输的数据类型</li>
+</ul>
+<ol start="2">
+<li>节点的分类</li>
+</ol>
+<p>Shader Editor的节点有很多种类，分别承担不同的功能</p>
+<p>节点旁边有很多小点，一般黄色的点代表颜色</p>
+<ol start="3">
+<li><p>如果不用原来生成的节点，要添加一个新节点，shift+a</p>
+</li>
+<li><p>想要混合两个新节点BSDF，可以shift+a添加一个Mix Shader，都连向它</p>
+</li>
+</ol>
+<ul>
+<li>Specular 镜面反射</li>
+<li>Metalic 金属</li>
+<li>Roughness 粗糙度</li>
+<li>Transmission 传递采样，数值为0时，表面完全不透明，数值为1时，表面为玻璃状</li>
+</ul>
+<h4 id="关于保存工作区域"><a href="#关于保存工作区域" class="headerlink" title="关于保存工作区域"></a>关于保存工作区域</h4><p>其实保存每个blender文件，都会保存设置的Shading。</p>
+<p>但是如果是新的文件就不会了，解决办法：</p>
+<ol>
+<li>File&gt;Defaults&gt;Save Startup File</li>
+<li>Load Factory Settings 是把工作区域还原成默认的</li>
+</ol>
+<h4 id="原理化BSDF"><a href="#原理化BSDF" class="headerlink" title="原理化BSDF"></a>原理化BSDF</h4><p>该着色器节点包含多个层，可以创建各种各样的材质。基础层为漫反射，金属读，次表面散射和投射。除此之外，还有镜面层，光泽层和透明图层。</p>
+<h4 id="UV-Editing"><a href="#UV-Editing" class="headerlink" title="UV Editing"></a>UV Editing</h4><ol>
+<li><p>atl+a取消全选，或者双击a</p>
+</li>
+<li><p>纹理：纹理是贴在Mesh表面的一层皮，可以是静态图片image（位图），也可以是由算法生成的Patten（图案，花样）</p>
+</li>
+<li><p>UV贴图：“UV”是纹理贴图坐标的简称。它定义了图片上每个点的位置信息。这些点与3D模型是相互联系的，以决定表面纹理贴图的位置。就好像平面的布料，剪裁制作成立体的衣服一样。</p>
+</li>
+</ol>
+<p>UV贴图是将纹理二维坐标映射（Map）到3D网格上的过程。</p>
+<p>U:左右,V:上下</p>
+<h4 id="纹理Shader-Node"><a href="#纹理Shader-Node" class="headerlink" title="纹理Shader Node"></a>纹理Shader Node</h4><p>分为两大类，一类使用静态图像作为纹理素材，另一类使用算法生成的图案作为纹理素材</p>
+<ol>
+<li>使用静态图像素材的纹理节点</li>
+</ol>
+<p>使用图片、照片等位图作为纹理节点的素材，有三个：</p>
+<ul>
+<li>Environment Texture：环境纹理节点</li>
+<li>IES Texture：用于匹配基于IES文件（IES）的显示世界的灯光.IES文件存储光源的方向强度分布</li>
+<li>Image Texture：图像纹理节点</li>
+</ul>
+<ol start="2">
+<li>使用算法生成的团素材的纹理节点</li>
+</ol>
+<p>除上面的三个之外的所有纹理节点，它们是通过算法生成的Procedurally generated Patten（生成图案）作为它们，资源占用小，且不论如何放大都不会失真。</p>
+<p>沃洛诺伊纹着色器节点：在输入纹理坐标处理使用Worley Noise(沃利噪声)函数算法。Worley噪声近于模拟石头、水或者生物细胞的纹理。</p>
+<h3 id="光light"><a href="#光light" class="headerlink" title="光light"></a>光light</h3><h5 id="渲染引擎"><a href="#渲染引擎" class="headerlink" title="渲染引擎"></a>渲染引擎</h5><p>可以在属性窗口，Render分页中选择不同的渲染引擎。</p>
+<p>渲染是将三维场景转换为二维图像的过程（类似于Unity中的渲染管线Render Pipe Line）。Blender内置三个各具优势的渲染引擎：</p>
+<ul>
+<li>Eevee是基于物理的实时渲染器（Shading，有一个带环境光照的球，必须得不是工作台，才会出现）</li>
+<li>Cycles是基于物理的光线追踪渲染器</li>
+<li>工作台（Work Bench）专为布局，建模和预览而设计的（Editor Mode和Object Mode使用的是Work Bench）</li>
+</ul>
+<p><br></br><br>使用插件可以添加更多的第三方渲染引擎。每个渲染器都有最近的渲染设置来控制渲染质量和性能。</p>
+<p>渲染的效果由相机、灯光和材质决定。这些在Eevee和Cycless之间是通用的，但某些功能仅由其一支持。</p>
+<hr>
+<p>不同的着色窗口（Shading Viewport）模式下，使用不同的渲染引擎</p>
+<ol>
+<li>WireFrame线框模式和Solid模式：WorkBench引擎</li>
+<li>Material Preview材质预览模式：Eevee引擎</li>
+<li>Rendered渲染模式：Eevee或Cycles或WorkBench</li>
+</ol>
+<h5 id="光对象"><a href="#光对象" class="headerlink" title="光对象"></a>光对象</h5><p>Blender中的光Light对象，模拟现实中的光源，通过配置属性，可以发出不同方向、不同强度、不同颜色的光线，照射到模型上，使模型的外观和着色器生效，在最终呈现时，能被我们看到这些效果。</p>
+<p><br></br><br>通用属性：</p>
+<ul>
+<li>Color颜色：光色</li>
+<li>Power光强：光照强度，以瓦特为单位，越大光线越强</li>
+<li>Diffuse散射：散射强度</li>
+<li>Specular反射：反射强度</li>
+<li>Volume：体积</li>
+</ul>
+<ol>
+<li>分类：Blender中共有四种光源，适合于不同的环境</li>
+</ol>
+<ul>
+<li>Point：点光源</li>
+<li>Sun：日光</li>
+<li>Spot：探照灯</li>
+<li>Area：面</li>
+</ul>
+<h4 id="三点布光法"><a href="#三点布光法" class="headerlink" title="三点布光法"></a>三点布光法</h4><blockquote>
+<p>主光、辅光、轮廓光<br><br></br><br>（shift+d复制）</p>
+</blockquote>
+<h4 id="Parenting-父子关系"><a href="#Parenting-父子关系" class="headerlink" title="Parenting 父子关系"></a>Parenting 父子关系</h4><p>如果要清除关系的话，点子对象，快捷键是alt+p</p>
+<p>快速添加的是ctrl+p</p>
+<p>子对象只能有一个父对象，父对象能有好多个子对象</p>
+<hr>
+<blockquote>
+<p>要创建一个新的集合，可以直接在大纲窗口中点<strong>c</strong><br>大纲窗口中，移动子对象除了拖拽，也可以选中对象，点<strong>m</strong>键，会弹出一个菜单，可以new新建一个集合，也可以去场景的根集合或者其他的</p>
+</blockquote>
+<p>（小键盘<strong>1</strong>可以快定位到-y视角）</p>
+<h4 id="Rigging骨骼绑定"><a href="#Rigging骨骼绑定" class="headerlink" title="Rigging骨骼绑定"></a>Rigging骨骼绑定</h4><ol>
+<li>概念：Blender中的支架（armature）可以被认为类似于真实骨架（skeleton），就像真的骨架一样，armature可以由许多骨骼（bone）组成。这些骨骼可以四处移动，它们附着的或者关联的任何东西都会以类似的方法移动和变形</li>
+<li>Armature骨架、支架</li>
+</ol>
+<p>关于Armature：</p>
+<ul>
+<li>它有一个原心，还有位置、选择和缩放系数</li>
+<li>有Object Date，所以能够在编辑模式模式中被编辑；但是不能用于建模，不能单独选中点线面进行更改、只能缩放、旋转、位移</li>
+<li>它可以被连接到其他场景，同样的骨架数据可以被多个物体使用</li>
+<li>在Pose mode（姿态模式）下可以操作骨架，把骨架摆成各种姿势；而在其他模式下，骨架处于静止姿势（rest position），而且只能作为一个整体来设置动画（无法摆姿势）<br><br></br><br>骨架是由很多骨骼（默认情况下是刚体元素）组成的，这方面它模拟了真实骷髅，但它又能实现真实骷髅无法办到的动作；除了旋转关节，还有缩放操作。骨骼可以连接，也可以独立。骨骼之间互相影响，“骨骼链”，创建骨架的四肢</li>
+</ul>
+<ol start="3">
+<li>骨骼结构</li>
+</ol>
+<p>每个Bone都由三部分组成：</p>
+<ul>
+<li>“root关节”：首端（root）或头部（head）</li>
+<li>“body（身体）”：这个部分是骨骼的主体</li>
+<li>“tip关节”：部分叫顶端（tip）或尾端（tail）</li>
+</ul>
+<blockquote>
+<p>骨骼的绑定是在Object Mode</p>
+</blockquote>
+<h4 id="Pivot、Origin的区别和使用"><a href="#Pivot、Origin的区别和使用" class="headerlink" title="Pivot、Origin的区别和使用"></a>Pivot、Origin的区别和使用</h4><ol>
+<li>3D游标可以通过鼠标右键+shift随意移动</li>
 </ol>
 
         </div>
